@@ -1,6 +1,6 @@
 import { Component, For, Show } from "solid-js";
 import AppStore from "./AppStore";
-import { Tank, tankImg, tankNationImg, tankTypeImg } from "../utils/api";
+import { Tank, tankImg } from "../utils/api";
 import { romanize } from "../utils/romanize";
 
 const red = "#ef4444" as const;
@@ -58,7 +58,7 @@ const TankItem: Component<{ tank: Tank }> = ({ tank }) => {
           {tank.type.charAt(0).toUpperCase() + tank.type.slice(1)}
         </span>
         <img
-          src={tankTypeImg(tank.type)}
+          src={`${tank.type}.png`}
           class="h-12 pb-0.5"
           elementtiming={""}
           fetchpriority={"high"}
@@ -74,7 +74,7 @@ const TankItem: Component<{ tank: Tank }> = ({ tank }) => {
           {tank.nation}
         </span>
         <img
-          src={tankNationImg(tank.nation)}
+          src={`${tank.nation}.svg`}
           class="h-12 py-1"
           elementtiming={""}
           fetchpriority={"high"}

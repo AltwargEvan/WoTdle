@@ -41,9 +41,3 @@ export const getAppData = cache(async () => {
 
 export const tankImg = (tank: Tank) =>
   `https://tanks.gg/img/tanks/${tank.nation}-${tank.original_id}.png`;
-
-export const tankTypeImg = (type: Tank["type"]) =>
-  `https://tanks.gg/img/class/${type}.png`;
-
-export const tankNationImg = (nation: string) =>
-  `https://tanks.gg/img/nations/${nation}.svg`;
