@@ -3,6 +3,7 @@ import { Header } from "./components/Header";
 import { AppStateLoader } from "./components/AppStateLoader";
 import GuessForm from "./components/GuessForm";
 import AppStore from "./components/AppStore";
+import GuessList from "./components/GuessList";
 
 const App: Component = () => {
   const { appState } = AppStore;
@@ -21,6 +22,7 @@ const App: Component = () => {
           fallback={<div class="text-xl">Loading... Please wait</div>}
         >
           <GuessForm />
+          <GuessList />
         </Show>
       </div>
     </AppStateLoader>
