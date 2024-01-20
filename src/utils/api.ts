@@ -31,3 +31,6 @@ export const fetchTankList = async () => {
   );
   return techTreeTanks;
 };
+
+export const tankImg = (tank: Tank) =>
+  `https://tanks.gg/img/tanks/${tank.nation}-${tank.original_id}.png`;

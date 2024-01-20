@@ -2,7 +2,7 @@ import { BiSolidRightArrow } from "solid-icons/bi";
 import { Component, For, Match, Show, Switch, createSignal } from "solid-js";
 import AppStore from "./AppStore";
 import Fuse, { FuseResult } from "fuse.js";
-import { Tank } from "../utils/api";
+import { Tank, tankImg } from "../utils/api";
 
 type InputEvent = globalThis.InputEvent & {
   currentTarget: HTMLInputElement;
@@ -51,10 +51,7 @@ const GuessForm: Component = () => {
           <For each={searchResults()}>
             {({ item: tank }) => (
               <div class="p-2 hover:bg-neutral-700 hover:cursor-pointer flex items-center gap-4">
-                <img
-                  src={`https://tanks.gg/img/tanks/${tank.nation}-${tank.original_id}.png`}
-                  class="h-14"
-                />
+                <img src={tankImg(tank)} class="h-14" />
                 <span> {tank.name}</span>
               </div>
             )}
