@@ -11,4 +11,4 @@ const map = [
   "X",
 ] as const;
 
-export const romanize = (number: number) => map[number];
+export const romanize = (number: number) => map[number - 1];
