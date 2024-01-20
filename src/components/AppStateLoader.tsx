@@ -7,7 +7,7 @@ import { fetchTankList } from "../utils/api";
 export const AppStateLoader: Component<{
   children: JSXElement;
 }> = (props) => {
-  const { appState, setAppState } = AppStore;
+  const { setAppState } = AppStore;
   onMount(async () => {
     const tankList = await fetchTankList();
     setAppState("tankList", tankList);
