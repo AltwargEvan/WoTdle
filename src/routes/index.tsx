@@ -1,6 +1,5 @@
 import GuessForm from "@/components/GuessForm";
 import GuessList from "@/components/GuessList";
-import { A } from "@solidjs/router";
 
 export default function Home() {
   return (
@@ -10,8 +9,8 @@ export default function Home() {
           Guess today's World of Tanks vehicle!
         </span>
       </div>
-      {/* <GuessForm /> */}
-      {/* <GuessList /> */}
+      <GuessForm />
+      <GuessList />
     </main>
   );
 }
