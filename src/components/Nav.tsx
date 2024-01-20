@@ -1,6 +1,6 @@
 import { Component } from "solid-js";
 
-export const Header: Component = () => {
+export const Nav: Component = () => {
   return (
     <div class="flex h-min items-center gap-4 select-none">
       <svg
@@ -18,3 +18,5 @@ export const Header: Component = () => {
     </div>
   );
 };
+
+export default Nav;
