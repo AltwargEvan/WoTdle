@@ -1,3 +1,6 @@
+import { cache } from "@solidjs/router";
+import { createResource } from "solid-js";
+
 export type Tank = {
   gold_price: number;
   id: string;
@@ -20,7 +23,8 @@ type FetchFullTankListResultType = {
   version: `v${number}`;
 };
 
-export const fetchTankList = async () => {
+export const getTankList = cache(async () => {
+  "use server";
   const result = await fetch("https://tanks.gg/api/list");
   const data = (await result.json()) as FetchFullTankListResultType;
   const techTreeTanks = data.tanks.filter(
@@ -30,7 +34,7 @@ export const fetchTankList = async () => {
       tank.regions_json.includes("eu")
   );
   return techTreeTanks;
-};
+}, "tankList");
 
 export const tankImg = (tank: Tank) =>
   `https://tanks.gg/img/tanks/${tank.nation}-${tank.original_id}.png`;
