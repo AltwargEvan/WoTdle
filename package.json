@@ -3,24 +3,28 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "start": "vite",
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start",
+    "clean": "find . -name node_modules -type d -prune | xargs rm -rf"
   },
-  "license": "MIT",
+  "type": "module",
   "devDependencies": {
-    "autoprefixer": "^10.4.17",
-    "postcss": "^8.4.33",
-    "solid-devtools": "^0.29.2",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.11",
-    "vite-plugin-solid": "^2.8.2"
+    "eslint-plugin-solid": "0.9.4",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
-    "fuse.js": "^7.0.0",
+    "@solidjs/router": "^0.10.9",
+    "@solidjs/start": "^0.4.10",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.26",
+    "solid-js": "^1.8.11",
+    "tailwindcss": "^3.3.3",
+    "vinxi": "^0.1.4",
     "solid-icons": "^1.1.0",
-    "solid-js": "^1.8.11"
+    "fuse.js": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }

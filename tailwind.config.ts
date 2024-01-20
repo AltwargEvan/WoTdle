@@ -1,11 +1,6 @@
-import type { Config } from "tailwindcss";
-
-const config: Config = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx,css,md,mdx,html,json,scss}",
-  ],
-  darkMode: "class",
+/** @type {import('tailwindcss').Config} */
+const config = {
+  content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {
     extend: {
       fontFamily: {
