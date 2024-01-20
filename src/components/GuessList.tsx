@@ -19,7 +19,7 @@ const TankItem: Component<{ tank: Tank }> = ({ tank }) => {
     if (diff === 1) return yellow;
     return red;
   };
-  console.log(getTierColor());
+
   return (
     <div class="grid w-full justify-center grid-cols-4 gap-4">
       <div
