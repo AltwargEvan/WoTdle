@@ -1,6 +1,7 @@
 import { type Component } from "solid-js";
 import { Header } from "./components/Header";
 import { AppStateLoader } from "./components/AppStateLoader";
+import GuessForm from "./components/GuessForm";
 
 const App: Component = () => {
   return (
@@ -12,6 +13,7 @@ const App: Component = () => {
             Guess today's World of Tanks vehicle!
           </span>
         </div>
+        <GuessForm />
       </div>
     </AppStateLoader>
   );
