@@ -5,8 +5,13 @@ import { AppStateLoader } from "./components/AppStateLoader";
 const App: Component = () => {
   return (
     <AppStateLoader>
-      <div class="font-roboto h-screen w-screen bg-neutral-800 overflow-y-auto flex items-center pt-8 overflow-x-hidden flex-col">
+      <div class="font-roboto h-screen w-screen bg-neutral-800 overflow-y-auto flex items-center pt-8 overflow-x-hidden flex-col text-white gap-4">
         <Header />
+        <div class="p-4 md:p-8 rounded border-neutral-600 border-2">
+          <span class=" text-xl md:text-4xl">
+            Guess today's World of Tanks vehicle!
+          </span>
+        </div>
       </div>
     </AppStateLoader>
   );
