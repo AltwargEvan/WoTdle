@@ -1,7 +1,7 @@
 import { cache } from "@solidjs/router";
-import { createResource } from "solid-js";
 import { seededRandom } from "./seededRandom";
 import { todayAsInt } from "./todayAsInt";
+import { capitalizeFirstLetter } from "./capitalizeFirstLetter";
 
 export type Tank = {
   gold_price: number;
@@ -41,3 +41,36 @@ export const getAppData = cache(async () => {
 
 export const tankImg = (tank: Tank) =>
   `https://tanks.gg/img/tanks/${tank.nation}-${tank.original_id}.png`;
+
+export const tankRole = (tank: Tank) => {
+  let role = undefined as undefined | string;
+  let icon = undefined as undefined | string;
+  let text = undefined as undefined | string;
+  const roleUnparsed = tank.tags
+    .split(",")
+    .find((x) => x.startsWith("role"))
+    ?.split("_");
+  if (roleUnparsed) {
+    role = roleUnparsed[roleUnparsed?.length - 1];
+    switch (role) {
+      case "assault":
+      case "sniper":
+      case "support":
+      case "wheeled":
+      case "SPG":
+        text = capitalizeFirstLetter(role);
+        break;
+      case "universal":
+        text = "Versatile";
+        break;
+      case "break":
+        text = "Breakthrough";
+        break;
+      default:
+    }
+    icon = `role_${role}.png`;
+  }
+  console.log(role, text, icon);
+
+  return { role, icon, text };
+};
