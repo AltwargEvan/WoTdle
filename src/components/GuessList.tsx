@@ -23,7 +23,7 @@ const TankItem: Component<{ tank: Tank }> = ({ tank }) => {
 
   const role = tankRole(tank);
   return (
-    <div class="grid w-full justify-center grid-cols-5 gap-4">
+    <div class="grid w-full justify-center grid-cols-5 gap-4 text-sm sm:text-xl">
       <div
         style={{
           "background-color": tankOfDay?.id === tank.id ? green : "",
@@ -46,7 +46,7 @@ const TankItem: Component<{ tank: Tank }> = ({ tank }) => {
         }}
         class=" select-none relative border rounded border-neutral-700 flex justify-center"
       >
-        <span class="absolute h-full flex justify-center items-center text-5xl">
+        <span class="absolute h-full flex justify-center items-center text-3xl sm:text-5xl">
           {romanize(tank.tier)}
         </span>
       </div>
@@ -107,8 +107,8 @@ const GuessList: Component = () => {
 
   return (
     <Show when={appState.guessedTanks.length > 0}>
-      <div class="grid w-5/6 max-w-[60rem] text-center justify-center gap-y-4">
-        <div class="grid justify-center grid-cols-5 text-2xl gap-2 md:gap-4 w-full md:w-[35rem]">
+      <div class="grid text-center justify-center gap-y-4">
+        <div class="grid justify-center grid-cols-5  text-xl sm:text-2xl gap-2 md:gap-4 w-full md:w-[35rem]">
           <span class="border-b-2">Vehicle</span>
           <span class="border-b-2">Tier</span>
           <span class="border-b-2">Type</span>
