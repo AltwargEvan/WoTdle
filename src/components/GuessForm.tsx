@@ -52,7 +52,7 @@ const GuessForm: Component = () => {
   };
 
   return (
-    <div>
+    <div class="w-min">
       <form class="flex w-[20rem] pb-1" onSubmit={handleFormSubmit}>
         <input
           id="tank"
@@ -79,7 +79,12 @@ const GuessForm: Component = () => {
                 class="p-2 hover:bg-neutral-700 hover:cursor-pointer flex items-center gap-4"
                 onClick={() => handleGuessTank(tank)}
               >
-                <img src={tankImg(tank)} class="h-14" />
+                <img
+                  src={tankImg(tank)}
+                  class="h-14"
+                  elementtiming={""}
+                  fetchpriority={"high"}
+                />
                 <span> {tank.name}</span>
               </div>
             )}

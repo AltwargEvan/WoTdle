@@ -31,7 +31,12 @@ const TankItem: Component<{ tank: Tank }> = ({ tank }) => {
         <span class="absolute h-full flex justify-center items-center">
           {tank.name}
         </span>
-        <img src={tankImg(tank)} class="h-14" />
+        <img
+          src={tankImg(tank)}
+          class="h-14"
+          elementtiming={""}
+          fetchpriority={"high"}
+        />
       </div>
       <div
         style={{
@@ -52,7 +57,12 @@ const TankItem: Component<{ tank: Tank }> = ({ tank }) => {
         <span class="absolute h-full flex justify-center items-end">
           {tank.type.charAt(0).toUpperCase() + tank.type.slice(1)}
         </span>
-        <img src={tankTypeImg(tank.type)} class="h-12 pb-0.5" />
+        <img
+          src={tankTypeImg(tank.type)}
+          class="h-12 pb-0.5"
+          elementtiming={""}
+          fetchpriority={"high"}
+        />
       </div>
       <div
         style={{
@@ -63,7 +73,12 @@ const TankItem: Component<{ tank: Tank }> = ({ tank }) => {
         <span class="absolute h-full flex justify-center items-end">
           {tank.nation}
         </span>
-        <img src={tankNationImg(tank.nation)} class="h-12 py-1" />
+        <img
+          src={tankNationImg(tank.nation)}
+          class="h-12 py-1"
+          elementtiming={""}
+          fetchpriority={"high"}
+        />
       </div>
     </div>
   );
