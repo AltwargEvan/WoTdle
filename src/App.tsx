@@ -13,9 +13,7 @@ const Root: Component<RouteSectionProps<unknown>> = (props) => {
   return (
     <div class="font-roboto h-screen w-screen bg-neutral-800 overflow-y-auto flex items-center pt-8 overflow-x-hidden flex-col text-white gap-4">
       <Nav />
-      <Suspense>
-        <AppStateLoader>{props.children}</AppStateLoader>
-      </Suspense>
+      <Suspense>{props.children}</Suspense>
     </div>
   );
 };

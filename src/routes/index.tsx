@@ -1,3 +1,4 @@
+import { AppStateLoader } from "@/components/AppStateLoader";
 import GuessForm from "@/components/GuessForm";
 import GuessList from "@/components/GuessList";
 
@@ -9,12 +10,14 @@ export default function Home() {
           Guess today's World of Tanks vehicle!
         </span>
       </div>
-      <div class="flex justify-center">
-        <GuessForm />
-      </div>
-      <div class="flex justify-center">
-        <GuessList />
-      </div>
+      <AppStateLoader>
+        <div class="flex justify-center">
+          <GuessForm />
+        </div>
+        <div class="flex justify-center">
+          <GuessList />
+        </div>
+      </AppStateLoader>
     </main>
   );
 }
