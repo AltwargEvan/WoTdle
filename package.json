@@ -16,13 +16,15 @@
   "dependencies": {
     "@solidjs/router": "^0.10.9",
     "@solidjs/start": "^0.4.10",
+    "@t3-oss/env-core": "^0.7.3",
     "autoprefixer": "^10.4.14",
+    "fuse.js": "^7.0.0",
     "postcss": "^8.4.26",
+    "solid-icons": "^1.1.0",
     "solid-js": "^1.8.11",
     "tailwindcss": "^3.3.3",
     "vinxi": "^0.1.4",
-    "solid-icons": "^1.1.0",
-    "fuse.js": "^7.0.0"
+    "zod": "^3.22.4"
   },
   "engines": {
     "node": ">=16"
