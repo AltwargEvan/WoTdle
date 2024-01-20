@@ -13,9 +13,10 @@ const GuessForm: Component = () => {
   const [searchResults, setSearchResults] = createSignal(
     null as FuseResult<Tank>[] | null
   );
+
   const { appState } = AppStore;
 
-  const fuse = new Fuse(appState.tankList, {
+  const fuse = new Fuse(appState.notGuessedTanks, {
     keys: ["short_name", "name"],
     threshold: 0.5,
     isCaseSensitive: false,

@@ -10,7 +10,7 @@ export const AppStateLoader: Component<{
   const { setAppState } = AppStore;
   onMount(async () => {
     const tankList = await fetchTankList();
-    setAppState("tankList", tankList);
+    setAppState("notGuessedTanks", tankList);
     const index = Math.floor(seededRandom(todayAsInt()) * tankList.length);
     const tankOfDay = tankList[index];
     setAppState("tankOfDay", tankOfDay);
