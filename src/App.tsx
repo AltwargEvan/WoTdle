@@ -1,13 +1,10 @@
 import { type Component, Suspense, JSXElement } from "solid-js";
 // import { AppStateLoader } from "./components/AppStateLoader";
 // import GuessForm from "./components/GuessForm";
-import AppStore from "./components/AppStore";
-// import GuessList from "./components/GuessList";
 import "./app.css";
 import { FileRoutes } from "@solidjs/start";
 import { RouteSectionProps, Router } from "@solidjs/router";
 import Nav from "./components/Nav";
-import { AppStateLoader } from "./components/AppStateLoader";
 
 const Root: Component<RouteSectionProps<unknown>> = (props) => {
   return (
