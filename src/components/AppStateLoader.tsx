@@ -14,6 +14,7 @@ export const AppStateLoader: Component<{
     const index = Math.floor(seededRandom(todayAsInt()) * tankList.length);
     const tankOfDay = tankList[index];
     setAppState("tankOfDay", tankOfDay);
+    setAppState("hydrated", true);
   });
   return props.children;
 };

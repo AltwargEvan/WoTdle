@@ -17,8 +17,8 @@ const App: Component = () => {
           </span>
         </div>
         <Show
-          when={appState.tankList.length > 0}
-          fallback={<div>Loading... Please wait</div>}
+          when={appState.hydrated === true}
+          fallback={<div class="text-xl">Loading... Please wait</div>}
         >
           <GuessForm />
         </Show>

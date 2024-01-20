@@ -7,6 +7,7 @@ function createAppState() {
     guessedTanks: [] as Tank[],
     notGuessedTanks: [] as Tank[],
     tankOfDay: null as Tank | null,
+    hydrated: false,
   });
   return { appState, setAppState };
 }
