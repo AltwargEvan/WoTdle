@@ -1,6 +1,6 @@
 import { Component, JSXElement, Show, createEffect, onMount } from "solid-js";
 import AppStore from "./AppStore";
-import { getAppData } from "../utils/api";
+import { getAppData, getTankData } from "../utils/api";
 import { createAsync } from "@solidjs/router";
 
 export const route = {
@@ -11,13 +11,17 @@ export const AppStateLoader: Component<{
 }> = (props) => {
   const appData = createAsync(getAppData);
   const { setAppState } = AppStore;
-  createEffect(() => {
+
+  createEffect(async () => {
     const data = appData();
     if (!data) return;
     const { tankList, tankOfDay } = data;
     setAppState("notGuessedTanks", tankList);
     setAppState("tankOfDay", tankOfDay);
     setAppState("hydrated", true);
+
+    const tankOfDayData = await getTankData(tankOfDay);
+    setAppState("tankOfDayData", tankOfDayData);
   });
 
   return (

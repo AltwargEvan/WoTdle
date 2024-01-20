@@ -39,6 +39,15 @@ export const getAppData = cache(async () => {
   return { tankList, tankOfDay };
 }, "tankList");
 
+export type TankData = {
+  description: string;
+};
+export const getTankData = async (tank: Tank) => {
+  const result = await fetch(`https://tanks.gg/api/tank/${tank.slug}`);
+  const data = await result.json();
+  return data;
+};
+
 export const tankImg = (tank: Tank) =>
   `https://tanks.gg/img/tanks/${tank.nation}-${tank.original_id}.png`;
 
