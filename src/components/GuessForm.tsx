@@ -38,6 +38,7 @@ const GuessForm: Component = () => {
 
   const handleGuessTank = (tank: Tank) => {
     guessTank(tank);
+    setGuess("");
     setSearchResults(null);
   };
 
