@@ -1,7 +1,8 @@
-import { Tank, TankData, tankImg } from "@/utils/api";
+import { Tank, tankImg } from "@/utils/api";
 import { timeTilNextDay } from "@/utils/dateutils";
-import { Component, Show, createSignal } from "solid-js";
+import { Component, createSignal } from "solid-js";
 import AppStore from "./AppStore";
+import victoryImg from "../../public/victory.png";
 
 type Props = {
   tank: Tank;
@@ -15,7 +16,7 @@ const TankOfDayPanel: Component<Props> = ({ tank }) => {
     <div
       class="relative flex flex-col items-center  select-none p-4 border border-neutral-600 w-full h-[225px] max-w-[1008px] bg-center-top"
       style={{
-        "background-image": "url(public/victory.png)",
+        "background-image": `url(${victoryImg})`,
       }}
     >
       <div
