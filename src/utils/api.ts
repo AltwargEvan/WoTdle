@@ -18,6 +18,8 @@ export type Tank = {
   tier: number;
   type: "light" | "heavy" | "medium" | "spg" | "td";
   vehicle_role?: string;
+  search_name: string;
+  search_short_name: string;
 };
 type FetchFullTankListResultType = {
   tanks: Array<Tank>;
@@ -28,12 +30,20 @@ export const getAppData = cache(async () => {
   "use server";
   const result = await fetch("https://tanks.gg/api/list");
   const data = (await result.json()) as FetchFullTankListResultType;
-  const tankList = data.tanks.filter(
-    (tank) =>
-      tank.not_in_shop === false &&
-      tank.gold_price === 0 &&
-      tank.regions_json.includes("eu")
-  );
+  const tankList = new Array<Tank>();
+
+  data.tanks.forEach((tank) => {
+    if (
+      tank.not_in_shop === true ||
+      tank.gold_price !== 0 ||
+      !tank.regions_json.includes("eu")
+    )
+      return;
+    tank.search_name = tank.name.replaceAll(/[-\s]/g, "");
+    tank.search_short_name = tank.search_name.replaceAll(/[-\s]/g, "");
+    tankList.push(tank);
+  });
+
   const index = Math.floor(seededRandom(todayAsInt()) * tankList.length);
   const tankOfDay = tankList[index];
   return { tankList, tankOfDay };

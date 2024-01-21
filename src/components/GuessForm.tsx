@@ -22,10 +22,9 @@ const GuessForm: Component = () => {
     setGuess(e.target.value);
     if (e.target.value.length === 0) return setSearchResults(null);
     const fuse = new Fuse([...appState.notGuessedTanks.values()], {
-      keys: ["short_name", "name"],
-      threshold: 0.5,
+      keys: ["short_name", "name", "search_Name", "search_short_name"],
+      threshold: 0.1,
       isCaseSensitive: false,
-      distance: 1,
     });
     const result = fuse.search(e.target.value);
     setSearchResults(result);
