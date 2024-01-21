@@ -7,4 +7,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  start: {
+    server: {
+      preset: "vercel",
+    },
+  },
 });
