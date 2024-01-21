@@ -13,7 +13,6 @@ const TankItem: Component<{ tank: Tank }> = ({ tank }) => {
   } = AppStore;
 
   const getTierColor = () => {
-    console.log(tankOfDay);
     if (!tankOfDay) return red;
     const diff = Math.abs(tankOfDay.tier - tank.tier);
     if (diff === 0) return green;
@@ -22,6 +21,7 @@ const TankItem: Component<{ tank: Tank }> = ({ tank }) => {
   };
 
   const role = tankRole(tank);
+  const todRole = tankRole(tankOfDay!);
   return (
     <div class="grid w-full justify-center grid-cols-5 gap-4 text-sm sm:text-xl">
       <div
@@ -84,7 +84,7 @@ const TankItem: Component<{ tank: Tank }> = ({ tank }) => {
       </div>
       <div
         style={{
-          "background-color": tank.nation === tankOfDay?.nation ? green : red,
+          "background-color": role.role === todRole.role ? green : red,
         }}
         class="select-none relative border rounded border-neutral-700 flex justify-center "
       >
