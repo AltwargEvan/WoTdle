@@ -10,7 +10,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "eslint-plugin-solid": "0.9.4",
+    "eslint-plugin-solid": "0.13.1",
     "typescript": "^5.3.3"
   },
   "dependencies": {
