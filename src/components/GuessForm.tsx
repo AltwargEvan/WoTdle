@@ -15,7 +15,7 @@ const GuessForm: Component = () => {
     null as FuseResult<Tank>[] | null
   );
 
-  const { appState, setAppState } = AppStore;
+  const { appState, guessTank } = AppStore;
 
   const handleChangeInput = (e: InputEvent) => {
     e.preventDefault();
@@ -44,10 +44,7 @@ const GuessForm: Component = () => {
   };
 
   const handleGuessTank = (tank: Tank) => {
-    setAppState("guessedTanks", (prev) => [tank, ...prev]);
-    setAppState("notGuessedTanks", (prev) =>
-      prev.filter((x) => x.id !== tank.id)
-    );
+    guessTank(tank);
     setSearchResults(null);
   };
 

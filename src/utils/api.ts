@@ -1,6 +1,6 @@
 import { cache } from "@solidjs/router";
 import { seededRandom } from "./seededRandom";
-import { todayAsInt } from "./todayAsInt";
+import { todayAsInt } from "./dateutils";
 import { capitalizeFirstLetter } from "./capitalizeFirstLetter";
 
 export type Tank = {
@@ -44,8 +44,8 @@ export type TankData = {
 };
 export const getTankData = async (tank: Tank) => {
   const result = await fetch(`https://tanks.gg/api/tank/${tank.slug}`);
-  const data = await result.json();
-  return data;
+  const data = (await result.json()) as { tank: TankData };
+  return data.tank;
 };
 
 export const tankImg = (tank: Tank) =>

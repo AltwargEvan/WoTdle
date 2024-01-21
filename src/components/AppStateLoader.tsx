@@ -1,6 +1,6 @@
-import { Component, JSXElement, Show, createEffect, onMount } from "solid-js";
+import { Component, JSXElement, Show, createEffect } from "solid-js";
 import AppStore from "./AppStore";
-import { getAppData, getTankData } from "../utils/api";
+import { getAppData } from "../utils/api";
 import { createAsync } from "@solidjs/router";
 
 export const route = {
@@ -19,9 +19,6 @@ export const AppStateLoader: Component<{
     setAppState("notGuessedTanks", tankList);
     setAppState("tankOfDay", tankOfDay);
     setAppState("hydrated", true);
-
-    const tankOfDayData = await getTankData(tankOfDay);
-    setAppState("tankOfDayData", tankOfDayData);
   });
 
   return (

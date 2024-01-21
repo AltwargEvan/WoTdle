@@ -1,9 +1,12 @@
 import { AppStateLoader } from "@/components/AppStateLoader";
+import AppStore from "@/components/AppStore";
 import GuessForm from "@/components/GuessForm";
 import GuessList from "@/components/GuessList";
 import TankOfDayPanel from "@/components/TankOfDayPanel";
+import { Show } from "solid-js";
 
 export default function Home() {
+  const { appState } = AppStore;
   return (
     <main class="grid justify-center">
       <div class="px-4 flex justify-center ">
@@ -15,9 +18,18 @@ export default function Home() {
       </div>
 
       <AppStateLoader>
-        <div class="flex justify-center p-4">
-          <GuessForm />
-        </div>
+        <Show
+          when={!appState.victory}
+          fallback={
+            <div class="flex justify-center items-center w-screen p-4">
+              <TankOfDayPanel tank={appState.tankOfDay!} />
+            </div>
+          }
+        >
+          <div class="flex justify-center p-4">
+            <GuessForm />
+          </div>
+        </Show>
         <div class="flex justify-center p-4">
           <GuessList />
         </div>
