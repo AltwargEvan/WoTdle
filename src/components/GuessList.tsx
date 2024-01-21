@@ -26,7 +26,7 @@ const TankItem: Component<{ tank: Tank }> = ({ tank }) => {
     <div class="grid w-full justify-center grid-cols-5 gap-4 text-sm sm:text-xl">
       <div
         style={{
-          "background-color": tankOfDay?.id === tank.id ? green : "",
+          "background-color": tankOfDay?.id === tank.id ? green : red,
         }}
         class=" select-none relative border rounded border-neutral-700 flex justify-center py-1"
       >
