@@ -32,14 +32,8 @@ const GuessForm: Component = () => {
 
   const handleFormSubmit = (e: Event) => {
     e.preventDefault();
-    const input = guess().toLowerCase();
-    appState.notGuessedTanks.forEach((tank) => {
-      if (
-        tank.name.toLowerCase() === input ||
-        tank.short_name.toLowerCase() === input
-      )
-        return handleGuessTank(tank);
-    });
+    const tank = searchResults()?.at(0)?.item;
+    if (tank !== undefined) handleGuessTank(tank);
   };
 
   const handleGuessTank = (tank: Tank) => {
