@@ -2,6 +2,7 @@ import { AppStateLoader } from "@/components/AppStateLoader";
 import AppStore from "@/components/AppStore";
 import GuessForm from "@/components/GuessForm";
 import GuessList from "@/components/GuessList";
+import { HintPanel } from "@/components/HintPanel";
 import TankOfDayPanel from "@/components/TankOfDayPanel";
 import { Show } from "solid-js";
 
@@ -14,9 +15,16 @@ export default function Home() {
           <span class=" text-xl md:text-4xl text-center">
             Guess today's World of Tanks vehicle!
           </span>
-          <span class="text-center pt-2 font-thin md:text-xl text-neutral-200">
-            Type any vehicle tier 8 - 10 to begin
-          </span>
+          <Show
+            when={appState.guessedTanks.length > 0}
+            fallback={
+              <span class="text-center pt-2 font-thin md:text-xl text-neutral-200">
+                Type any vehicle tier 8 - 10 to begin
+              </span>
+            }
+          >
+            <HintPanel />
+          </Show>
         </div>
       </div>
 
