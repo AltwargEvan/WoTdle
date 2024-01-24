@@ -182,11 +182,16 @@ const mergedData = Object.values(tankopediaData.data).map((tank) => {
   const topGunModule = gunModules.reduce((prev, current) => {
     return prev.price_xp > current.price_xp ? prev : current;
   });
-
   moduleIdsToFetch.push(topGunModule.module_id);
+
+  // generate search names
+  const search_name = tank.name.replaceAll(/[-\s.]/g, "");
+  const search_short_name = tank.short_name.replaceAll(/[-\s.]/g, "");
   return {
     ...tank,
     battles30Days,
+    search_name,
+    search_short_name,
     topGunModule: {
       module_id: topGunModule.module_id,
     },
@@ -247,7 +252,7 @@ export type VehicleList = typeof vehicleList;
 
 fs.writeFileSync(
   __dirname + "/data/vehicleList.json",
-  JSON.stringify(gunModulesData)
+  JSON.stringify(vehicleList)
 );
 
 console.log("Successfully fetched and merged external vehicle data");
