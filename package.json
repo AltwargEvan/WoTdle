@@ -4,13 +4,16 @@
   "description": "",
   "scripts": {
     "dev": "vinxi dev",
+    "prebuild": "tsx src/prebuild.ts",
     "build": "vinxi build",
     "start": "vinxi start",
     "clean": "find . -name node_modules -type d -prune | xargs rm -rf"
   },
   "type": "module",
   "devDependencies": {
+    "dotenv": "^16.4.0",
     "eslint-plugin-solid": "0.13.1",
+    "tsx": "^4.7.0",
     "typescript": "^5.3.3"
   },
   "dependencies": {
