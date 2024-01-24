@@ -173,21 +173,34 @@ tomtatoggData.forEach((tank) => {
 
 const moduleIdsToFetch = new Array();
 
-const mergedData = Object.values(tankopediaData.data).map((tank) => {
+const tankopediaWithBattlesPlayedAndModuleIds = new Array<
+  TankopediaItem & {
+    battles30Days: number;
+    search_name: string;
+    search_short_name: string;
+    topGunModule: {
+      module_id: number;
+    };
+  }
+>();
+Object.values(tankopediaData.data).forEach((tank) => {
   // match battles 30 days
   const battles30Days = tomatoggDataMap.get(tank.tank_id);
+  if (battles30Days === undefined)
+    return console.log(
+      `Tank ${tank.name} has no battles within past 30 days. Excluding item from dataset.`
+    );
+  // match gun module
   const modules = Object.values(tank.modules_tree);
-  // get top gun module. add to fetch list
   const gunModules = modules.filter((module) => module.type === "vehicleGun");
   const topGunModule = gunModules.reduce((prev, current) => {
     return prev.price_xp > current.price_xp ? prev : current;
   });
   moduleIdsToFetch.push(topGunModule.module_id);
 
-  // generate search names
   const search_name = tank.name.replaceAll(/[-\s.]/g, "");
   const search_short_name = tank.short_name.replaceAll(/[-\s.]/g, "");
-  return {
+  tankopediaWithBattlesPlayedAndModuleIds.push({
     ...tank,
     battles30Days,
     search_name,
@@ -195,7 +208,7 @@ const mergedData = Object.values(tankopediaData.data).map((tank) => {
     topGunModule: {
       module_id: topGunModule.module_id,
     },
-  };
+  });
 });
 
 const moduleChunks = new Array<Array<string>>();
@@ -241,7 +254,7 @@ gunModulesData.forEach((res) =>
   )
 );
 
-const vehicleList = mergedData.map((tank) => {
+const vehicleList = tankopediaWithBattlesPlayedAndModuleIds.map((tank) => {
   const gunModule = gunModules.get(tank.topGunModule.module_id);
   return {
     ...tank,
