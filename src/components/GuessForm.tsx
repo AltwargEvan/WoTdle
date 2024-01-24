@@ -2,7 +2,7 @@ import { BiSolidRightArrow } from "solid-icons/bi";
 import { Component, For, Show, createSignal } from "solid-js";
 import AppStore from "./AppStore";
 import Fuse, { FuseResult } from "fuse.js";
-import { Tank, tankImg } from "../utils/api";
+import { Vehicle } from "@/prebuild";
 
 type InputEvent = globalThis.InputEvent & {
   currentTarget: HTMLInputElement;
@@ -12,7 +12,7 @@ type InputEvent = globalThis.InputEvent & {
 const GuessForm: Component = () => {
   const [guess, setGuess] = createSignal("");
   const [searchResults, setSearchResults] = createSignal(
-    null as FuseResult<Tank>[] | null
+    null as FuseResult<Vehicle>[] | null
   );
 
   const { appState, guessTank } = AppStore;
@@ -36,7 +36,7 @@ const GuessForm: Component = () => {
     if (tank !== undefined) handleGuessTank(tank);
   };
 
-  const handleGuessTank = (tank: Tank) => {
+  const handleGuessTank = (tank: Vehicle) => {
     guessTank(tank);
     setGuess("");
     setSearchResults(null);
@@ -71,8 +71,8 @@ const GuessForm: Component = () => {
                 onClick={() => handleGuessTank(tank)}
               >
                 <img
-                  src={tankImg(tank)}
-                  class="h-14"
+                  src={tank.images.big_icon}
+                  class="h-20 pl-2 py-2"
                   elementtiming={""}
                   fetchpriority={"high"}
                 />

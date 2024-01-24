@@ -1,10 +1,10 @@
-import { Tank, tankImg } from "@/utils/api";
 import { timeTilNextDay } from "@/utils/dateutils";
 import { Component, createSignal } from "solid-js";
 import AppStore from "./AppStore";
+import { Vehicle } from "@/prebuild";
 
 type Props = {
-  tank: Tank;
+  tank: Vehicle;
 };
 
 const TankOfDayPanel: Component<Props> = ({ tank }) => {
@@ -38,7 +38,7 @@ const TankOfDayPanel: Component<Props> = ({ tank }) => {
       <div class="flex w-full h-full justify-center">
         <div class="relative">
           <img
-            src={tankImg(tank)}
+            src={tank.images.big_icon}
             elementtiming={""}
             fetchpriority={"high"}
             class="h-full"
