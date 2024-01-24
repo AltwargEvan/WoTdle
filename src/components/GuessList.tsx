@@ -155,8 +155,8 @@ const GuessList: Component = () => {
           <span class="border-b-2">Type</span>
           <span class="border-b-2">Alpha Damage</span>
           <div class="flex border-b-2 flex-col relative">
-            <span class="bg-neutral-800 z-10">Battles Played</span>
-            <span class="text-sm text-neutral-300 font-thin absolute text-center w-full -top-3.5 overflow-hidden">
+            <span class="bg-neutral-800">Battles Played</span>
+            <span class="text-sm text-neutral-300 font-thin absolute text-center w-full -top-3.5 h-5 overflow-hidden">
               Last 30 Days
             </span>
           </div>
