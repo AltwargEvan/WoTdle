@@ -23,9 +23,6 @@ dependencies:
   postcss:
     specifier: ^8.4.26
     version: 8.4.33
-  solid-icons:
-    specifier: ^1.1.0
-    version: 1.1.0(solid-js@1.8.11)
   solid-js:
     specifier: ^1.8.11
     version: 1.8.11
@@ -4742,14 +4739,6 @@ packages:
 
   /smob@1.4.1:
     resolution: {integrity: sha512-9LK+E7Hv5R9u4g4C3p+jjLstaLe11MDsL21UpYaCNmapvMkYhqCV4A/f/3gyH8QjMyh6l68q9xC85vihY9ahMQ==}
-    dev: false
-
-  /solid-icons@1.1.0(solid-js@1.8.11):
-    resolution: {integrity: sha512-IesTfr/F1ElVwH2E1110s2RPXH4pujKfSs+koT8rwuTAdleO5s26lNSpqJV7D1+QHooJj18mcOiz2PIKs0ic+A==}
-    peerDependencies:
-      solid-js: '*'
-    dependencies:
-      solid-js: 1.8.11
     dev: false
 
   /solid-js@1.8.11:
