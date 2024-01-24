@@ -12,30 +12,41 @@ type HintButtonProps = {
 
 const HintButton: Component<HintButtonProps> = (props) => {
   const { appState } = AppStore;
-
+  const triesRemaining = () => props.triesToEnable - appState.numGuesses();
   const enabled = () => appState.numGuesses() >= props.triesToEnable;
-  const containerStyle = () =>
+  const containerClass = () =>
     twMerge(
       "relative flex  items-center flex-col h-20 group select-none",
       enabled() ? "hover:cursor-pointer" : ""
     );
-  const imageStyle = () =>
+  const imageClass = () =>
     twMerge(
       "h-[3.25rem]",
       enabled()
         ? "group-hover:h-14 transition-[height]"
-        : "grayscale opacity-50",
-      props.src === "tanksilhouette.png" ? "invert" : ""
+        : "grayscale opacity-50"
     );
+
+  const imageFilter = () =>
+    enabled() ? "drop-shadow(0 0 0.5rem #fbbf24) " : undefined;
 
   const handleClick = () => {
     if (enabled()) props.onClick();
   };
 
   return (
-    <div class={containerStyle()} onClick={handleClick}>
-      <img src={props.src} class={imageStyle()} />
+    <div class={containerClass()} onClick={handleClick}>
+      <img
+        src={props.src}
+        class={imageClass()}
+        style={{ filter: imageFilter() }}
+      />
       <span>{props.text}</span>
+      <Show when={triesRemaining() > 0}>
+        <span class="text-xs absolute -bottom-2 text-xthin">
+          In {triesRemaining()} tries
+        </span>
+      </Show>
     </div>
   );
 };
