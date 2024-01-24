@@ -39,7 +39,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
       (Math.abs(tankOfDay.battles30Days! - tank.battles30Days!) /
         ((tankOfDay.battles30Days! + tank.battles30Days!) / 2)) *
       100;
-    if (percentDiff <= 10) return yellow;
+    if (percentDiff <= 20) return yellow;
     return red;
   };
 
