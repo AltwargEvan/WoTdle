@@ -16,7 +16,7 @@ const HintButton: Component<HintButtonProps> = (props) => {
   const enabled = () => appState.numGuesses() >= props.triesToEnable;
   const containerClass = () =>
     twMerge(
-      "relative flex  items-center flex-col h-20 group select-none",
+      "relative flex  items-center flex-col group select-none",
       enabled() ? "hover:cursor-pointer" : ""
     );
   const imageClass = () =>
@@ -41,12 +41,12 @@ const HintButton: Component<HintButtonProps> = (props) => {
         class={imageClass()}
         style={{ filter: imageFilter() }}
       />
-      <span>{props.text}</span>
-      <Show when={triesRemaining() > 0}>
-        <span class="text-xs absolute -bottom-2 text-xthin">
-          In {triesRemaining()} tries
-        </span>
-      </Show>
+      <div class="flex flex-col items-center">
+        <span>{props.text}</span>
+        <Show when={triesRemaining() > 0}>
+          <span class="text-xs text-thin">In {triesRemaining()} tries</span>
+        </Show>
+      </div>
     </div>
   );
 };
