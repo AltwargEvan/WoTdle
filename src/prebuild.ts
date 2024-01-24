@@ -58,7 +58,7 @@ type TankopediaGunModule = {
         damage: number[];
         penetration: number[];
         type: number[];
-      };
+      }[];
     };
   };
 };
@@ -248,7 +248,8 @@ const vehicleList = mergedData.map((tank) => {
     topGunModule: gunModule,
   };
 });
-export type VehicleList = typeof vehicleList;
+
+export type Vehicle = (typeof vehicleList)[number];
 
 fs.writeFileSync(
   __dirname + "/data/vehicleList.json",
