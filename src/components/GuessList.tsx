@@ -134,15 +134,9 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         }}
         class=" select-none relative border rounded border-neutral-700 flex justify-center"
       >
-        <span class="absolute h-full flex justify-center items-end">
+        <span class="absolute h-full flex justify-center items-center text-3xl">
           {tank.battles30Days}
         </span>
-        <img
-          src={`${tank.type}.png`}
-          class="h-14"
-          elementtiming={""}
-          fetchpriority={"high"}
-        />
       </div>
     </div>
   );
@@ -160,7 +154,12 @@ const GuessList: Component = () => {
           <span class="border-b-2">Tier</span>
           <span class="border-b-2">Type</span>
           <span class="border-b-2">Alpha Damage</span>
-          <span class="border-b-2">Battles Played</span>
+          <div class="flex border-b-2 flex-col relative">
+            <span class="bg-neutral-800 z-10">Battles Played</span>
+            <span class="text-sm text-neutral-300 font-thin absolute text-center w-full -top-3.5 overflow-hidden">
+              Last 30 Days
+            </span>
+          </div>
         </div>
         <For each={[...appState.guessedTanks]}>
           {(tank) => <TankItem tank={tank} />}
