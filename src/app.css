@@ -19,7 +19,3 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-
-.victory-background {
-  background-image: url("/victory.png");
-}
