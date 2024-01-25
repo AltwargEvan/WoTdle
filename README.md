@@ -30,7 +30,7 @@
 
 [Wordle](https://www.nytimes.com/games/wordle/index.html) clone inspired by [LoLdle](https://loldle.net/) for video game World of Tanks
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#WoTdle">back to top</a>)</p>
 
 
 
@@ -40,7 +40,7 @@
 * [![Tailwind][TailwindCSS]][Tailwind-url]
 * [![PNPM][PNPM]][PNPM-url]
 * [![Vercel][Vercel]][Vercel-url]
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#WoTdle">back to top</a>)</p>
 
 
 
@@ -69,7 +69,7 @@ This project uses [pnpm](https://pnpm.io) as the package manager, so make sure t
    ```sh
    pnpm dev
    ```
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#WoTdle">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -84,7 +84,7 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#WoTdle">back to top</a>)</p>
 
 ## Acknowledgments
 

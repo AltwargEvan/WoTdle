@@ -24,6 +24,11 @@ export default createHandler(() => (
             href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"
             rel="stylesheet"
           />
+          {/* Google Site Verification  */}
+          <meta
+            name="google-site-verification"
+            content="ZGk5lCiaTi5G8fxOo-5JkbS8auBi7j9uUFY48Bfc0aE"
+          />
           {assets}
         </head>
         <body>
