@@ -23,7 +23,7 @@ export default createHandler(() => (
           />
           <meta
             property="og:image"
-            content="https://raw.githubusercontent.com/AltwargEvan/WoTdle/main/public/productScreenshot.png"
+            content="https://raw.githubusercontent.com/AltwargEvan/WoTdle/main/public/ogimage.png"
           ></meta>
           <meta property="og:title" content="WoTdle"></meta>
           <meta
