@@ -26,7 +26,7 @@
 <!-- ABOUT  -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![WoTdle][product-screenshot]](https://wotdle.vercel.app/)
 
 [Wordle](https://www.nytimes.com/games/wordle/index.html) clone inspired by [LoLdle](https://loldle.net/) for video game World of Tanks
 
@@ -97,7 +97,7 @@ Don't forget to give the project a star! Thanks again!
 [issues-url]: https://github.com/AltwargEvan/WoTdle/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/evanaltwarg/
-[product-screenshot]: public/projectScreenshot.png
+[product-screenshot]: https://github.com/AltwargEvan/WoTdle/blob/main/public/productScreenshot.png?raw=true
 [Typescript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
 [Typescript-url]: https://www.typescriptlang.org/
 [Solid.js]: https://img.shields.io/badge/SolidJS-2c4f7c?style=for-the-badge&logo=solid&logoColor=c8c9cb
