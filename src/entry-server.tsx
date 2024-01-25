@@ -9,28 +9,33 @@ export default createHandler(() => (
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
+          <meta name="theme-color" content="#262626" />
           {/* OpenGraph */}
           <title>WoTdle</title>
           <meta
             property="description"
             content="World of Tanks Vehicle Guessing Game"
           />
-          <meta property="twitter:card" content="summary_large_image"></meta>
-          <meta property="twitter:title" content="WoTdle"></meta>
+          <meta property="twitter:card" content="summary_large_image" />
+          <meta property="twitter:title" content="WoTdle" />
           <meta
             property="twitter:description"
             content="World of Tanks Vehicle Guessing Game"
           />
           <meta
+            name="twitter:image:src"
+            content="https://raw.githubusercontent.com/AltwargEvan/WoTdle/main/public/ogimage.png"
+          />
+          <meta
             property="og:image"
             content="https://raw.githubusercontent.com/AltwargEvan/WoTdle/main/public/ogimage.png"
-          ></meta>
-          <meta property="og:title" content="WoTdle"></meta>
+          />
+          <meta property="og:title" content="WoTdle" />
           <meta
             property="og:description"
             content="World of Tanks Vehicle Guessing Game"
           />
-          <meta property="og:url" content="https://wotdle.vercel.app/"></meta>
+          <meta property="og:url" content="https://wotdle.vercel.app" />
           {/* Icons  */}
           <link rel="icon" href="wot.svg" />
           <link rel="mask-icon" href="wot.svg" color="#000000" />
