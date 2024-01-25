@@ -15,7 +15,7 @@ export default createHandler(() => (
             property="description"
             content="World of Tanks Vehicle Guessing Game"
           />
-          <meta property="twitter:card" content="summary"></meta>
+          <meta property="twitter:card" content="summary_large_image"></meta>
           <meta property="twitter:title" content="WoTdle"></meta>
           <meta
             property="twitter:description"
