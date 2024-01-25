@@ -34,6 +34,12 @@ export default createHandler(() => (
         <body>
           <div id="app">{children}</div>
           {scripts}
+          {/* Cloudflare Analytics */}
+          <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon='{"token": "4ce4075a47984993a65d7757d63843ba"}'
+          ></script>
         </body>
       </html>
     )}
