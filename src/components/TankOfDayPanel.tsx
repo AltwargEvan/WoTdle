@@ -1,7 +1,7 @@
 import { timeTilNextDay } from "@/utils/dateutils";
 import { Component, createSignal } from "solid-js";
 import AppStore from "./AppStore";
-import { Vehicle } from "@/prebuild";
+import { Vehicle } from "@/types/tankopedia.types";
 
 type Props = {
   tank: Vehicle;
