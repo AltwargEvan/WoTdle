@@ -11,7 +11,6 @@
   },
   "type": "module",
   "devDependencies": {
-    "dotenv": "^16.4.0",
     "eslint-plugin-solid": "0.13.1",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3"
@@ -19,6 +18,7 @@
   "dependencies": {
     "@solidjs/router": "^0.10.9",
     "@solidjs/start": "^0.4.10",
+    "@supabase/supabase-js": "^2.39.3",
     "@t3-oss/env-core": "^0.7.3",
     "autoprefixer": "^10.4.14",
     "fuse.js": "^7.0.0",
