@@ -1,7 +1,7 @@
 import { Component, For, Show, createSignal } from "solid-js";
 import AppStore from "./AppStore";
 import Fuse, { FuseResult } from "fuse.js";
-import { Vehicle } from "@/types/supabase.types";
+import { Vehicle } from "@/types/tankopedia.types";
 
 type InputEvent = globalThis.InputEvent & {
   currentTarget: HTMLInputElement;

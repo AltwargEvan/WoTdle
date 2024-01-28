@@ -1,6 +1,6 @@
 import { env } from "@/env/server";
-import { type Vehicle } from "@/types/supabase.types";
 import {
+  Vehicle,
   type TankopediaGunModule,
   type TankopediaModulesResult,
   type TankopediaVehicleResult,
@@ -161,6 +161,7 @@ export async function GET(req: Request) {
     day: "2-digit",
     month: "2-digit",
     year: "2-digit",
+    timeZone: "America/New_York",
   });
   const dd_mm_yy = structuredClone(tomorrowLocalString).replaceAll("/", "_");
   const tomorrowInt = parseInt(

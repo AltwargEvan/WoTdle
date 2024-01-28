@@ -1,4 +1,4 @@
-import { Vehicle } from "@/types/supabase.types";
+import { Vehicle } from "@/types/tankopedia.types";
 import { createRoot } from "solid-js";
 import { createStore } from "solid-js/store";
 
