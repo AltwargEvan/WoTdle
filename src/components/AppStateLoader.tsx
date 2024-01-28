@@ -1,32 +1,50 @@
-import { Component, JSXElement, Show, createEffect } from "solid-js";
+import {
+  Component,
+  JSXElement,
+  Match,
+  Switch,
+  createEffect,
+  createSignal,
+} from "solid-js";
 import AppStore from "./AppStore";
-import { getAppData } from "../utils/api";
 import { createAsync } from "@solidjs/router";
+import { getAppState } from "@/resources/appStateResource";
 
 export const route = {
-  load: () => getAppData(),
+  load: () => getAppState(),
 };
+
 export const AppStateLoader: Component<{
   children: JSXElement;
 }> = (props) => {
-  const appData = createAsync(getAppData);
+  const appData = createAsync(getAppState);
   const { setAppState } = AppStore;
 
   createEffect(async () => {
-    const data = appData();
-    if (!data) return;
-    const { tankList, tankOfDay } = data;
-    setAppState("notGuessedTanks", tankList);
-    setAppState("tankOfDay", tankOfDay);
-    setAppState("hydrated", true);
+    const res = appData();
+    if (res === undefined) return;
+    if (res.data) {
+      const { vehicleList, tankOfDay } = res?.data;
+      setAppState("notGuessedTanks", vehicleList);
+      setAppState("tankOfDay", tankOfDay);
+      setAppState("hydrated", true);
+    } else {
+      console.error(res.error);
+    }
   });
 
   return (
-    <Show
-      when={appData() !== undefined}
-      fallback={<div class="text-xl">Loading... Please wait</div>}
+    <Switch
+      fallback={
+        <div class="text-xl text-center p-4">Loading... Please wait</div>
+      }
     >
-      {props.children}
-    </Show>
+      <Match when={appData()?.data}>{props.children}</Match>
+      <Match when={appData()?.error}>
+        <div class="text-xl text-center p-4">
+          Failed to load. Try reloading the page
+        </div>
+      </Match>
+    </Switch>
   );
 };
