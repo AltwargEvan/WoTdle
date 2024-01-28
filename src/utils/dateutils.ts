@@ -7,19 +7,17 @@ export const todayAsInt = () => {
 };
 
 export const timeTilNextDay = () => {
-  const today = new Date();
-  const hours = today.getUTCHours();
-  const minutes = today.getUTCMinutes();
-  const seconds = today.getUTCSeconds();
-
-  const hours_left = 23 - hours;
-  let seconds_left = 60 - seconds;
-  let minutes_left = 60 - minutes;
+  const today = new Date().toLocaleTimeString("en-GB", {
+    timeZone: "America/New_York",
+  });
+  const [hours, minutes, seconds] = today.split(":");
+  const hours_left = 23 - parseInt(hours);
+  let seconds_left = 60 - parseInt(seconds);
+  let minutes_left = 60 - parseInt(minutes);
   if (seconds_left === 60) {
     minutes_left++;
     seconds_left = 0;
   }
-
   return `${formatNum(hours_left)}:${formatNum(minutes_left)}:${formatNum(
     seconds_left
   )}`;
