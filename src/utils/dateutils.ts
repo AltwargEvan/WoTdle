@@ -11,19 +11,17 @@ export const timeTilNextDay = () => {
     timeZone: "America/New_York",
   });
   const [hours, minutes, seconds] = today.split(":");
-  let hours_left = 23 - parseInt(hours);
-  let seconds_left = 60 - parseInt(seconds);
-  let minutes_left = 60 - parseInt(minutes);
-  if (seconds_left === 60) {
-    minutes_left++;
-    seconds_left = 0;
-  }
-  if (minutes_left === 60) {
-    minutes_left = 0;
-    hours_left++;
-  }
+  let secondsTilNextDay =
+    24 * 60 * 60 -
+    parseInt(hours) * 3600 -
+    parseInt(minutes) * 60 -
+    parseInt(seconds);
+  const hours_left = Math.floor(secondsTilNextDay / 3600);
+  secondsTilNextDay = secondsTilNextDay % 3600;
+  const minutes_left = Math.floor(secondsTilNextDay / 60);
+  secondsTilNextDay = secondsTilNextDay % 60;
   return `${formatNum(hours_left)}:${formatNum(minutes_left)}:${formatNum(
-    seconds_left
+    secondsTilNextDay
   )}`;
 };
 
