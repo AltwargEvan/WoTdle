@@ -2,7 +2,7 @@ import { Component, For, Show } from "solid-js";
 import AppStore from "./AppStore";
 import { romanize } from "../utils/romanize";
 import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
-import { Vehicle } from "@/prebuild";
+import { Vehicle } from "@/types/supabase.types";
 
 const red = "#ef4444" as const;
 const green = "#22c55e" as const;

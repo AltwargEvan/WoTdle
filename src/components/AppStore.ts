@@ -1,4 +1,4 @@
-import { Vehicle } from "@/prebuild";
+import { Vehicle } from "@/types/supabase.types";
 import { createRoot } from "solid-js";
 import { createStore } from "solid-js/store";
 
