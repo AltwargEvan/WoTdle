@@ -4,7 +4,6 @@
   "description": "",
   "scripts": {
     "dev": "vinxi dev",
-    "prebuild": "tsx src/prebuild.ts",
     "build": "vinxi build",
     "start": "vinxi start",
     "clean": "find . -name node_modules -type d -prune | xargs rm -rf"
