@@ -75,8 +75,13 @@ async function handleTomatoGGData() {
 
 export async function GET(req: Request) {
   // Prevent unauthorized access
-  if (req.headers.get("Authorization") !== `Bearer ${env.CRON_SECRET}`) {
-    return new Response("Unauthorized", { status: 401 });
+  const authHeader = req.headers.get("authorization");
+
+  if (
+    !process.env.CRON_SECRET ||
+    authHeader !== `Bearer ${process.env.CRON_SECRET}`
+  ) {
+    return Response.json({ success: false }, { status: 401 });
   }
 
   // fetch data
@@ -184,5 +189,6 @@ export async function GET(req: Request) {
       tank_name: tankOfDay.name,
     }),
   ]);
-  return new Response("Update Success", { status: 200 });
+
+  return Response.json({ success: true }, { status: 200 });
 }
