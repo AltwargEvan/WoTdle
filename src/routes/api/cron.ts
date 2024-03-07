@@ -6,7 +6,6 @@ import {
   type TankopediaVehicleResult,
 } from "@/types/tankopedia.types";
 import { type TomatoGGResult } from "@/types/tomatogg.types";
-import { seededRandom } from "@/utils/seededRandom";
 import { createClient } from "@supabase/supabase-js";
 
 async function fetchTankopediaVehicles() {
@@ -169,10 +168,7 @@ export async function GET(req: Request) {
     timeZone: "America/New_York",
   });
   const dd_mm_yy = structuredClone(tomorrowLocalString).replaceAll("/", "_");
-  const tomorrowInt = parseInt(
-    structuredClone(tomorrowLocalString).replaceAll("_", "")
-  );
-  const index = Math.floor(seededRandom(tomorrowInt) * vehicleList.length);
+  const index = Math.floor(Math.random() * vehicleList.length);
   const tankOfDay = vehicleList[index];
   const supabaseClient = createClient(
     env.SUPABASE_URL,
