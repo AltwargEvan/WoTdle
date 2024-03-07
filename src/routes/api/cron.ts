@@ -76,12 +76,12 @@ export async function GET(req: Request) {
   // Prevent unauthorized access
   const authHeader = req.headers.get("authorization");
 
-  if (
-    !process.env.CRON_SECRET ||
-    authHeader !== `Bearer ${process.env.CRON_SECRET}`
-  ) {
-    return Response.json({ success: false }, { status: 401 });
-  }
+  // if (
+  //   !process.env.CRON_SECRET ||
+  //   authHeader !== `Bearer ${process.env.CRON_SECRET}`
+  // ) {
+  //   return Response.json({ success: false }, { status: 401 });
+  // }
 
   // fetch data
   const [tankopediaData, tomtatoggData] = await Promise.all([
@@ -176,7 +176,7 @@ export async function GET(req: Request) {
   );
 
   // update supabase vehicle list data and tank of day for tomorrow
-  await Promise.allSettled([
+  const [vehicleData, tankOfDayUpdate] = await Promise.allSettled([
     supabaseClient.from("vehicle_data").insert({ dd_mm_yy, data: vehicleList }),
     supabaseClient.from("tank_of_day").insert({
       dd_mm_yy,
@@ -185,6 +185,13 @@ export async function GET(req: Request) {
       tank_name: tankOfDay.name,
     }),
   ]);
+
+  if (
+    vehicleData.status === "rejected" ||
+    tankOfDayUpdate.status === "rejected"
+  ) {
+    return Response.json({ success: false }, { status: 500 });
+  }
 
   return Response.json({ success: true }, { status: 200 });
 }
