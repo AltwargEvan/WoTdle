@@ -6,21 +6,19 @@ export const todayAsInt = () => {
   return parseInt(`${day}${month}${year}`);
 };
 
+const EST_TIMEZONE_OFFSET = 240 * 60 * 1000;
+
+export const CurrentTimeAsEST = () => {
+  const currentTimeAsEST = new Date(Date.now() - EST_TIMEZONE_OFFSET);
+  return currentTimeAsEST;
+};
+
 export const timeTilNextDay = () => {
-  const today = new Date().toLocaleTimeString("en-GB", {
-    timeZone: "America/New_York",
-  });
-  const [hours, minutes, seconds] = today.split(":");
-  const hours_left = 23 - parseInt(hours);
-  let seconds_left = 60 - parseInt(seconds);
-  let minutes_left = 60 - parseInt(minutes);
-  if (seconds_left === 60) {
-    minutes_left++;
-    seconds_left = 0;
-  }
-  return `${formatNum(hours_left)}:${formatNum(minutes_left)}:${formatNum(
-    seconds_left
-  )}`;
+  const today = CurrentTimeAsEST();
+  const hours = 23 - today.getUTCHours();
+  const minutes = 59 - today.getUTCMinutes();
+  const seconds = 59 - today.getUTCSeconds();
+  return `${formatNum(hours)}:${formatNum(minutes)}:${formatNum(seconds)}`;
 };
 
 const formatNum = (num: number) =>

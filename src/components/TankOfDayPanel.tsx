@@ -1,4 +1,4 @@
-import { timeTilNextDay } from "@/utils/dateutils";
+import { CurrentTimeAsEST, timeTilNextDay } from "@/utils/dateutils";
 import { Component, createSignal } from "solid-js";
 import AppStore from "./AppStore";
 import { Vehicle } from "@/types/tankopedia.types";
@@ -9,8 +9,14 @@ type Props = {
 
 const TankOfDayPanel: Component<Props> = ({ tank }) => {
   const [timeTilNext, setTimeTilNext] = createSignal(timeTilNextDay());
+  const [today] = createSignal(CurrentTimeAsEST().getUTCDay());
   const { appState } = AppStore;
-  setInterval(() => setTimeTilNext(timeTilNextDay()), 1000);
+  setInterval(() => {
+    if (today() !== CurrentTimeAsEST().getUTCDay()) {
+      window.location.reload();
+    }
+    setTimeTilNext(timeTilNextDay());
+  }, 1000);
   return (
     <div class="rounded relative flex flex-col items-center  select-none p-4 border border-neutral-700 w-full h-[225px] max-w-[1008px] bg-center-top bg-[url(/victory.png)]">
       <div
