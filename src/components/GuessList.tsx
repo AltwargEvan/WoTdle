@@ -1,4 +1,4 @@
-import { Component, For, Show } from "solid-js";
+import { Component, For, Match, Show, Switch } from "solid-js";
 import AppStore from "./AppStore";
 import { Vehicle } from "@/types/tankopedia.types";
 import { capitalizeFirstLetter, romanize } from "@/utils/stringUtils";
@@ -107,6 +107,14 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         )}
       >
         <span class="absolute h-full flex justify-center items-center text-xl sm:text-2xl">
+          <Switch fallback={<></>}>
+            <Match when={tankOfDay!.battles30Days! > tank.battles30Days!}>
+              &gt;
+            </Match>
+            <Match when={tankOfDay!.battles30Days! < tank.battles30Days!}>
+              &lt;
+            </Match>
+          </Switch>
           {tank.battles30Days}
         </span>
       </div>
