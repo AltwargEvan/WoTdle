@@ -11,9 +11,9 @@ export default function Home() {
   return (
     <main class="flex flex-col p-2 items-center w-full gap-2">
       <div class="w-full sm:w-[450px] px-4 grid items-center bg-neutral-900 rounded border-neutral-600 border p-4 ">
-        <span class="text-xl text-center">
+        <h3 class="text-xl text-center">
           Guess today's World of Tanks vehicle!
-        </span>
+        </h3>
         <Show
           when={appState.guessedTanks.length > 0}
           fallback={
