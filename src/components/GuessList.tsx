@@ -11,9 +11,7 @@ const TankLabelMap: Record<string, string> = {
   "AT-SPG": "TD",
   SPG: "SPG",
 } as const;
-const red = "#ef4444" as const;
 
-const yellow = "#facc15" as const;
 const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
   const {
     appState: { tankOfDay },
@@ -22,7 +20,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
   const tankAlpha = () =>
     tank.topGunModule?.default_profile.gun.ammo[0].damage[1]!;
   const getAlphaDamageColor = () => {
-    if (!tankOfDay) return red;
+    if (!tankOfDay) return "bg-zinc-900";
     const todDmg =
       tankOfDay.topGunModule?.default_profile.gun.ammo[0].damage[1] ?? 0;
 
@@ -32,7 +30,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
     return "bg-zinc-900";
   };
   const getBattles30DColor = () => {
-    if (!tankOfDay) return red;
+    if (!tankOfDay) return "bg-zinc-900";
     if (tankOfDay.battles30Days! === tank.battles30Days!) return "bg-correct";
     const percentDiff =
       (Math.abs(tankOfDay.battles30Days! - tank.battles30Days!) /
