@@ -3,6 +3,10 @@ import AppStore from "./AppStore";
 import Fuse, { FuseResult } from "fuse.js";
 import { Vehicle } from "@/types/tankopedia.types";
 
+// load directive. this is required for some reason??
+import clickOutside from "@/utils/clickOutside";
+clickOutside;
+
 type InputEvent = globalThis.InputEvent & {
   currentTarget: HTMLInputElement;
   target: HTMLInputElement;
@@ -10,6 +14,7 @@ type InputEvent = globalThis.InputEvent & {
 
 const GuessForm: Component = () => {
   const [guess, setGuess] = createSignal("");
+  const [showSearch, setShowSearch] = createSignal(false);
   const [searchResults, setSearchResults] = createSignal(
     null as FuseResult<Vehicle>[] | null
   );
@@ -42,17 +47,21 @@ const GuessForm: Component = () => {
   };
 
   return (
-    <div class="w-full md:w-96 relative">
-      <form class="flex pb-1" onSubmit={handleFormSubmit}>
+    <div
+      class="w-full sm:w-96 relative"
+      use:clickOutside={() => setShowSearch(false)}
+      onClick={() => setShowSearch(true)}
+    >
+      <form class="flex pb-1 " onSubmit={handleFormSubmit}>
         <input
           id="tank"
           type="text"
-          class="flex  h-16 w-full border-neutral-600 rounded-l border-2 border-input bg-transparent px-4 py-1  placeholder:text-muted-foreground focus-visible:outline-none text-xl"
+          class="flex bg-neutral-900  h-14 w-full border-neutral-600  rounded-l border border-input px-4 py-1  placeholder:text-muted-foreground focus-visible:outline-none text-neutral-200"
           placeholder="Type vehicle name..."
           onInput={handleChangeInput}
           value={guess()}
         />
-        <button class="border-neutral-600 border-t-2 border-r-2 border-b-2 rounded-tr px-3 hover:bg-stone-800">
+        <button class="bg-neutral-900 border-neutral-600 border-t border-r border-b rounded-r px-3 hover:bg-neutral-950">
           <svg
             fill="currentColor"
             stroke-width="0"
@@ -66,23 +75,22 @@ const GuessForm: Component = () => {
           </svg>
         </button>
       </form>
-      <Show when={searchResults()?.length === 0}>
-        <div class="absolute z-50 bg-neutral-800 border border-neutral-600  h-10 flex justify-center items-center text-lg">
-          <span>No Vehicle Found.</span>
+      <Show when={showSearch() && searchResults()?.length === 0}>
+        <div class="select-none text-center absolute z-50 bg-neutral-900 border border-neutral-600  py-2 px-4 w-full rounded">
+          <span>No Vehicles Found.</span>
         </div>
       </Show>
-      <Show when={searchResults()?.length}>
-        <div class="absolute z-50 bg-neutral-800 border border-neutral-600 text-lg  overflow-y-auto max-h-64 rounded  w-full">
+      <Show when={showSearch() && searchResults()?.length}>
+        <div class="absolute z-50 select-none bg-neutral-900 border border-neutral-600 text-lg  overflow-y-auto max-h-64 rounded  w-full">
           <For each={searchResults()}>
             {({ item: tank }) => (
               <div
-                class="w-full   hover:bg-neutral-700 hover:cursor-pointer flex items-center gap-4"
+                class="w-full   hover:bg-neutral-950 hover:cursor-pointer flex items-center gap-4"
                 onClick={() => handleGuessTank(tank)}
               >
                 <img
                   src={tank.images.big_icon}
                   class="h-20 pl-2 py-2"
-                  elementtiming={""}
                   fetchpriority={"high"}
                 />
                 <span> {tank.name}</span>

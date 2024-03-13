@@ -9,23 +9,21 @@ import { Show } from "solid-js";
 export default function Home() {
   const { appState } = AppStore;
   return (
-    <main class="grid justify-center">
-      <div class="px-4 flex justify-center ">
-        <div class=" px-4 py-2 rounded border-neutral-600 border-2 w-full md:w-max flex flex-col">
-          <span class=" text-xl md:text-4xl text-center">
-            Guess today's World of Tanks vehicle!
-          </span>
-          <Show
-            when={appState.guessedTanks.length > 0}
-            fallback={
-              <span class="text-center pt-2 font-thin md:text-xl text-neutral-200">
-                Type any vehicle tier 8 - 10 to begin
-              </span>
-            }
-          >
-            <HintPanel />
-          </Show>
-        </div>
+    <main class="flex flex-col p-2 items-center w-full gap-2">
+      <div class="w-full sm:w-[450px] px-4 grid items-center bg-neutral-900 rounded border-neutral-600 border p-4 ">
+        <span class="text-xl text-center">
+          Guess today's World of Tanks vehicle!
+        </span>
+        <Show
+          when={appState.guessedTanks.length > 0}
+          fallback={
+            <span class="text-center pt-2 font-thin text-neutral-200">
+              Type any vehicle tier 8 - 10 to begin
+            </span>
+          }
+        >
+          <HintPanel />
+        </Show>
       </div>
 
       <AppStateLoader>
@@ -37,9 +35,7 @@ export default function Home() {
             </div>
           }
         >
-          <div class="flex justify-center p-4">
-            <GuessForm />
-          </div>
+          <GuessForm />
         </Show>
         <div class="flex justify-center p-4">
           <GuessList />

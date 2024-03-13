@@ -1,4 +1,11 @@
-import { Component, Match, Show, Switch, createSignal } from "solid-js";
+import {
+  Component,
+  Match,
+  Show,
+  Switch,
+  createSignal,
+  onMount,
+} from "solid-js";
 import { twMerge } from "tailwind-merge";
 import AppStore from "./AppStore";
 
@@ -10,6 +17,18 @@ type HintButtonProps = {
   onClick: () => void;
 };
 
+const CanvasImage: Component<{ src: string }> = ({ src }) => {
+  let canvas: HTMLCanvasElement | undefined;
+  onMount(() => {
+    const ctx = canvas?.getContext("2d");
+    const image = new Image();
+    image.src = src;
+    image.onload = () => {
+      ctx?.drawImage(image, 0, 0, canvas!.width, canvas!.height);
+    };
+  });
+  return <canvas ref={canvas} class="h-9 w-24" />;
+};
 const HintButton: Component<HintButtonProps> = (props) => {
   const { appState } = AppStore;
   const triesRemaining = () => props.triesToEnable - appState.numGuesses();
@@ -62,7 +81,7 @@ export const HintPanel: Component = () => {
 
   return (
     <>
-      <div class="pt-2 md:text-large text-neutral-300  justify-around w-full grid grid-cols-3">
+      <div class="pt-2 text-neutral-300 justify-around grid grid-cols-3">
         <HintButton
           src="engine.png"
           text="Top Speed Clue"
@@ -102,10 +121,7 @@ export const HintPanel: Component = () => {
                 </Switch>
               </Match>
               <Match when={hint() === "Icon"}>
-                <img
-                  src={appState.tankOfDay?.images.contour_icon}
-                  class="h-9"
-                />
+                <CanvasImage src={appState.tankOfDay?.images.contour_icon!} />
               </Match>
             </Switch>
           </div>

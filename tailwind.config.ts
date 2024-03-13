@@ -4,8 +4,9 @@ const config = {
   theme: {
     extend: {
       colors: {
-        correct: "#538d4e",
+        correct: "#22c55e",
         partialCorrect: "#b59f3b",
+        incorrect: "#C1666B",
       },
       fontFamily: {
         roboto: ["Roboto Condensed", "sans-serif"],
