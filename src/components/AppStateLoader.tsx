@@ -1,11 +1,4 @@
-import {
-  Component,
-  JSXElement,
-  Match,
-  Switch,
-  createEffect,
-  createSignal,
-} from "solid-js";
+import { Component, JSXElement, Match, Switch, createEffect } from "solid-js";
 import AppStore from "./AppStore";
 import { createAsync } from "@solidjs/router";
 import { getAppState } from "@/resources/appStateResource";
