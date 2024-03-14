@@ -1,11 +1,3 @@
-export const todayAsInt = () => {
-  const today = new Date();
-  const year = formatNum(today.getUTCFullYear());
-  const month = formatNum(1 + today.getUTCMonth());
-  const day = formatNum(today.getUTCDate());
-  return parseInt(`${day}${month}${year}`);
-};
-
 const EST_TIMEZONE_OFFSET = 240 * 60 * 1000;
 
 export const CurrentTimeAsEST = () => {

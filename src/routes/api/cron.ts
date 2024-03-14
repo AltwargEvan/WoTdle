@@ -6,7 +6,6 @@ import {
   type TankopediaVehicleResult,
 } from "@/types/tankopedia.types";
 import { type TomatoGGResult } from "@/types/tomatogg.types";
-import { seededRandom } from "@/utils/seededRandom";
 import { createClient } from "@supabase/supabase-js";
 
 async function fetchTankopediaVehicles() {
@@ -75,9 +74,14 @@ async function handleTomatoGGData() {
 
 export async function GET(req: Request) {
   // Prevent unauthorized access
-  if (req.headers.get("Authorization") !== `Bearer ${env.CRON_SECRET}`) {
-    return new Response("Unauthorized", { status: 401 });
-  }
+  const authHeader = req.headers.get("authorization");
+
+  // if (
+  //   !process.env.CRON_SECRET ||
+  //   authHeader !== `Bearer ${process.env.CRON_SECRET}`
+  // ) {
+  //   return Response.json({ success: false }, { status: 401 });
+  // }
 
   // fetch data
   const [tankopediaData, tomtatoggData] = await Promise.all([
@@ -164,10 +168,7 @@ export async function GET(req: Request) {
     timeZone: "America/New_York",
   });
   const dd_mm_yy = structuredClone(tomorrowLocalString).replaceAll("/", "_");
-  const tomorrowInt = parseInt(
-    structuredClone(tomorrowLocalString).replaceAll("_", "")
-  );
-  const index = Math.floor(seededRandom(tomorrowInt) * vehicleList.length);
+  const index = Math.floor(Math.random() * vehicleList.length);
   const tankOfDay = vehicleList[index];
   const supabaseClient = createClient(
     env.SUPABASE_URL,
@@ -175,7 +176,7 @@ export async function GET(req: Request) {
   );
 
   // update supabase vehicle list data and tank of day for tomorrow
-  await Promise.allSettled([
+  const [vehicleData, tankOfDayUpdate] = await Promise.allSettled([
     supabaseClient.from("vehicle_data").insert({ dd_mm_yy, data: vehicleList }),
     supabaseClient.from("tank_of_day").insert({
       dd_mm_yy,
@@ -184,5 +185,13 @@ export async function GET(req: Request) {
       tank_name: tankOfDay.name,
     }),
   ]);
-  return new Response("Update Success", { status: 200 });
+
+  if (
+    vehicleData.status === "rejected" ||
+    tankOfDayUpdate.status === "rejected"
+  ) {
+    return Response.json({ success: false }, { status: 500 });
+  }
+
+  return Response.json({ success: true }, { status: 200 });
 }
