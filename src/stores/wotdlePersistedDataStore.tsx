@@ -65,7 +65,7 @@ export function WotdlePersistedDataStoreProvider(props: {
     setGameState("victory", true);
 
     let playedYesterday = false;
-    if (state.previousGames.length !== 0) {
+    if (state.previousGames.length > 0) {
       playedYesterday = datesAreConsecutive(
         state.previousGames[state.previousGames.length - 1].date,
         gameState.dateMsSinceEpoch
