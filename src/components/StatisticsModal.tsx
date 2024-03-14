@@ -26,6 +26,7 @@ const Statistics: Component<{
     );
 
   const maxStreak = () => {
+    if (wotdlePersistedData.previousGames.length === 0) return 0;
     let max = 1;
     let current = 1;
     for (let i = 0; i < wotdlePersistedData.previousGames.length - 1; i++) {
@@ -45,6 +46,8 @@ const Statistics: Component<{
   };
 
   const currentStreak = () => {
+    if (wotdlePersistedData.previousGames.length === 0) return 0;
+
     let streak = 1;
     let i = wotdlePersistedData.previousGames.length - 1;
 
