@@ -1,5 +1,7 @@
 import { SolidApexCharts } from "solid-apexcharts";
 import { Component } from "solid-js";
+import { render } from "solid-js/web";
+
 type timeslice = number;
 type value = number;
 
@@ -42,6 +44,7 @@ const StatGraph: Component<{ data: Array<[timeslice, value]> }> = ({
         theme: {},
         tooltip: {
           shared: false,
+          theme: "dark",
         },
         xaxis: {
           type: "datetime",
