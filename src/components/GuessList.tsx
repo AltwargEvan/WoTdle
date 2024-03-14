@@ -1,8 +1,9 @@
-import { Component, For, Match, Show, Switch } from "solid-js";
-import AppStore from "./AppStore";
+import { Component, For, Match, Show, Switch, createEffect } from "solid-js";
+import AppStore from "../stores/wotdleSessionStateStore";
 import { Vehicle } from "@/types/tankopedia.types";
 import { capitalizeFirstLetter, romanize } from "@/utils/stringUtils";
 import { twMerge } from "tailwind-merge";
+import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
 
 const TankLabelMap: Record<string, string> = {
   lightTank: "Light",
@@ -14,15 +15,15 @@ const TankLabelMap: Record<string, string> = {
 
 const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
   const {
-    appState: { tankOfDay },
+    gameState: { todaysVehicle },
   } = AppStore;
 
   const tankAlpha = () =>
     tank.topGunModule?.default_profile.gun.ammo[0].damage[1]!;
   const getAlphaDamageColor = () => {
-    if (!tankOfDay) return "bg-zinc-900";
+    if (!todaysVehicle) return "bg-zinc-900";
     const todDmg =
-      tankOfDay.topGunModule?.default_profile.gun.ammo[0].damage[1] ?? 0;
+      todaysVehicle.topGunModule?.default_profile.gun.ammo[0].damage[1] ?? 0;
 
     const diff = Math.abs(todDmg - tankAlpha());
     if (diff === 0) return "bg-correct";
@@ -30,11 +31,12 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
     return "bg-zinc-900";
   };
   const getBattles30DColor = () => {
-    if (!tankOfDay) return "bg-zinc-900";
-    if (tankOfDay.battles30Days! === tank.battles30Days!) return "bg-correct";
+    if (!todaysVehicle) return "bg-zinc-900";
+    if (todaysVehicle.battles30Days! === tank.battles30Days!)
+      return "bg-correct";
     const percentDiff =
-      (Math.abs(tankOfDay.battles30Days! - tank.battles30Days!) /
-        ((tankOfDay.battles30Days! + tank.battles30Days!) / 2)) *
+      (Math.abs(todaysVehicle.battles30Days! - tank.battles30Days!) /
+        ((todaysVehicle.battles30Days! + tank.battles30Days!) / 2)) *
       100;
     if (percentDiff <= 25) return "bg-partialCorrect";
     return "bg-zinc-900";
@@ -45,7 +47,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
       <div
         class={twMerge(
           "select-none relative border rounded-sm border-neutral-700 flex justify-center py-1",
-          tankOfDay?.tank_id === tank.tank_id ? "bg-correct" : "bg-zinc-900"
+          todaysVehicle?.tank_id === tank.tank_id ? "bg-correct" : "bg-zinc-900"
         )}
       >
         <span class="absolute h-full flex justify-center items-center ">
@@ -56,7 +58,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
       <div
         class={twMerge(
           "select-none relative border rounded-sm border-neutral-700 flex justify-center",
-          tank.nation === tankOfDay?.nation ? "bg-correct" : "bg-zinc-900"
+          tank.nation === todaysVehicle?.nation ? "bg-correct" : "bg-zinc-900"
         )}
       >
         <img
@@ -71,7 +73,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
       <div
         class={twMerge(
           "select-none relative border rounded-sm border-neutral-700 flex justify-center",
-          tankOfDay?.tier === tank.tier ? "bg-correct" : "bg-zinc-900"
+          todaysVehicle?.tier === tank.tier ? "bg-correct" : "bg-zinc-900"
         )}
       >
         <span class="absolute h-full flex justify-center items-center text-3xl sm:text-4xl">
@@ -81,7 +83,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
       <div
         class={twMerge(
           "select-none relative border rounded-sm border-neutral-700 flex justify-center",
-          tank.type === tankOfDay?.type ? "bg-correct" : "bg-zinc-900"
+          tank.type === todaysVehicle?.type ? "bg-correct" : "bg-zinc-900"
         )}
       >
         <span class="absolute h-full flex justify-center items-end">
@@ -108,10 +110,10 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
       >
         <span class="absolute h-full flex justify-center items-center text-xl sm:text-2xl">
           <Switch fallback={<></>}>
-            <Match when={tankOfDay!.battles30Days! > tank.battles30Days!}>
+            <Match when={todaysVehicle!.battles30Days! > tank.battles30Days!}>
               &gt;
             </Match>
-            <Match when={tankOfDay!.battles30Days! < tank.battles30Days!}>
+            <Match when={todaysVehicle!.battles30Days! < tank.battles30Days!}>
               &lt;
             </Match>
           </Switch>
@@ -123,10 +125,10 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
 };
 
 const GuessList: Component = () => {
-  const { appState } = AppStore;
+  const [data] = usePersistedData();
 
   return (
-    <Show when={appState.guessedTanks.length > 0}>
+    <Show when={data.dailyVehicleGuesses.length > 0}>
       <div class="grid text-center justify-center gap-y-2">
         <div class="grid justify-center grid-cols-6  text-lg text-neutral-200 gap-2">
           <span class="border-b-2 border-neutral-300">Vehicle</span>
@@ -141,7 +143,7 @@ const GuessList: Component = () => {
             </span>
           </div>
         </div>
-        <For each={[...appState.guessedTanks]}>
+        <For each={data.dailyVehicleGuesses}>
           {(tank) => <TankItem tank={tank} />}
         </For>
       </div>

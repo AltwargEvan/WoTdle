@@ -7,7 +7,8 @@ import {
   onMount,
 } from "solid-js";
 import { twMerge } from "tailwind-merge";
-import AppStore from "./AppStore";
+import AppStore from "../stores/wotdleSessionStateStore";
+import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
 
 type Hint = "Speed" | "Premium" | "Icon" | undefined;
 type HintButtonProps = {
@@ -30,9 +31,11 @@ const CanvasImage: Component<{ src: string }> = ({ src }) => {
   return <canvas ref={canvas} class="h-9 w-24" />;
 };
 const HintButton: Component<HintButtonProps> = (props) => {
-  const { appState } = AppStore;
-  const triesRemaining = () => props.triesToEnable - appState.numGuesses();
-  const enabled = () => appState.numGuesses() >= props.triesToEnable;
+  const [data] = usePersistedData();
+
+  const triesRemaining = () =>
+    props.triesToEnable - data.dailyVehicleGuesses.length;
+  const enabled = () => data.dailyVehicleGuesses.length >= props.triesToEnable;
   const containerClass = () =>
     twMerge(
       "relative flex  items-center flex-col group select-none h-24",
@@ -71,7 +74,7 @@ const HintButton: Component<HintButtonProps> = (props) => {
 };
 
 export const HintPanel: Component = () => {
-  const { appState } = AppStore;
+  const todaysVehicle = AppStore.gameState.todaysVehicle;
 
   const [hint, setHint] = createSignal<Hint>();
   const handleClickHint = (newHint: Hint) => () => {
@@ -79,6 +82,7 @@ export const HintPanel: Component = () => {
     else setHint(newHint);
   };
 
+  if (!todaysVehicle) return;
   return (
     <>
       <div class="pt-2 text-neutral-300 justify-around grid grid-cols-3">
@@ -106,22 +110,17 @@ export const HintPanel: Component = () => {
           <div class="py-2 px-4 rounded border border-neutral-600 h-14 flex items-center justify-center">
             <Switch>
               <Match when={hint() === "Speed"}>
-                {appState.tankOfDay?.default_profile.speed_forward} km/h
+                {todaysVehicle.default_profile.speed_forward} km/h
               </Match>
               <Match when={hint() === "Premium"}>
                 <Switch>
-                  <Match when={appState.tankOfDay?.is_gift}>Reward Tank</Match>
-                  <Match when={appState.tankOfDay?.is_premium}>
-                    Premium Tank
-                  </Match>
-
-                  <Match when={!appState.tankOfDay?.is_premium}>
-                    Tech Tree Tank
-                  </Match>
+                  <Match when={todaysVehicle.is_gift}>Reward Tank</Match>
+                  <Match when={todaysVehicle.is_premium}>Premium Tank</Match>
+                  <Match when={!todaysVehicle.is_premium}>Tech Tree Tank</Match>
                 </Switch>
               </Match>
               <Match when={hint() === "Icon"}>
-                <CanvasImage src={appState.tankOfDay?.images.contour_icon!} />
+                <CanvasImage src={todaysVehicle.images.contour_icon} />
               </Match>
             </Switch>
           </div>
