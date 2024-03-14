@@ -9,7 +9,7 @@ import {
   useContext,
 } from "solid-js";
 import wotdleSessionStateStore from "./wotdleSessionStateStore";
-import { datesAreConsecutive } from "@/utils/dateutils";
+import { CurrentTimeAsEST, datesAreConsecutive } from "@/utils/dateutils";
 
 export type GameData = {
   guessCount: number;
@@ -22,6 +22,7 @@ type WotdlePersistedDataStore = {
   previousGames: GameData[];
   currentStreak: number;
   maxStreak: number;
+  lastGuessEpochMs: number;
 };
 
 type ContextType = [
@@ -41,6 +42,7 @@ export function WotdlePersistedDataStoreProvider(props: {
     previousGames: [],
     currentStreak: 0,
     maxStreak: 0,
+    lastGuessEpochMs: 0,
   });
 
   let [state, setState] = store;
@@ -55,15 +57,15 @@ export function WotdlePersistedDataStoreProvider(props: {
   const guessVehicle = (tank: Vehicle) => {
     const { gameState, setGameState } = wotdleSessionStateStore;
     if (!gameState.hydrated) return;
-
+    setState("lastGuessEpochMs", CurrentTimeAsEST().getTime());
     setState("dailyVehicleGuesses", (prev) => [tank, ...prev]);
     setGameState(
       "tankListNotGuessed",
       gameState.tankListNotGuessed?.filter((v) => v.tank_id !== tank.tank_id)
     );
     if (tank.tank_id !== gameState.todaysVehicle.tank_id) return;
-    setGameState("victory", true);
 
+    setGameState("victory", true);
     let playedYesterday = false;
     if (state.previousGames.length > 0) {
       playedYesterday = datesAreConsecutive(
@@ -84,9 +86,11 @@ export function WotdlePersistedDataStoreProvider(props: {
       if (state.maxStreak === 0) setState("maxStreak", 1);
     }
 
+    const zerodDate = new Date(gameState.dateMsSinceEpoch);
+    zerodDate.setUTCHours(0, 0, 0, 0);
     const todaysGameData: GameData = {
       guessCount: state.dailyVehicleGuesses.length,
-      date: gameState.dateMsSinceEpoch,
+      date: zerodDate.getTime(),
       tankId: gameState.todaysVehicle.tank_id,
     };
     setState("previousGames", (prev) => [...prev, todaysGameData]);

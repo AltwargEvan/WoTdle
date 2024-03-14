@@ -32,27 +32,38 @@ function createWotdleSessionStateStore() {
   });
 
   const hydrate = (data: TodaysWotdleData["data"]) => {
-    if (!data) return;
-    const [persistedData] = usePersistedData();
+    if (!data || gameState.hydrated) return;
+    const [persistedData, setters] = usePersistedData();
     const previousGames = persistedData.previousGames;
-    const dailyVehicleGuesses = persistedData.dailyVehicleGuesses;
-
-    const guessedTankIds = new Set<number>();
-    dailyVehicleGuesses.forEach((tank) => guessedTankIds.add(tank.tank_id));
-    const tankListNotGuessed = data.vehicleList.filter(
-      (tank) => !guessedTankIds.has(tank.tank_id)
-    );
 
     const nowEst = CurrentTimeAsEST();
     const lastPlayedGame = previousGames[previousGames.length - 1];
 
-    const alreadyPlayedToday =
+    let tankListNotGuessed = data.vehicleList;
+    const userWonToday =
       previousGames.length > 0 &&
       datesAreInSameDay(lastPlayedGame.date, nowEst.getTime());
 
+    const userPlayedToday = datesAreInSameDay(
+      persistedData.lastGuessEpochMs,
+      nowEst.getTime()
+    );
+    console.log(persistedData.lastGuessEpochMs, nowEst.getTime());
+
+    if (userWonToday || userPlayedToday) {
+      const dailyVehicleGuesses = persistedData.dailyVehicleGuesses;
+      const guessedTankIds = new Set<number>();
+      dailyVehicleGuesses.forEach((tank) => guessedTankIds.add(tank.tank_id));
+      tankListNotGuessed = data.vehicleList.filter(
+        (tank) => !guessedTankIds.has(tank.tank_id)
+      );
+    } else {
+      setters.setState("dailyVehicleGuesses", []);
+    }
+
     setGameState("todaysVehicle", data.tankOfDay);
     setGameState("dateMsSinceEpoch", CurrentTimeAsEST().getTime());
-    setGameState("victory", alreadyPlayedToday);
+    setGameState("victory", userWonToday);
     setGameState("tankListNotGuessed", tankListNotGuessed);
     setGameState("hydrated", true);
   };
