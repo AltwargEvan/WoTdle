@@ -1,10 +1,11 @@
 import { Component, For, Show, createSignal } from "solid-js";
-import AppStore from "./AppStore";
+import AppStore from "../stores/wotdleSessionStateStore";
 import Fuse, { FuseResult } from "fuse.js";
 import { Vehicle } from "@/types/tankopedia.types";
 
 // load directive. this is required for some reason??
 import clickOutside from "@/utils/clickOutside";
+import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
 clickOutside;
 
 type InputEvent = globalThis.InputEvent & {
@@ -19,13 +20,15 @@ const GuessForm: Component = () => {
     null as FuseResult<Vehicle>[] | null
   );
 
-  const { appState, guessTank } = AppStore;
+  const { gameState } = AppStore;
+  const [_, persistedMutators] = usePersistedData();
+  if (!gameState.hydrated) return;
 
   const handleChangeInput = (e: InputEvent) => {
     e.preventDefault();
     setGuess(e.target.value);
     if (e.target.value.length === 0) return setSearchResults(null);
-    const fuse = new Fuse([...appState.notGuessedTanks.values()], {
+    const fuse = new Fuse([...gameState.tankListNotGuessed.values()], {
       keys: ["short_name", "name", "search_Name", "search_short_name"],
       threshold: 0.1,
       isCaseSensitive: false,
@@ -41,17 +44,13 @@ const GuessForm: Component = () => {
   };
 
   const handleGuessTank = (tank: Vehicle) => {
-    guessTank(tank);
+    persistedMutators.guessVehicle(tank);
     setGuess("");
     setSearchResults(null);
   };
 
   return (
-    <div
-      class="w-full sm:w-96 relative"
-      use:clickOutside={() => setShowSearch(false)}
-      onClick={() => setShowSearch(true)}
-    >
+    <div class="w-full sm:w-96 relative" onClick={() => setShowSearch(true)}>
       <form class="flex pb-1 " onSubmit={handleFormSubmit}>
         <input
           id="tank"

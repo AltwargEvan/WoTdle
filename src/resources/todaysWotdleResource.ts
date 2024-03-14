@@ -4,7 +4,7 @@ import { env } from "@/env/server";
 import { Database } from "@/types/database.types";
 import { Vehicle } from "@/types/tankopedia.types";
 
-const fetchTodaysAppState = async () => {
+const fetchTodaysWotdle = async () => {
   "use server";
   try {
     const supabase = createClient<Database>(
@@ -44,4 +44,6 @@ const fetchTodaysAppState = async () => {
     };
   }
 };
-export const getAppState = cache(fetchTodaysAppState, "tankList");
+
+export type TodaysWotdleData = Awaited<ReturnType<typeof fetchTodaysWotdle>>;
+export const getTodaysWotdle = cache(fetchTodaysWotdle, "todaysWotdle");
