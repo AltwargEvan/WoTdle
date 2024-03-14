@@ -1,5 +1,5 @@
 import { Component, Show, createSignal } from "solid-js";
-import Statistics from "./Statistics";
+import Statistics from "./StatisticsModal";
 
 export const Nav: Component = () => {
   const [showStats, setShowStats] = createSignal(false);
@@ -43,9 +43,7 @@ export const Nav: Component = () => {
           </button>
         </div>
       </div>
-      <Show when={showStats()}>
-        <Statistics hide={() => setShowStats(false)} />
-      </Show>
+      <Statistics hide={() => setShowStats(false)} visible={showStats} />
     </>
   );
 };

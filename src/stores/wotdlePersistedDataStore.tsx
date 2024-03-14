@@ -1,13 +1,7 @@
 import { SetStoreFunction, createStore } from "solid-js/store";
 import { makePersisted } from "@solid-primitives/storage";
 import { Vehicle } from "@/types/tankopedia.types";
-import {
-  JSXElement,
-  Setter,
-  createContext,
-  onMount,
-  useContext,
-} from "solid-js";
+import { JSXElement, createContext, onMount, useContext } from "solid-js";
 import wotdleSessionStateStore from "./wotdleSessionStateStore";
 import { CurrentTimeAsEST, datesAreConsecutive } from "@/utils/dateutils";
 

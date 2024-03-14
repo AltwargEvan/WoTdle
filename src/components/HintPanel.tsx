@@ -30,6 +30,7 @@ const CanvasImage: Component<{ src: string }> = ({ src }) => {
   });
   return <canvas ref={canvas} class="h-9 w-24" />;
 };
+
 const HintButton: Component<HintButtonProps> = (props) => {
   const [data] = usePersistedData();
 

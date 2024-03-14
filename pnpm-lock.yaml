@@ -38,6 +38,9 @@ dependencies:
   solid-js:
     specifier: ^1.8.11
     version: 1.8.11
+  solid-transition-group:
+    specifier: ^0.2.3
+    version: 0.2.3(solid-js@1.8.11)
   tailwind-merge:
     specifier: ^2.2.1
     version: 2.2.1
@@ -1456,6 +1459,15 @@ packages:
     engines: {node: '>=18'}
     dev: false
 
+  /@solid-primitives/refs@1.0.8(solid-js@1.8.11):
+    resolution: {integrity: sha512-+jIsWG8/nYvhaCoG2Vg6CJOLgTmPKFbaCrNQKWfChalgUf9WrVxWw0CdJb3yX15n5lUcQ0jBo6qYtuVVmBLpBw==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/utils': 6.2.3(solid-js@1.8.11)
+      solid-js: 1.8.11
+    dev: false
+
   /@solid-primitives/storage@2.1.4(solid-js@1.8.11):
     resolution: {integrity: sha512-ziGRMSPi2PDnY6L6YPGWYnzmUEPIwO0PaDT9N1WNW9P2tUMMhgqKLXBrYfjytpjwY3UM6kIrbONMRADjyGtzAw==}
     peerDependencies:
@@ -1466,6 +1478,14 @@ packages:
         optional: true
     dependencies:
       '@solid-primitives/utils': 6.2.3(solid-js@1.8.11)
+      solid-js: 1.8.11
+    dev: false
+
+  /@solid-primitives/transition-group@1.0.5(solid-js@1.8.11):
+    resolution: {integrity: sha512-G3FuqvL13kQ55WzWPX2ewiXdZ/1iboiX53195sq7bbkDbXqP6TYKiadwEdsaDogW5rPnPYAym3+xnsNplQJRKQ==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
       solid-js: 1.8.11
     dev: false
 
@@ -4891,6 +4911,17 @@ packages:
       '@babel/generator': 7.23.6
       '@babel/helper-module-imports': 7.22.15
       '@babel/types': 7.23.6
+      solid-js: 1.8.11
+    dev: false
+
+  /solid-transition-group@0.2.3(solid-js@1.8.11):
+    resolution: {integrity: sha512-iB72c9N5Kz9ykRqIXl0lQohOau4t0dhel9kjwFvx81UZJbVwaChMuBuyhiZmK24b8aKEK0w3uFM96ZxzcyZGdg==}
+    engines: {node: '>=18.0.0', pnpm: '>=8.6.0'}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/refs': 1.0.8(solid-js@1.8.11)
+      '@solid-primitives/transition-group': 1.0.5(solid-js@1.8.11)
       solid-js: 1.8.11
     dev: false
 
