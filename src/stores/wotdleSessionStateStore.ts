@@ -48,7 +48,6 @@ function createWotdleSessionStateStore() {
       persistedData.lastGuessEpochMs,
       nowEst.getTime()
     );
-    console.log(persistedData.lastGuessEpochMs, nowEst.getTime());
 
     if (userWonToday || userPlayedToday) {
       const dailyVehicleGuesses = persistedData.dailyVehicleGuesses;

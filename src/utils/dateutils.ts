@@ -23,12 +23,12 @@ export const timeTilNextDay = () => {
 
 type DateCompareFn = (a: number, b: number) => boolean;
 export const datesAreConsecutive: DateCompareFn = (aMs, bMs) => {
-  const a = new Date(aMs);
-  const start = new Date(a.getDate() + 1);
-  start.setUTCHours(0, 0, 0, 1);
-  const end = new Date(a.getDate() + 1);
+  const start = new Date(aMs);
+  start.setDate(start.getDate() + 1);
+  start.setUTCHours(0, 0, 0, 0);
+  const end = new Date(start);
   end.setUTCHours(23, 59, 59, 999);
-  return bMs > start.getTime() && bMs < end.getTime();
+  return bMs >= start.getTime() && bMs <= end.getTime();
 };
 
 export const datesAreInSameDay: DateCompareFn = (aMs, bMs) => {

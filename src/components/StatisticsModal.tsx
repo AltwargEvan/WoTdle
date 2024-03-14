@@ -1,4 +1,5 @@
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
+import { CurrentTimeAsEST, datesAreConsecutive } from "@/utils/dateutils";
 import { clientOnly } from "@solidjs/start";
 import { Accessor, Component, Show } from "solid-js";
 import { Transition } from "solid-transition-group";
@@ -11,10 +12,7 @@ const Statistics: Component<{
 }> = ({ hide, visible }) => {
   const [wotdlePersistedData] = usePersistedData();
 
-  const currentStreak = wotdlePersistedData.currentStreak;
-  const maxStreak = wotdlePersistedData.maxStreak;
-
-  const averageGuesses =
+  const averageGuesses = () =>
     wotdlePersistedData.previousGames.length !== 0
       ? wotdlePersistedData.previousGames.reduce(
           (acc, game) => (acc += game.guessCount),
@@ -22,9 +20,44 @@ const Statistics: Component<{
         ) / wotdlePersistedData.previousGames.length
       : 0;
 
-  const data = wotdlePersistedData.previousGames.map(
-    (game) => [game.date, game.guessCount] as [number, number]
-  );
+  const data = () =>
+    wotdlePersistedData.previousGames.map(
+      (game) => [game.date, game.guessCount] as [number, number]
+    );
+
+  const maxStreak = () => {
+    let max = 1;
+    let current = 1;
+    for (let i = 0; i < wotdlePersistedData.previousGames.length - 1; i++) {
+      if (
+        datesAreConsecutive(
+          wotdlePersistedData.previousGames[i].date,
+          wotdlePersistedData.previousGames[i + 1].date
+        )
+      ) {
+        current++;
+      } else {
+        if (current > max) max = current;
+        current = 1;
+      }
+    }
+    return max;
+  };
+
+  const currentStreak = () => {
+    let streak = 1;
+    let i = wotdlePersistedData.previousGames.length - 1;
+
+    while (
+      i >= 1 &&
+      datesAreConsecutive(
+        wotdlePersistedData.previousGames[i - 1].date,
+        wotdlePersistedData.previousGames[i].date
+      )
+    )
+      streak++;
+    return streak;
+  };
 
   return (
     <Transition
@@ -77,11 +110,11 @@ const Statistics: Component<{
                   <span class="text-3xl">
                     {wotdlePersistedData.previousGames.length}
                   </span>
-                  <span class="text-3xl">{averageGuesses}</span>
-                  <span class="text-3xl">{currentStreak}</span>
-                  <span class="text-3xl">{maxStreak}</span>
+                  <span class="text-3xl">{averageGuesses()}</span>
+                  <span class="text-3xl">{currentStreak()}</span>
+                  <span class="text-3xl">{maxStreak()}</span>
                 </div>
-                <Graph data={data} />
+                <Graph data={data()} />
               </div>
             </div>
           </div>
