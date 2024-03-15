@@ -28,7 +28,7 @@ const CanvasImage: Component<{ src: string }> = ({ src }) => {
       ctx?.drawImage(image, 0, 0, canvas!.width, canvas!.height);
     };
   });
-  return <canvas ref={canvas} class="h-9 w-24" />;
+  return <canvas ref={canvas} class="h-9" />;
 };
 
 const HintButton: Component<HintButtonProps> = (props) => {
@@ -121,6 +121,7 @@ export const HintPanel: Component = () => {
                 </Switch>
               </Match>
               <Match when={hint() === "Icon"}>
+                <img src={todaysVehicle.images.contour_icon} />
                 <CanvasImage src={todaysVehicle.images.contour_icon} />
               </Match>
             </Switch>
