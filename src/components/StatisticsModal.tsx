@@ -1,5 +1,5 @@
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
-import { CurrentTimeAsEST, datesAreConsecutive } from "@/utils/dateutils";
+import { datesAreConsecutive } from "@/utils/dateutils";
 import { clientOnly } from "@solidjs/start";
 import { Accessor, Component, Show } from "solid-js";
 import { Transition } from "solid-transition-group";
@@ -20,10 +20,30 @@ const Statistics: Component<{
         ) / wotdlePersistedData.previousGames.length
       : 0;
 
-  const data = () =>
-    wotdlePersistedData.previousGames.map(
-      (game) => [game.date, game.guessCount] as [number, number]
-    );
+  const data = () => {
+    const data = new Map<number, number>();
+    data.set(0, 0);
+    let maxY = 0;
+    wotdlePersistedData.previousGames.forEach((game) => {
+      const current = data.get(game.guessCount);
+
+      if (current) {
+        data.set(game.guessCount, current + 1);
+        if (current > maxY) maxY = current;
+      } else {
+        data.set(game.guessCount, 1);
+        if (maxY === 0) maxY = 1;
+      }
+    });
+    const series = [] as [number, number][];
+    data.forEach((val, key) => {
+      series.push([key, val]);
+    });
+    series.sort((a, b) => a[0] - b[0]);
+    series.push([series[series.length - 1][0] + 1, 0]);
+    console.log(maxY);
+    return { series, maxY };
+  };
 
   const maxStreak = () => {
     if (wotdlePersistedData.previousGames.length === 0) return 0;
