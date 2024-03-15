@@ -121,7 +121,6 @@ export const HintPanel: Component = () => {
                 </Switch>
               </Match>
               <Match when={hint() === "Icon"}>
-                <img src={todaysVehicle.images.contour_icon} />
                 <CanvasImage src={todaysVehicle.images.contour_icon} />
               </Match>
             </Switch>
