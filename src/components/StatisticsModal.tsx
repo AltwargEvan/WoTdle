@@ -37,11 +37,13 @@ const Statistics: Component<{
         )
       ) {
         current++;
+        if (current > max) max = current;
       } else {
         if (current > max) max = current;
         current = 1;
       }
     }
+
     return max;
   };
 
