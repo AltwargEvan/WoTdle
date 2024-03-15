@@ -43,12 +43,28 @@ const StatGraph: Component<{
         xaxis: {
           title: {
             text: "Number of Games",
+            style: {
+              color: "#d4d4d4",
+            },
+          },
+          labels: {
+            style: {
+              colors: ["#d4d4d4"],
+            },
           },
           stepSize: 1,
         },
         yaxis: {
           title: {
             text: "Number of Guesses",
+            style: {
+              color: "#d4d4d4",
+            },
+          },
+          labels: {
+            style: {
+              colors: ["#d4d4d4"],
+            },
           },
         },
       }}

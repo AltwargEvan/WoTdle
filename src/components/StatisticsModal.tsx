@@ -137,7 +137,9 @@ const Statistics: Component<{
                   <span class="text-3xl">{currentStreak()}</span>
                   <span class="text-3xl">{maxStreak()}</span>
                 </div>
-                <Graph data={data()} />
+                <div class="px-4 md:px-2">
+                  <Graph data={data()} />
+                </div>
               </div>
             </div>
           </div>
