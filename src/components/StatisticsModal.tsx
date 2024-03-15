@@ -57,8 +57,10 @@ const Statistics: Component<{
         wotdlePersistedData.previousGames[i - 1].date,
         wotdlePersistedData.previousGames[i].date
       )
-    )
+    ) {
       streak++;
+      i--;
+    }
     return streak;
   };
 
