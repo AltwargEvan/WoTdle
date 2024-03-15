@@ -47,7 +47,6 @@ const StatGraph: Component<{
           theme: "dark",
         },
         xaxis: {
-          stepSize: 1,
           title: {
             text: "Number of Guesses",
           },
