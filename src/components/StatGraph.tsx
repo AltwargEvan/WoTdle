@@ -1,27 +1,26 @@
 import { SolidApexCharts } from "solid-apexcharts";
 import { Component } from "solid-js";
 
-type timeslice = number;
-type value = number;
-
 const StatGraph: Component<{
-  data: { series: Array<[timeslice, value]>; maxY: number };
+  data: { series: Array<{ x: string; y: number }>; maxY: number };
 }> = ({ data: { series, maxY } }) => {
   return (
     <SolidApexCharts
       type="area"
       options={{
         chart: {
-          type: "area",
-          stacked: false,
+          type: "bar",
           height: 350,
           toolbar: {
             show: false,
           },
-          zoom: {
-            type: "x",
-            enabled: false,
-            autoScaleYaxis: true,
+        },
+        grid: {
+          show: false,
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
           },
         },
         dataLabels: {
@@ -30,32 +29,27 @@ const StatGraph: Component<{
         markers: {
           size: 0,
         },
-
-        fill: {
-          type: "gradient",
-          gradient: {
-            shadeIntensity: 1,
-            inverseColors: false,
-            opacityFrom: 0.5,
-            opacityTo: 0,
-            stops: [0, 90, 100],
-          },
-        },
-        theme: {},
         tooltip: {
           shared: false,
           theme: "dark",
+          x: {
+            formatter(val, _opts) {
+              if (val == 1) return `<div class="font-bold">1 Guess</div>`;
+              else
+                return `<div class="font-bold">${val.toString()} Guesses</div>`;
+            },
+          },
         },
         xaxis: {
           title: {
-            text: "Number of Guesses",
+            text: "Number of Games",
           },
+          stepSize: 1,
         },
         yaxis: {
           title: {
-            text: "Number of Games",
+            text: "Number of Guesses",
           },
-          max: maxY + 1,
         },
       }}
       series={[

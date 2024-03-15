@@ -21,28 +21,24 @@ const Statistics: Component<{
       : 0;
 
   const data = () => {
-    const data = new Map<number, number>();
-    data.set(0, 0);
-    let maxY = 0;
+    const series = [
+      { x: "1", y: 0 },
+      { x: "2", y: 0 },
+      { x: "3", y: 0 },
+      { x: "4", y: 0 },
+      { x: "5", y: 0 },
+      { x: "6", y: 0 },
+      { x: "7", y: 0 },
+      { x: "8", y: 0 },
+      { x: "9", y: 0 },
+      { x: "10+", y: 0 },
+    ] as Array<{ x: string; y: number }>;
     wotdlePersistedData.previousGames.forEach((game) => {
-      const current = data.get(game.guessCount);
+      if (game.guessCount < 10) series[game.guessCount - 1].y++;
+      else series[series.length - 1].y++;
+    });
 
-      if (current) {
-        data.set(game.guessCount, current + 1);
-        if (current > maxY) maxY = current;
-      } else {
-        data.set(game.guessCount, 1);
-        if (maxY === 0) maxY = 1;
-      }
-    });
-    const series = [] as [number, number][];
-    data.forEach((val, key) => {
-      series.push([key, val]);
-    });
-    series.sort((a, b) => a[0] - b[0]);
-    series.push([series[series.length - 1][0] + 1, 0]);
-    console.log(maxY);
-    return { series, maxY };
+    return { series, maxY: 10 };
   };
 
   const maxStreak = () => {
@@ -110,8 +106,8 @@ const Statistics: Component<{
         >
           <div class="bg-neutral-950 fixed inset-0  transition-opacity"></div>
           <div class="fixed inset-0  w-screen overflow-y-auto">
-            <div class="flex min-h-full justify-center text-center items-start pt-[10rem] w-full">
-              <div class="pt-8 p-2 w-full h-full  md:h-auto md:w-[800px]  relative transform overflow-hidden rounded shadow-xl transition-all">
+            <div class="flex min-h-full justify-center text-center items-center  w-full">
+              <div class="w-full h-full  md:h-auto md:w-[800px]  relative transform overflow-hidden rounded shadow-xl transition-all">
                 <button onClick={hide} class="absolute top-2 right-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
