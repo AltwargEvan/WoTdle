@@ -133,7 +133,7 @@ const Statistics: Component<{
                   <span class="text-3xl">
                     {wotdlePersistedData.previousGames.length}
                   </span>
-                  <span class="text-3xl">{averageGuesses()}</span>
+                  <span class="text-3xl">{averageGuesses().toFixed(2)}</span>
                   <span class="text-3xl">{currentStreak()}</span>
                   <span class="text-3xl">{maxStreak()}</span>
                 </div>
