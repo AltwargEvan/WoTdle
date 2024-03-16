@@ -76,12 +76,12 @@ export async function GET(req: Request) {
   // Prevent unauthorized access
   const authHeader = req.headers.get("authorization");
 
-  // if (
-  //   !process.env.CRON_SECRET ||
-  //   authHeader !== `Bearer ${process.env.CRON_SECRET}`
-  // ) {
-  //   return Response.json({ success: false }, { status: 401 });
-  // }
+  if (
+    !process.env.CRON_SECRET ||
+    authHeader !== `Bearer ${process.env.CRON_SECRET}`
+  ) {
+    return Response.json({ success: false }, { status: 401 });
+  }
 
   // fetch data
   const [tankopediaData, tomtatoggData] = await Promise.all([
