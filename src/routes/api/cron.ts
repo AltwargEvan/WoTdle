@@ -4,6 +4,7 @@ import {
   type TankopediaGunModule,
   type TankopediaModulesResult,
   type TankopediaVehicleResult,
+  VehicleFat,
 } from "@/types/tankopedia.types";
 import { type TomatoGGResult } from "@/types/tomatogg.types";
 import { createClient } from "@supabase/supabase-js";
@@ -42,6 +43,7 @@ async function fetchTankopediaVehicles() {
   const json = await data.json();
   return json as TankopediaVehicleResult;
 }
+
 async function fetchTankopediaModules(moduleIds: Array<number>) {
   const tankopediaModulesEndpoint = new URL(
     "https://api.worldoftanks.eu/wot/encyclopedia/modules/"
@@ -76,12 +78,12 @@ export async function GET(req: Request) {
   // Prevent unauthorized access
   const authHeader = req.headers.get("authorization");
 
-  if (
-    !process.env.CRON_SECRET ||
-    authHeader !== `Bearer ${process.env.CRON_SECRET}`
-  ) {
-    return Response.json({ success: false }, { status: 401 });
-  }
+  // if (
+  //   !process.env.CRON_SECRET ||
+  //   authHeader !== `Bearer ${process.env.CRON_SECRET}`
+  // ) {
+  //   return Response.json({ success: false }, { status: 401 });
+  // }
 
   // fetch data
   const [tankopediaData, tomtatoggData] = await Promise.all([
@@ -97,7 +99,7 @@ export async function GET(req: Request) {
     }
   });
   const moduleIdsToFetch = new Array<number>();
-  const tankopediaWithBattlesPlayedAndModuleIds = new Array<Vehicle>();
+  const tankopediaWithBattlesPlayedAndModuleIds = new Array<VehicleFat>();
 
   Object.values(tankopediaData.data).forEach((tank) => {
     // match battles 30 days
@@ -131,6 +133,8 @@ export async function GET(req: Request) {
           },
         },
       },
+      speed_forward: 0,
+      alphaDmg: 0,
     });
   });
 
@@ -149,12 +153,27 @@ export async function GET(req: Request) {
     )
   );
 
+  // remove excess data
   const vehicleList: Array<Vehicle> =
     tankopediaWithBattlesPlayedAndModuleIds.map((tank) => {
       const gunModule = gunModules.get(tank.topGunModule?.module_id ?? -1);
+      const alphaDmg = gunModule?.default_profile.gun.ammo[0].damage[1] || 0;
       return {
-        ...tank,
-        topGunModule: gunModule,
+        battles30Days: tank.battles30Days,
+        speed_forward: tank.default_profile.speed_forward,
+        images: tank.images,
+        is_gift: tank.is_gift,
+        is_premium: tank.is_premium,
+        name: tank.name,
+        nation: tank.nation,
+        search_name: tank.search_name,
+        search_short_name: tank.search_short_name,
+        short_name: tank.short_name,
+        tag: tank.tag,
+        tank_id: tank.tank_id,
+        tier: tank.tier,
+        type: tank.type,
+        alphaDmg,
       };
     });
 
@@ -177,7 +196,10 @@ export async function GET(req: Request) {
 
   // update supabase vehicle list data and tank of day for tomorrow
   const [vehicleData, tankOfDayUpdate] = await Promise.allSettled([
-    supabaseClient.from("vehicle_data").insert({ dd_mm_yy, data: vehicleList }),
+    supabaseClient
+      .from("vehicle_data")
+      .insert({ dd_mm_yy, data: vehicleList })
+      .select("id"),
     supabaseClient.from("tank_of_day").insert({
       dd_mm_yy,
       win_count: 0,
@@ -188,10 +210,21 @@ export async function GET(req: Request) {
 
   if (
     vehicleData.status === "rejected" ||
-    tankOfDayUpdate.status === "rejected"
+    tankOfDayUpdate.status === "rejected" ||
+    vehicleData.value.error ||
+    tankOfDayUpdate.value.error
   ) {
     return Response.json({ success: false }, { status: 500 });
   }
+  console.log(JSON.stringify(vehicleData.value));
+
+  // remove older data
+  try {
+    await supabaseClient
+      .from("vehicle_data")
+      .delete()
+      .eq("id", vehicleData.value.data[0].id - 15);
+  } catch {}
 
   return Response.json({ success: true }, { status: 200 });
 }

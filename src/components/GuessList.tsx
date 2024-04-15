@@ -18,13 +18,10 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
     gameState: { todaysVehicle },
   } = AppStore;
 
-  const tankAlpha = () =>
-    tank.topGunModule?.default_profile.gun.ammo[0].damage[1]!;
+  const tankAlpha = () => tank.alphaDmg;
   const getAlphaDamageColor = () => {
     if (!todaysVehicle) return "bg-zinc-900";
-    const todDmg =
-      todaysVehicle.topGunModule?.default_profile.gun.ammo[0].damage[1] ?? 0;
-
+    const todDmg = todaysVehicle.alphaDmg;
     const diff = Math.abs(todDmg - tankAlpha());
     if (diff === 0) return "bg-correct";
     if (diff <= 50) return "bg-partialCorrect";
