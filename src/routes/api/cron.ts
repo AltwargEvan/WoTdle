@@ -216,7 +216,6 @@ export async function GET(req: Request) {
   ) {
     return Response.json({ success: false }, { status: 500 });
   }
-  console.log(JSON.stringify(vehicleData.value));
 
   // remove older data
   try {
