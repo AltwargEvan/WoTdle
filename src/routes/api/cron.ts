@@ -109,6 +109,13 @@ export async function GET(req: Request) {
     //   return console.log(
     //     `Tank ${tank.name} has no battles within past 30 days. Excluding item from dataset.`
     //   );
+
+    if (tank.name.trim().endsWith("FL")) {
+      return console.log(
+        `Tank ${tank.name} is a frontline tank.  Excluding item from dataset.`
+      );
+    }
+
     // match gun module
     const modules = Object.values(tank.modules_tree);
     const gunModules = modules.filter((module) => module.type === "vehicleGun");
