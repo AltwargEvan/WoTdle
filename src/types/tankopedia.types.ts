@@ -83,7 +83,7 @@ export type Vehicle = {
   tier: number;
   type: string;
   tank_id: number;
-  battles30Days: number;
+  // battles30Days: number;
   search_name: string;
   search_short_name: string;
 };

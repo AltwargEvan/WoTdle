@@ -76,36 +76,37 @@ export async function GET(req: Request) {
   // Prevent unauthorized access
   const authHeader = req.headers.get("authorization");
 
-  if (
-    !process.env.CRON_SECRET ||
-    authHeader !== `Bearer ${process.env.CRON_SECRET}`
-  ) {
-    return Response.json({ success: false }, { status: 401 });
-  }
+  // if (
+  //   !process.env.CRON_SECRET ||
+  //   authHeader !== `Bearer ${process.env.CRON_SECRET}`
+  // ) {
+  //   return Response.json({ success: false }, { status: 401 });
+  // }
 
   // fetch data
-  const [tankopediaData, tomtatoggData] = await Promise.all([
-    fetchTankopediaVehicles(),
-    handleTomatoGGData(),
-  ]);
+  // const [tankopediaData, tomtatoggData] = await Promise.all([
+  //   fetchTankopediaVehicles(),
+  //   handleTomatoGGData(),
+  // ]);
 
   // merge data and get gun calibers not included by original tankopedia request
-  const tomatoggDataMap = new Map<number, number>(); // id => battles past 30 days
-  tomtatoggData.forEach((tank) => {
-    if (tank.tier >= 8) {
-      tomatoggDataMap.set(tank.tank_id, tank.battles);
-    }
-  });
+  // const tomatoggDataMap = new Map<number, number>(); // id => battles past 30 days
+  // tomtatoggData.forEach((tank) => {
+  //   if (tank.tier >= 8) {
+  //     tomatoggDataMap.set(tank.tank_id, tank.battles);
+  //   }
+  // });
+  const tankopediaData = await fetchTankopediaVehicles();
   const moduleIdsToFetch = new Array<number>();
   const tankopediaWithBattlesPlayedAndModuleIds = new Array<Vehicle>();
 
   Object.values(tankopediaData.data).forEach((tank) => {
     // match battles 30 days
-    const battles30Days = tomatoggDataMap.get(tank.tank_id);
-    if (battles30Days === undefined)
-      return console.log(
-        `Tank ${tank.name} has no battles within past 30 days. Excluding item from dataset.`
-      );
+    // const battles30Days = tomatoggDataMap.get(tank.tank_id);
+    // if (battles30Days === undefined)
+    //   return console.log(
+    //     `Tank ${tank.name} has no battles within past 30 days. Excluding item from dataset.`
+    //   );
     // match gun module
     const modules = Object.values(tank.modules_tree);
     const gunModules = modules.filter((module) => module.type === "vehicleGun");
@@ -118,7 +119,7 @@ export async function GET(req: Request) {
     const search_short_name = tank.short_name.replaceAll(/[-\s.]/g, "");
     tankopediaWithBattlesPlayedAndModuleIds.push({
       ...tank,
-      battles30Days,
+      // battles30Days,
       search_name,
       search_short_name,
       topGunModule: {

@@ -11,6 +11,7 @@ const fetchTodaysWotdle = async () => {
       env.SUPABASE_URL,
       env.SUPABASE_SERVICE_ROLE_KEY
     );
+    console.log("fetch today");
     const dd_mm_yy = new Date()
       .toLocaleDateString("en-GB", {
         day: "2-digit",
@@ -19,17 +20,23 @@ const fetchTodaysWotdle = async () => {
         timeZone: "America/New_York",
       })
       .replaceAll("/", "_");
+
     const [vehicleListSupaRes, tankOfDaySupaRes] = await Promise.all([
       supabase.from("vehicle_data").select("*").eq("dd_mm_yy", dd_mm_yy),
       supabase.from("tank_of_day").select("*").eq("dd_mm_yy", dd_mm_yy),
     ]);
+    console.log("fetch complete");
+
     if (vehicleListSupaRes.data === null || tankOfDaySupaRes.data === null)
       throw new Error("Failed to fetch data from SupaBase");
-
+    console.log("data parsed");
+    console.log(vehicleListSupaRes);
     const vehicleList = vehicleListSupaRes.data[0].data as Vehicle[];
+    console.log("vehiclelist");
     const tankOfDay = vehicleList.find(
       (x) => x.tank_id === tankOfDaySupaRes.data[0].tank_id
     );
+    console.log("tankofday");
     if (tankOfDay === undefined)
       throw new Error("Failed to find tank of day in vehicleList");
     return {
