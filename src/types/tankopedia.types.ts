@@ -64,11 +64,9 @@ export type TankopediaModulesResult = TankopediaResult<
 >;
 
 export type Vehicle = {
-  topGunModule: TankopediaGunModule | undefined;
   is_gift: boolean;
   name: string;
   short_name: string;
-  modules_tree: Record<number, TankopediaModule>;
   nation: string;
   is_premium: boolean;
   images: {
@@ -77,13 +75,19 @@ export type Vehicle = {
     big_icon: string;
   };
   tag: string;
-  default_profile: {
-    speed_forward: number;
-  };
+  speed_forward: number;
   tier: number;
   type: string;
   tank_id: number;
   // battles30Days: number;
   search_name: string;
   search_short_name: string;
+  alphaDmg: number;
+};
+
+export type VehicleFat = Vehicle & {
+  default_profile: {
+    speed_forward: number;
+  };
+  topGunModule: TankopediaGunModule | undefined;
 };

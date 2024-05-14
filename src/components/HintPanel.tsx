@@ -111,7 +111,7 @@ export const HintPanel: Component = () => {
           <div class="py-2 px-4 rounded border border-neutral-600 h-14 flex items-center justify-center">
             <Switch>
               <Match when={hint() === "Speed"}>
-                {todaysVehicle.default_profile.speed_forward} km/h
+                {todaysVehicle.speed_forward} km/h
               </Match>
               <Match when={hint() === "Premium"}>
                 <Switch>
