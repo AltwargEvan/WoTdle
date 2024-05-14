@@ -160,7 +160,7 @@ export async function GET(req: Request) {
       const gunModule = gunModules.get(tank.topGunModule?.module_id ?? -1);
       const alphaDmg = gunModule?.default_profile.gun.ammo[0].damage[1] || 0;
       return {
-        battles30Days: tank.battles30Days,
+        // battles30Days: tank.battles30Days,
         speed_forward: tank.default_profile.speed_forward,
         images: tank.images,
         is_gift: tank.is_gift,
