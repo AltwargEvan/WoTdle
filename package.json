@@ -15,6 +15,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@solid-primitives/i18n": "^2.1.1",
     "@solid-primitives/storage": "^2.1.4",
     "@solidjs/router": "^0.10.9",
     "@solidjs/start": "^0.4.10",

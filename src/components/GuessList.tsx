@@ -4,14 +4,7 @@ import { Vehicle } from "@/types/tankopedia.types";
 import { capitalizeFirstLetter, romanize } from "@/utils/stringUtils";
 import { twMerge } from "tailwind-merge";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
-
-const TankLabelMap: Record<string, string> = {
-  lightTank: "Light",
-  heavyTank: "Heavy",
-  mediumTank: "Medium",
-  "AT-SPG": "TD",
-  SPG: "SPG",
-} as const;
+import { RawDictionary, t } from "@/i18n";
 
 const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
   const {
@@ -27,6 +20,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
     if (diff <= 50) return "bg-partialCorrect";
     return "bg-zinc-900";
   };
+
   // const getBattles30DColor = () => {
   //   if (!todaysVehicle) return "bg-zinc-900";
   //   if (todaysVehicle.battles30Days! === tank.battles30Days!)
@@ -84,7 +78,11 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         )}
       >
         <span class="absolute h-full flex justify-center items-end">
-          {TankLabelMap[tank.type]}
+          {t(
+            `guessList.tankType.${
+              tank.type as keyof RawDictionary["guessList"]["tankType"]
+            }`
+          )}
         </span>
         <img src={`${tank.type}.png`} class="h-14" fetchpriority={"high"} />
       </div>
@@ -128,11 +126,24 @@ const GuessList: Component = () => {
     <Show when={data.dailyVehicleGuesses.length > 0}>
       <div class="grid text-center justify-center gap-y-2">
         <div class="grid justify-center grid-cols-5  text-lg text-neutral-200 gap-2">
-          <span class="border-b-2 border-neutral-300">Vehicle</span>
-          <span class="border-b-2 border-neutral-300">Nation</span>
-          <span class="border-b-2 border-neutral-300">Tier</span>
-          <span class="border-b-2 border-neutral-300">Type</span>
-          <span class="border-b-2 border-neutral-300">Alpha Damage</span>
+          <span class="border-b-2 border-neutral-300">
+            {t("guessList.vehicle")}
+          </span>
+          <span class="border-b-2 border-neutral-300">
+            {" "}
+            {t("guessList.nation")}
+          </span>
+          <span class="border-b-2 border-neutral-300">
+            {" "}
+            {t("guessList.tier")}
+          </span>
+          <span class="border-b-2 border-neutral-300">
+            {" "}
+            {t("guessList.type")}
+          </span>
+          <span class="border-b-2 border-neutral-300">
+            {t("guessList.damage")}
+          </span>
           {/* <div class="flex border-b-2 flex-col relative">
             <span class="bg-neutral-800">Battles Played</span>
             <span class="text-sm text-neutral-300 font-thin absolute text-center w-full -top-3.5 h-5 overflow-hidden">

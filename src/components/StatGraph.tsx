@@ -1,3 +1,4 @@
+import { t } from "@/i18n";
 import { SolidApexCharts } from "solid-apexcharts";
 import { Component } from "solid-js";
 
@@ -36,13 +37,15 @@ const StatGraph: Component<{
             formatter(val, _opts) {
               if (val == 1) return `<div class="font-bold">1 Guess</div>`;
               else
-                return `<div class="font-bold">${val.toString()} Guesses</div>`;
+                return `<div class="font-bold">${val.toString()} ${t(
+                  "statistics.guesses"
+                )}</div>`;
             },
           },
         },
         xaxis: {
           title: {
-            text: "Number of Games",
+            text: t("statistics.numGames"),
             style: {
               color: "#d4d4d4",
             },
@@ -56,7 +59,7 @@ const StatGraph: Component<{
         },
         yaxis: {
           title: {
-            text: "Number of Guesses",
+            text: t("statistics.numGuesses"),
             style: {
               color: "#d4d4d4",
             },
@@ -70,7 +73,7 @@ const StatGraph: Component<{
       }}
       series={[
         {
-          name: "Games",
+          name: t("statistics.games"),
           data: series,
         },
       ]}

@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@solid-primitives/i18n':
+    specifier: ^2.1.1
+    version: 2.1.1(solid-js@1.8.11)
   '@solid-primitives/storage':
     specifier: ^2.1.4
     version: 2.1.4(solid-js@1.8.11)
@@ -1457,6 +1460,14 @@ packages:
   /@sindresorhus/merge-streams@1.0.0:
     resolution: {integrity: sha512-rUV5WyJrJLoloD4NDN1V1+LDMDWOa4OTsT4yYJwQNpTU6FWxkxHpL7eu4w+DmiH8x/EAM1otkPE1+LaspIbplw==}
     engines: {node: '>=18'}
+    dev: false
+
+  /@solid-primitives/i18n@2.1.1(solid-js@1.8.11):
+    resolution: {integrity: sha512-1p9B8hveu+gzFRWfXcRtdzzEdr7gw3c8uLXm+2bU33JHgiI8kYJsWvG128sE6vU1ZtYGPrGq980Jd6hxYupyZQ==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      solid-js: 1.8.11
     dev: false
 
   /@solid-primitives/refs@1.0.8(solid-js@1.8.11):

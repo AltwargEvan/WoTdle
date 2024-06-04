@@ -1,3 +1,4 @@
+import { t } from "@/i18n";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
 import { datesAreConsecutive } from "@/utils/dateutils";
 import { clientOnly } from "@solidjs/start";
@@ -124,12 +125,12 @@ const Statistics: Component<{
                     <path d="m6 6 12 12" />
                   </svg>
                 </button>
-                <h2 class="text-2xl pb-4">Statistics</h2>
+                <h2 class="text-2xl pb-4">{t("statistics.title")}</h2>
                 <div class="grid grid-cols-4">
-                  <h4>Games Won</h4>
-                  <h4>Average Guesses</h4>
-                  <h4>Current Streak</h4>
-                  <h4>Max Streak</h4>
+                  <h4>{t("statistics.gamesWon")}</h4>
+                  <h4>{t("statistics.avgGuesses")}</h4>
+                  <h4>{t("statistics.currentStreak")}</h4>
+                  <h4>{t("statistics.maxStreak")}</h4>
                   <span class="text-3xl">
                     {wotdlePersistedData.previousGames.length}
                   </span>

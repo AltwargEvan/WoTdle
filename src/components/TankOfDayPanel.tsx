@@ -2,6 +2,7 @@ import { CurrentTimeAsEST, timeTilNextDay } from "@/utils/dateutils";
 import { Component, createSignal } from "solid-js";
 import { Vehicle } from "@/types/tankopedia.types";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
+import { t } from "@/i18n";
 
 type Props = {
   tank: Vehicle;
@@ -25,14 +26,14 @@ const TankOfDayPanel: Component<Props> = ({ tank }) => {
         class="absolute left-4 flex flex-col h-full items-center justify-center pb-8"
         style={{ "text-shadow": "1px 1px 2px black" }}
       >
-        <span class="sm:text-2xl">Next tank in</span>
+        <span class="sm:text-2xl">{t("victory.nextTank")}</span>
         <span class="sm:text-3xl font-bold">{timeTilNext()}</span>
       </div>
       <div
         class=" sm:h-full absolute items-center justify-center bottom-0 sm:right-4 sm:bottom-auto sm:flex sm:flex-col"
         style={{ "text-shadow": "1px 1px 2px black" }}
       >
-        <span class="sm:text-2xl">Number of tries: </span>
+        <span class="sm:text-2xl">{t("victory.numTries")}</span>
         <span class="sm:text-3xl font-bold text-yellow-500">
           {data.dailyVehicleGuesses.length}
         </span>
@@ -41,7 +42,7 @@ const TankOfDayPanel: Component<Props> = ({ tank }) => {
         class="text-5xl font-bold drop-shadow-2xl tracking-wide"
         style={{ "text-shadow": "1px 1px 2px black" }}
       >
-        Victory!
+        {t("victory.title")}
       </span>
       <div class="flex w-full h-full justify-center">
         <div class="relative">

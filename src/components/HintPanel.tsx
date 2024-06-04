@@ -1,14 +1,8 @@
-import {
-  Component,
-  Match,
-  Show,
-  Switch,
-  createSignal,
-  onMount,
-} from "solid-js";
+import { Component, Match, Show, Switch, createSignal } from "solid-js";
 import { twMerge } from "tailwind-merge";
 import AppStore from "../stores/wotdleSessionStateStore";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
+import { t } from "@/i18n";
 
 type Hint = "Speed" | "Premium" | "Icon" | undefined;
 type HintButtonProps = {
@@ -16,19 +10,6 @@ type HintButtonProps = {
   text: string;
   triesToEnable: number;
   onClick: () => void;
-};
-
-const CanvasImage: Component<{ src: string }> = ({ src }) => {
-  let canvas: HTMLCanvasElement | undefined;
-  onMount(() => {
-    const ctx = canvas?.getContext("2d");
-    const image = new Image();
-    image.src = src;
-    image.onload = () => {
-      ctx?.drawImage(image, 0, 0, canvas!.width, canvas!.height);
-    };
-  });
-  return <canvas ref={canvas} class="h-9" />;
 };
 
 const HintButton: Component<HintButtonProps> = (props) => {
@@ -67,7 +48,9 @@ const HintButton: Component<HintButtonProps> = (props) => {
       <div class="flex flex-col items-center">
         <span>{props.text}</span>
         <Show when={triesRemaining() > 0}>
-          <span class="text-xs text-thin">In {triesRemaining()} tries</span>
+          <span class="text-xs text-thin">
+            {t("hintPanel.triesTilHint", triesRemaining())}
+          </span>
         </Show>
       </div>
     </div>
@@ -111,17 +94,25 @@ export const HintPanel: Component = () => {
           <div class="py-2 px-4 rounded border border-neutral-600 h-14 flex items-center justify-center">
             <Switch>
               <Match when={hint() === "Speed"}>
-                {todaysVehicle.speed_forward} km/h
+                {todaysVehicle.speed_forward} {t("hintPanel.speed")}
               </Match>
               <Match when={hint() === "Premium"}>
                 <Switch>
-                  <Match when={todaysVehicle.is_gift}>Reward Tank</Match>
-                  <Match when={todaysVehicle.is_premium}>Premium Tank</Match>
-                  <Match when={!todaysVehicle.is_premium}>Tech Tree Tank</Match>
+                  <Match when={todaysVehicle.is_gift}>
+                    {t("hintPanel.tankType.reward")}
+                  </Match>
+                  <Match when={todaysVehicle.is_premium}>
+                    {" "}
+                    {t("hintPanel.tankType.premium")}
+                  </Match>
+                  <Match when={!todaysVehicle.is_premium}>
+                    {" "}
+                    {t("hintPanel.tankType.techTree")}
+                  </Match>
                 </Switch>
               </Match>
               <Match when={hint() === "Icon"}>
-                <CanvasImage src={todaysVehicle.images.contour_icon} />
+                <img src={todaysVehicle.images.contour_icon} />
               </Match>
             </Switch>
           </div>
