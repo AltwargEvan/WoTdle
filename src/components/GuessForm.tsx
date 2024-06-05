@@ -57,7 +57,7 @@ const GuessForm: Component = () => {
           id="tank"
           type="text"
           class="flex bg-neutral-900  h-14 w-full border-neutral-600  rounded-l border border-input px-4 py-1  placeholder:text-muted-foreground focus-visible:outline-none text-neutral-200"
-          placeholder="Type vehicle name..."
+          placeholder={m.prompt_placeholder()}
           onInput={handleChangeInput}
           value={guess()}
         />

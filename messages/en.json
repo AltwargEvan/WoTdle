@@ -34,6 +34,7 @@
 
   "prompt_title": "Guess today's World of Tanks vehicle!",
   "prompt_content": "Type any vehicle tier 8 - 10 to begin",
+  "prompt_placeholder": "Type vehicle name...",
 
   "victory": "Victory",
   "victory_nextTank": "Next tank in",

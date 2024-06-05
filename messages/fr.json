@@ -34,6 +34,7 @@
 
   "prompt_title": "Devine le véhicule de World of Tanks du jour!",
   "prompt_content": "Tape n'importe quel véhicule de tier 8 à 10 pour commencer",
+  "prompt_placeholder": "Tape le nom du véhicule...",
 
   "victory": "Victoire",
   "victory_nextTank": "Prochain char dans",
