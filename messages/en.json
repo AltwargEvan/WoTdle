@@ -18,6 +18,10 @@
 
   "hint_tries_remaining": "In {tries} tries",
   "hint_speed": "km/h",
+  "hint_top_speed": "Top Speed Clue",
+  "hint_store_type": "Store Type Clue",
+  "hint_tank_icon": "Tank Icon Clue",
+
   "stats_title": "Statistics",
   "stats_games_won": "Games Won",
   "stats_avg_guesses": "Average Guesses",
