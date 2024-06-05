@@ -94,7 +94,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         <span class="absolute h-full flex justify-center items-end">
           {tankType()}
         </span>
-        <img src={`${tank.type}.png`} class="h-14" fetchpriority={"high"} />
+        <img src={`/${tank.type}.png`} class="h-14" fetchpriority={"high"} />
       </div>
 
       <div
