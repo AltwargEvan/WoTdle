@@ -1,5 +1,5 @@
 import { Suspense } from "solid-js";
-import { FileRoutes } from "@solidjs/start";
+import { FileRoutes } from "@solidjs/start/router";
 import { Router } from "@solidjs/router";
 import Nav from "./components/Nav";
 import "./app.css";
