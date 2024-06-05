@@ -4,46 +4,51 @@ import { Vehicle } from "@/types/tankopedia.types";
 import { capitalizeFirstLetter, romanize } from "@/utils/stringUtils";
 import { twMerge } from "tailwind-merge";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
-
-const TankLabelMap: Record<string, string> = {
-  lightTank: "Light",
-  heavyTank: "Heavy",
-  mediumTank: "Medium",
-  "AT-SPG": "TD",
-  SPG: "SPG",
-} as const;
+import * as m from "@/paraglide/messages.js";
 
 const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
   const {
     gameState: { todaysVehicle },
   } = AppStore;
 
-  const tankAlpha = () =>
-    tank.topGunModule?.default_profile.gun.ammo[0].damage[1]!;
+  const tankAlpha = () => tank.alphaDmg;
   const getAlphaDamageColor = () => {
     if (!todaysVehicle) return "bg-zinc-900";
-    const todDmg =
-      todaysVehicle.topGunModule?.default_profile.gun.ammo[0].damage[1] ?? 0;
-
+    const todDmg = todaysVehicle.alphaDmg;
     const diff = Math.abs(todDmg - tankAlpha());
     if (diff === 0) return "bg-correct";
     if (diff <= 50) return "bg-partialCorrect";
     return "bg-zinc-900";
   };
-  const getBattles30DColor = () => {
-    if (!todaysVehicle) return "bg-zinc-900";
-    if (todaysVehicle.battles30Days! === tank.battles30Days!)
-      return "bg-correct";
-    const percentDiff =
-      (Math.abs(todaysVehicle.battles30Days! - tank.battles30Days!) /
-        ((todaysVehicle.battles30Days! + tank.battles30Days!) / 2)) *
-      100;
-    if (percentDiff <= 25) return "bg-partialCorrect";
-    return "bg-zinc-900";
+
+  const tankType = () => {
+    switch (tank.type) {
+      case "SPG":
+        return m.tank_type_SPG();
+      case "mediumTank":
+        return m.tank_type_medium();
+      case "AT-SPG":
+        return m.tank_type_tank_destroyer();
+      case "lightTank":
+        return m.tank_type_light();
+      case "heavyTank":
+        return m.tank_type_heavy();
+    }
   };
+  // const getBattles30DColor = () => {
+  //   if (!todaysVehicle) return "bg-zinc-900";
+  //   if (todaysVehicle.battles30Days! === tank.battles30Days!)
+  //     return "bg-correct";
+  //   const percentDiff =
+  //     (Math.abs(todaysVehicle.battles30Days! - tank.battles30Days!) /
+  //       ((todaysVehicle.battles30Days! + tank.battles30Days!) / 2)) *
+  //     100;
+  //   if (percentDiff <= 25) return "bg-partialCorrect";
+  //   return "bg-zinc-900";
+  // };
 
   return (
-    <div class="grid justify-center grid-cols-6 gap-2 text-sm sm:text-base ">
+    <div class="grid justify-center grid-cols-5 gap-2 text-sm sm:text-base ">
       <div
         class={twMerge(
           "select-none relative border rounded-sm border-neutral-700 flex justify-center py-1",
@@ -62,7 +67,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         )}
       >
         <img
-          src={`${tank.nation}.svg`}
+          src={`/${tank.nation}.svg`}
           class="h-14 p-2 pb-4"
           fetchpriority={"high"}
         />
@@ -87,7 +92,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         )}
       >
         <span class="absolute h-full flex justify-center items-end">
-          {TankLabelMap[tank.type]}
+          {tankType()}
         </span>
         <img src={`${tank.type}.png`} class="h-14" fetchpriority={"high"} />
       </div>
@@ -102,7 +107,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
           {tankAlpha()}
         </span>
       </div>
-      <div
+      {/* <div
         class={twMerge(
           "select-none relative border rounded-sm border-neutral-700 flex justify-center",
           getBattles30DColor()
@@ -119,7 +124,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
           </Switch>
           {tank.battles30Days}
         </span>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -130,18 +135,30 @@ const GuessList: Component = () => {
   return (
     <Show when={data.dailyVehicleGuesses.length > 0}>
       <div class="grid text-center justify-center gap-y-2">
-        <div class="grid justify-center grid-cols-6  text-lg text-neutral-200 gap-2">
-          <span class="border-b-2 border-neutral-300">Vehicle</span>
-          <span class="border-b-2 border-neutral-300">Nation</span>
-          <span class="border-b-2 border-neutral-300">Tier</span>
-          <span class="border-b-2 border-neutral-300">Type</span>
-          <span class="border-b-2 border-neutral-300">Alpha Damage</span>
-          <div class="flex border-b-2 flex-col relative">
+        <div class="grid justify-center grid-cols-5  text-lg text-neutral-200 gap-2">
+          <span class="border-b-2 border-neutral-300">
+            {m.guess_list_vehicle()}
+          </span>
+          <span class="border-b-2 border-neutral-300">
+            {" "}
+            {m.guess_list_nation()}
+          </span>
+          <span class="border-b-2 border-neutral-300">
+            {" "}
+            {m.guess_list_tier()}
+          </span>
+          <span class="border-b-2 border-neutral-300">
+            {m.guess_list_type()}
+          </span>
+          <span class="border-b-2 border-neutral-300">
+            {m.guess_list_damage()}
+          </span>
+          {/* <div class="flex border-b-2 flex-col relative">
             <span class="bg-neutral-800">Battles Played</span>
             <span class="text-sm text-neutral-300 font-thin absolute text-center w-full -top-3.5 h-5 overflow-hidden">
               Last 30 Days
             </span>
-          </div>
+          </div> */}
         </div>
         <For each={data.dailyVehicleGuesses}>
           {(tank) => <TankItem tank={tank} />}

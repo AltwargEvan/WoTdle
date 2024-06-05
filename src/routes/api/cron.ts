@@ -4,6 +4,7 @@ import {
   type TankopediaGunModule,
   type TankopediaModulesResult,
   type TankopediaVehicleResult,
+  VehicleFat,
 } from "@/types/tankopedia.types";
 import { type TomatoGGResult } from "@/types/tomatogg.types";
 import { createClient } from "@supabase/supabase-js";
@@ -42,6 +43,7 @@ async function fetchTankopediaVehicles() {
   const json = await data.json();
   return json as TankopediaVehicleResult;
 }
+
 async function fetchTankopediaModules(moduleIds: Array<number>) {
   const tankopediaModulesEndpoint = new URL(
     "https://api.worldoftanks.eu/wot/encyclopedia/modules/"
@@ -72,6 +74,7 @@ async function handleTomatoGGData() {
   return json as TomatoGGResult;
 }
 
+const RUOnlyTanks = ["SU-122V", "K-91 Version II"];
 export async function GET(req: Request) {
   // Prevent unauthorized access
   const authHeader = req.headers.get("authorization");
@@ -84,28 +87,36 @@ export async function GET(req: Request) {
   // }
 
   // fetch data
-  const [tankopediaData, tomtatoggData] = await Promise.all([
-    fetchTankopediaVehicles(),
-    handleTomatoGGData(),
-  ]);
+  // const [tankopediaData, tomtatoggData] = await Promise.all([
+  //   fetchTankopediaVehicles(),
+  //   handleTomatoGGData(),
+  // ]);
 
   // merge data and get gun calibers not included by original tankopedia request
-  const tomatoggDataMap = new Map<number, number>(); // id => battles past 30 days
-  tomtatoggData.forEach((tank) => {
-    if (tank.tier >= 8) {
-      tomatoggDataMap.set(tank.tank_id, tank.battles);
-    }
-  });
+  // const tomatoggDataMap = new Map<number, number>(); // id => battles past 30 days
+  // tomtatoggData.forEach((tank) => {
+  //   if (tank.tier >= 8) {
+  //     tomatoggDataMap.set(tank.tank_id, tank.battles);
+  //   }
+  // });
+  const tankopediaData = await fetchTankopediaVehicles();
   const moduleIdsToFetch = new Array<number>();
-  const tankopediaWithBattlesPlayedAndModuleIds = new Array<Vehicle>();
+  const tankopediaWithBattlesPlayedAndModuleIds = new Array<VehicleFat>();
 
   Object.values(tankopediaData.data).forEach((tank) => {
     // match battles 30 days
-    const battles30Days = tomatoggDataMap.get(tank.tank_id);
-    if (battles30Days === undefined)
+    // const battles30Days = tomatoggDataMap.get(tank.tank_id);
+    // if (battles30Days === undefined)
+    //   return console.log(
+    //     `Tank ${tank.name} has no battles within past 30 days. Excluding item from dataset.`
+    //   );
+
+    if (tank.name.trim().endsWith("FL") || RUOnlyTanks.includes(tank.name)) {
       return console.log(
-        `Tank ${tank.name} has no battles within past 30 days. Excluding item from dataset.`
+        `Tank ${tank.name} is a frontline tank.  Excluding item from dataset.`
       );
+    }
+
     // match gun module
     const modules = Object.values(tank.modules_tree);
     const gunModules = modules.filter((module) => module.type === "vehicleGun");
@@ -118,7 +129,7 @@ export async function GET(req: Request) {
     const search_short_name = tank.short_name.replaceAll(/[-\s.]/g, "");
     tankopediaWithBattlesPlayedAndModuleIds.push({
       ...tank,
-      battles30Days,
+      // battles30Days,
       search_name,
       search_short_name,
       topGunModule: {
@@ -131,6 +142,8 @@ export async function GET(req: Request) {
           },
         },
       },
+      speed_forward: 0,
+      alphaDmg: 0,
     });
   });
 
@@ -149,12 +162,27 @@ export async function GET(req: Request) {
     )
   );
 
+  // remove excess data
   const vehicleList: Array<Vehicle> =
     tankopediaWithBattlesPlayedAndModuleIds.map((tank) => {
       const gunModule = gunModules.get(tank.topGunModule?.module_id ?? -1);
+      const alphaDmg = gunModule?.default_profile.gun.ammo[0].damage[1] || 0;
       return {
-        ...tank,
-        topGunModule: gunModule,
+        // battles30Days: tank.battles30Days,
+        speed_forward: tank.default_profile.speed_forward,
+        images: tank.images,
+        is_gift: tank.is_gift,
+        is_premium: tank.is_premium,
+        name: tank.name,
+        nation: tank.nation,
+        search_name: tank.search_name,
+        search_short_name: tank.search_short_name,
+        short_name: tank.short_name,
+        tag: tank.tag,
+        tank_id: tank.tank_id,
+        tier: tank.tier,
+        type: tank.type,
+        alphaDmg,
       };
     });
 
@@ -177,7 +205,10 @@ export async function GET(req: Request) {
 
   // update supabase vehicle list data and tank of day for tomorrow
   const [vehicleData, tankOfDayUpdate] = await Promise.allSettled([
-    supabaseClient.from("vehicle_data").insert({ dd_mm_yy, data: vehicleList }),
+    supabaseClient
+      .from("vehicle_data")
+      .insert({ dd_mm_yy, data: vehicleList })
+      .select("id"),
     supabaseClient.from("tank_of_day").insert({
       dd_mm_yy,
       win_count: 0,
@@ -188,10 +219,20 @@ export async function GET(req: Request) {
 
   if (
     vehicleData.status === "rejected" ||
-    tankOfDayUpdate.status === "rejected"
+    tankOfDayUpdate.status === "rejected" ||
+    vehicleData.value.error ||
+    tankOfDayUpdate.value.error
   ) {
     return Response.json({ success: false }, { status: 500 });
   }
+
+  // remove older data
+  try {
+    await supabaseClient
+      .from("vehicle_data")
+      .delete()
+      .eq("id", vehicleData.value.data[0].id - 15);
+  } catch {}
 
   return Response.json({ success: true }, { status: 200 });
 }

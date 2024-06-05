@@ -1,14 +1,8 @@
-import {
-  Component,
-  Match,
-  Show,
-  Switch,
-  createSignal,
-  onMount,
-} from "solid-js";
+import { Component, Match, Show, Switch, createSignal } from "solid-js";
 import { twMerge } from "tailwind-merge";
 import AppStore from "../stores/wotdleSessionStateStore";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
+import * as m from "@/paraglide/messages.js";
 
 type Hint = "Speed" | "Premium" | "Icon" | undefined;
 type HintButtonProps = {
@@ -16,19 +10,6 @@ type HintButtonProps = {
   text: string;
   triesToEnable: number;
   onClick: () => void;
-};
-
-const CanvasImage: Component<{ src: string }> = ({ src }) => {
-  let canvas: HTMLCanvasElement | undefined;
-  onMount(() => {
-    const ctx = canvas?.getContext("2d");
-    const image = new Image();
-    image.src = src;
-    image.onload = () => {
-      ctx?.drawImage(image, 0, 0, canvas!.width, canvas!.height);
-    };
-  });
-  return <canvas ref={canvas} class="h-9 w-24" />;
 };
 
 const HintButton: Component<HintButtonProps> = (props) => {
@@ -67,7 +48,9 @@ const HintButton: Component<HintButtonProps> = (props) => {
       <div class="flex flex-col items-center">
         <span>{props.text}</span>
         <Show when={triesRemaining() > 0}>
-          <span class="text-xs text-thin">In {triesRemaining()} tries</span>
+          <span class="text-xs text-thin">
+            {m.hint_tries_remaining({ tries: triesRemaining() })}
+          </span>
         </Show>
       </div>
     </div>
@@ -88,19 +71,19 @@ export const HintPanel: Component = () => {
     <>
       <div class="pt-2 text-neutral-300 justify-around grid grid-cols-3">
         <HintButton
-          src="engine.png"
+          src="/engine.png"
           text="Top Speed Clue"
           triesToEnable={3}
           onClick={handleClickHint("Speed")}
         />
         <HintButton
-          src="premium.png"
+          src="/premium.png"
           text="Store Type Clue"
           triesToEnable={5}
           onClick={handleClickHint("Premium")}
         />
         <HintButton
-          src="tanksilhouette.png"
+          src="/tanksilhouette.png"
           text="Tank Icon Clue"
           triesToEnable={7}
           onClick={handleClickHint("Icon")}
@@ -111,17 +94,25 @@ export const HintPanel: Component = () => {
           <div class="py-2 px-4 rounded border border-neutral-600 h-14 flex items-center justify-center">
             <Switch>
               <Match when={hint() === "Speed"}>
-                {todaysVehicle.default_profile.speed_forward} km/h
+                {todaysVehicle.speed_forward} {m.hint_speed()}
               </Match>
               <Match when={hint() === "Premium"}>
                 <Switch>
-                  <Match when={todaysVehicle.is_gift}>Reward Tank</Match>
-                  <Match when={todaysVehicle.is_premium}>Premium Tank</Match>
-                  <Match when={!todaysVehicle.is_premium}>Tech Tree Tank</Match>
+                  <Match when={todaysVehicle.is_gift}>
+                    {m.tank_type_reward()}
+                  </Match>
+                  <Match when={todaysVehicle.is_premium}>
+                    {" "}
+                    {m.tank_type_premium()}
+                  </Match>
+                  <Match when={!todaysVehicle.is_premium}>
+                    {" "}
+                    {m.tank_type_techtree()}
+                  </Match>
                 </Switch>
               </Match>
               <Match when={hint() === "Icon"}>
-                <CanvasImage src={todaysVehicle.images.contour_icon} />
+                <img src={todaysVehicle.images.contour_icon} />
               </Match>
             </Switch>
           </div>

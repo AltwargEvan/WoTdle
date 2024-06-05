@@ -1,13 +1,33 @@
 import { Component, Show, createSignal } from "solid-js";
 import Statistics from "./StatisticsModal";
-
+import {
+  AvailableLanguageTag,
+  availableLanguageTags,
+  setLanguageTag,
+  sourceLanguageTag,
+  useLocationLanguageTag,
+} from "@/i18n";
+import clickOutside from "@/utils/clickOutside";
+clickOutside;
 export const Nav: Component = () => {
   const [showStats, setShowStats] = createSignal(false);
 
   return (
     <>
       <div class="sticky z-50 top-0 flex min-h-20 items-center select-none bg-neutral-900 w-full justify-between border-b border-neutral-600">
-        <div class="w-full" />
+        <div class="w-full flex justify-start items-center">
+          <a class="pl-6" href="https://discord.gg/VzDD6VWFup" target="_blank">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 127.14 96.36"
+              height={28}
+              width={28}
+              class="hover:fill-neutral-100 fill-neutral-300"
+            >
+              <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z" />
+            </svg>
+          </a>
+        </div>
         <div class="flex gap-4 justify-center items-center w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +44,8 @@ export const Nav: Component = () => {
             WoTdle
           </h1>
         </div>
-        <div class="w-full flex justify-end items-center">
+        <div class="w-full flex justify-end items-center space-x-3">
+          <LanguageSelector />
           <button class="pr-6" onClick={() => setShowStats(true)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +55,7 @@ export const Nav: Component = () => {
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="hover:stroke-white stroke-neutral-200"
+              class="hover:stroke-white stroke-neutral-300"
             >
               <line x1="18" x2="18" y1="20" y2="10" />
               <line x1="12" x2="12" y1="20" y2="4" />
@@ -48,4 +69,65 @@ export const Nav: Component = () => {
   );
 };
 
+const LanguageSelector = () => {
+  const url_language_tag = useLocationLanguageTag();
+  const language_tag = url_language_tag ?? sourceLanguageTag;
+
+  const [open, setOpen] = createSignal(false);
+
+  const lang = (tag: AvailableLanguageTag) => {
+    switch (tag) {
+      case "en":
+        return "English";
+      case "de":
+        return "Deutsch";
+      case "pl":
+        return "Polski";
+    }
+  };
+
+  const options = availableLanguageTags.filter((t) => t !== language_tag);
+  return (
+    <div class="relative">
+      <button
+        class="py-1 w-24 border rounded border-neutral-700 flex items-center justify-between px-2"
+        onClick={() => setOpen((prev) => !prev)}
+      >
+        <span class="pr-2">{lang(language_tag)}</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="white"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
+          />
+        </svg>
+      </button>
+      <Show when={open()}>
+        <div
+          use:clickOutside={() => {
+            setOpen((prev) => !prev);
+          }}
+          class="grid py-1 px-2 gap-y-2 absolute w-24 border-neutral-700 bg-neutral-900 border my-0.5"
+        >
+          {options.map((tag) => (
+            <button
+              class="grid justify-center grid-cols-5 gap-2 text-sm sm:text-base"
+              onClick={() => {
+                setLanguageTag(tag);
+                setOpen(false);
+              }}
+            >
+              {lang(tag)}
+            </button>
+          ))}
+        </div>
+      </Show>
+    </div>
+  );
+};
 export default Nav;

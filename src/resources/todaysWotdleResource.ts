@@ -19,13 +19,14 @@ const fetchTodaysWotdle = async () => {
         timeZone: "America/New_York",
       })
       .replaceAll("/", "_");
+
     const [vehicleListSupaRes, tankOfDaySupaRes] = await Promise.all([
       supabase.from("vehicle_data").select("*").eq("dd_mm_yy", dd_mm_yy),
       supabase.from("tank_of_day").select("*").eq("dd_mm_yy", dd_mm_yy),
     ]);
+
     if (vehicleListSupaRes.data === null || tankOfDaySupaRes.data === null)
       throw new Error("Failed to fetch data from SupaBase");
-
     const vehicleList = vehicleListSupaRes.data[0].data as Vehicle[];
     const tankOfDay = vehicleList.find(
       (x) => x.tank_id === tankOfDaySupaRes.data[0].tank_id

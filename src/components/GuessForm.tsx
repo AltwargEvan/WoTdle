@@ -2,10 +2,11 @@ import { Component, For, Show, createSignal } from "solid-js";
 import AppStore from "../stores/wotdleSessionStateStore";
 import Fuse, { FuseResult } from "fuse.js";
 import { Vehicle } from "@/types/tankopedia.types";
-
 // load directive. this is required for some reason??
 import clickOutside from "@/utils/clickOutside";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
+import * as m from "@/paraglide/messages.js";
+
 clickOutside;
 
 type InputEvent = globalThis.InputEvent & {
@@ -76,7 +77,7 @@ const GuessForm: Component = () => {
       </form>
       <Show when={showSearch() && searchResults()?.length === 0}>
         <div class="select-none text-center absolute z-50 bg-neutral-900 border border-neutral-600  py-2 px-4 w-full rounded">
-          <span>No Vehicles Found.</span>
+          <span>{m.guess_form_not_found()}</span>
         </div>
       </Show>
       <Show when={showSearch() && searchResults()?.length}>
