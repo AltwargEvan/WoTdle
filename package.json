@@ -4,17 +4,22 @@
   "description": "",
   "scripts": {
     "dev": "vinxi dev",
-    "build": "vinxi build",
+    "build:i18n": "paraglide-js compile --project ./project.inlang",
+    "build:start": "vinxi build",
+    "build": "pnpm run build:i18n && pnpm run build:start",
     "start": "vinxi start",
-    "clean": "find . -name node_modules -type d -prune | xargs rm -rf"
+    "clean": "find . -name node_modules -type d -prune | xargs rm -rf",
+    "postinstall": "paraglide-js compile --project ./project.inlang --outdir ./src\\paraglide"
   },
   "type": "module",
   "devDependencies": {
+    "@inlang/paraglide-js": "1.9.1",
     "eslint-plugin-solid": "0.14.0",
     "tsx": "^4.11.2",
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@inlang/paraglide-solidstart": "^0.0.2",
     "@solid-primitives/i18n": "^2.1.1",
     "@solid-primitives/storage": "^3.5.0",
     "@solidjs/router": "^0.13.5",
