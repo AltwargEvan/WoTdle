@@ -1,6 +1,6 @@
-import { t } from "@/i18n";
 import { SolidApexCharts } from "solid-apexcharts";
 import { Component } from "solid-js";
+import * as m from "@/paraglide/messages.js";
 
 const StatGraph: Component<{
   data: { series: Array<{ x: string; y: number }>; maxY: number };
@@ -37,15 +37,13 @@ const StatGraph: Component<{
             formatter(val, _opts) {
               if (val == 1) return `<div class="font-bold">1 Guess</div>`;
               else
-                return `<div class="font-bold">${val.toString()} ${t(
-                  "statistics.guesses"
-                )}</div>`;
+                return `<div class="font-bold">${val.toString()} ${m.stats_guesses()}</div>`;
             },
           },
         },
         xaxis: {
           title: {
-            text: t("statistics.numGames"),
+            text: m.stats_num_games(),
             style: {
               color: "#d4d4d4",
             },
@@ -59,7 +57,7 @@ const StatGraph: Component<{
         },
         yaxis: {
           title: {
-            text: t("statistics.numGuesses"),
+            text: m.stats_num_guesses(),
             style: {
               color: "#d4d4d4",
             },
@@ -73,7 +71,7 @@ const StatGraph: Component<{
       }}
       series={[
         {
-          name: t("statistics.games"),
+          name: m.stats_games(),
           data: series,
         },
       ]}

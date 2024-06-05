@@ -1,4 +1,4 @@
-import { Component, Show, createSignal } from "solid-js";
+import { Component, createSignal } from "solid-js";
 import Statistics from "./StatisticsModal";
 
 export const Nav: Component = () => {

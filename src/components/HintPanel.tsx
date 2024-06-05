@@ -2,7 +2,7 @@ import { Component, Match, Show, Switch, createSignal } from "solid-js";
 import { twMerge } from "tailwind-merge";
 import AppStore from "../stores/wotdleSessionStateStore";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
-import { t } from "@/i18n";
+import * as m from "@/paraglide/messages.js";
 
 type Hint = "Speed" | "Premium" | "Icon" | undefined;
 type HintButtonProps = {
@@ -49,7 +49,7 @@ const HintButton: Component<HintButtonProps> = (props) => {
         <span>{props.text}</span>
         <Show when={triesRemaining() > 0}>
           <span class="text-xs text-thin">
-            {t("hintPanel.triesTilHint", triesRemaining())}
+            {m.hint_tries_remaining({ tries: triesRemaining() })}
           </span>
         </Show>
       </div>
@@ -94,20 +94,20 @@ export const HintPanel: Component = () => {
           <div class="py-2 px-4 rounded border border-neutral-600 h-14 flex items-center justify-center">
             <Switch>
               <Match when={hint() === "Speed"}>
-                {todaysVehicle.speed_forward} {t("hintPanel.speed")}
+                {todaysVehicle.speed_forward} {m.hint_speed()}
               </Match>
               <Match when={hint() === "Premium"}>
                 <Switch>
                   <Match when={todaysVehicle.is_gift}>
-                    {t("hintPanel.tankType.reward")}
+                    {m.tank_type_reward()}
                   </Match>
                   <Match when={todaysVehicle.is_premium}>
                     {" "}
-                    {t("hintPanel.tankType.premium")}
+                    {m.tank_type_premium()}
                   </Match>
                   <Match when={!todaysVehicle.is_premium}>
                     {" "}
-                    {t("hintPanel.tankType.techTree")}
+                    {m.tank_type_techtree()}
                   </Match>
                 </Switch>
               </Match>

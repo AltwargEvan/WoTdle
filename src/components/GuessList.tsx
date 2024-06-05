@@ -4,7 +4,7 @@ import { Vehicle } from "@/types/tankopedia.types";
 import { capitalizeFirstLetter, romanize } from "@/utils/stringUtils";
 import { twMerge } from "tailwind-merge";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
-import { RawDictionary, t } from "@/i18n";
+import * as m from "@/paraglide/messages.js";
 
 const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
   const {
@@ -21,6 +21,20 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
     return "bg-zinc-900";
   };
 
+  const tankType = () => {
+    switch (tank.type) {
+      case "SPG":
+        return m.tank_type_SPG();
+      case "mediumTank":
+        return m.tank_type_medium();
+      case "AT-SPG":
+        return m.tank_type_tank_destroyer();
+      case "lightTank":
+        return m.tank_type_light();
+      case "heavyTank":
+        return m.tank_type_heavy();
+    }
+  };
   // const getBattles30DColor = () => {
   //   if (!todaysVehicle) return "bg-zinc-900";
   //   if (todaysVehicle.battles30Days! === tank.battles30Days!)
@@ -78,11 +92,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         )}
       >
         <span class="absolute h-full flex justify-center items-end">
-          {t(
-            `guessList.tankType.${
-              tank.type as keyof RawDictionary["guessList"]["tankType"]
-            }`
-          )}
+          {tankType()}
         </span>
         <img src={`${tank.type}.png`} class="h-14" fetchpriority={"high"} />
       </div>
@@ -127,22 +137,21 @@ const GuessList: Component = () => {
       <div class="grid text-center justify-center gap-y-2">
         <div class="grid justify-center grid-cols-5  text-lg text-neutral-200 gap-2">
           <span class="border-b-2 border-neutral-300">
-            {t("guessList.vehicle")}
+            {m.guess_list_vehicle()}
           </span>
           <span class="border-b-2 border-neutral-300">
             {" "}
-            {t("guessList.nation")}
+            {m.guess_list_nation()}
           </span>
           <span class="border-b-2 border-neutral-300">
             {" "}
-            {t("guessList.tier")}
+            {m.guess_list_tier()}
           </span>
           <span class="border-b-2 border-neutral-300">
-            {" "}
-            {t("guessList.type")}
+            {m.guess_list_type()}
           </span>
           <span class="border-b-2 border-neutral-300">
-            {t("guessList.damage")}
+            {m.guess_list_damage()}
           </span>
           {/* <div class="flex border-b-2 flex-col relative">
             <span class="bg-neutral-800">Battles Played</span>
