@@ -8,9 +8,6 @@ dependencies:
   '@inlang/paraglide-solidstart':
     specifier: ^0.0.2
     version: 0.0.2(vinxi@0.3.11)(vite@5.2.12)
-  '@solid-primitives/i18n':
-    specifier: ^2.1.1
-    version: 2.1.1(solid-js@1.8.17)
   '@solid-primitives/storage':
     specifier: ^3.5.0
     version: 3.5.0(solid-js@1.8.17)
@@ -1487,14 +1484,6 @@ packages:
   /@sindresorhus/merge-streams@2.3.0:
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
-    dev: false
-
-  /@solid-primitives/i18n@2.1.1(solid-js@1.8.17):
-    resolution: {integrity: sha512-1p9B8hveu+gzFRWfXcRtdzzEdr7gw3c8uLXm+2bU33JHgiI8kYJsWvG128sE6vU1ZtYGPrGq980Jd6hxYupyZQ==}
-    peerDependencies:
-      solid-js: ^1.6.12
-    dependencies:
-      solid-js: 1.8.17
     dev: false
 
   /@solid-primitives/refs@1.0.8(solid-js@1.8.17):
