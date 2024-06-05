@@ -71,19 +71,19 @@ export const HintPanel: Component = () => {
     <>
       <div class="pt-2 text-neutral-300 justify-around grid grid-cols-3">
         <HintButton
-          src="engine.png"
+          src="/engine.png"
           text="Top Speed Clue"
           triesToEnable={3}
           onClick={handleClickHint("Speed")}
         />
         <HintButton
-          src="premium.png"
+          src="/premium.png"
           text="Store Type Clue"
           triesToEnable={5}
           onClick={handleClickHint("Premium")}
         />
         <HintButton
-          src="tanksilhouette.png"
+          src="/tanksilhouette.png"
           text="Tank Icon Clue"
           triesToEnable={7}
           onClick={handleClickHint("Icon")}

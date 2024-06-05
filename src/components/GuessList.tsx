@@ -67,7 +67,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         )}
       >
         <img
-          src={`${tank.nation}.svg`}
+          src={`/${tank.nation}.svg`}
           class="h-14 p-2 pb-4"
           fetchpriority={"high"}
         />
