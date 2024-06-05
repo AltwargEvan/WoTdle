@@ -93,7 +93,7 @@ const LanguageSelector = () => {
         break;
       case "fr":
         icon = "/france.svg";
-        text = "Française";
+        text = "Français";
         break;
     }
     return { icon, text };
