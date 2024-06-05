@@ -68,7 +68,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
       >
         <img
           src={`/${tank.nation}.svg`}
-          class="h-14 p-2 pb-4"
+          class="h-[4rem] pt-0.5 pb-4"
           fetchpriority={"high"}
         />
         <span class="absolute h-full flex justify-center items-end ">
