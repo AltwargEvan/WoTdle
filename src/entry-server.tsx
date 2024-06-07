@@ -40,9 +40,9 @@ export default createHandler(() => {
             />
             <meta property="og:url" content="https://wotdle.vercel.app" />
             {/* Icons  */}
-            <link rel="icon" href="wot.svg" />
-            <link rel="mask-icon" href="wot.svg" color="#000000" />
-            <link rel="apple-touch-icon" href="wot.svg" />
+            <link rel="icon" href="/wot.svg" />
+            <link rel="mask-icon" href="/wot.svg" color="#000000" />
+            <link rel="apple-touch-icon" href="/wot.svg" />
             {/* Google Font - Roboto */}
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link
