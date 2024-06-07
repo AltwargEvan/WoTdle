@@ -8,7 +8,7 @@ const PromptPanel = () => {
 
   return (
     <div class="w-full sm:w-[450px] px-4 grid items-center bg-neutral-900 rounded border-neutral-600 border p-4 ">
-      <h3 class="text-xl text-center">{m.prompt_title()}</h3>
+      <h3 class="text-xl text-center pb-2">{m.prompt_title()}</h3>
       <Show
         when={data.dailyVehicleGuesses.length > 0}
         fallback={
