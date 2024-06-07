@@ -1,8 +1,16 @@
-import { Component, Match, Show, Switch, createSignal } from "solid-js";
+import {
+  Component,
+  Match,
+  Show,
+  Switch,
+  createMemo,
+  createSignal,
+} from "solid-js";
 import { twMerge } from "tailwind-merge";
 import AppStore from "../stores/wotdleSessionStateStore";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
 import * as m from "@/paraglide/messages.js";
+import { splitInto2Lines } from "@/utils/splitInto2Lines";
 
 type Hint = "Speed" | "Premium" | "Icon" | undefined;
 type HintButtonProps = {
@@ -20,7 +28,7 @@ const HintButton: Component<HintButtonProps> = (props) => {
   const enabled = () => data.dailyVehicleGuesses.length >= props.triesToEnable;
   const containerClass = () =>
     twMerge(
-      "relative flex  items-center flex-col group select-none h-24",
+      "relative flex  items-center flex-col group select-none",
       enabled() ? "hover:cursor-pointer" : ""
     );
   const imageClass = () =>
@@ -38,6 +46,17 @@ const HintButton: Component<HintButtonProps> = (props) => {
     if (enabled()) props.onClick();
   };
 
+  const text = createMemo(() => {
+    const data = splitInto2Lines(props.text, 18);
+    if (data.length === 1) return <span>{data.at(0)}</span>;
+    else
+      return (
+        <>
+          <span class="-my-2 pt-2">{data.at(0)}</span>
+          <span>{data.at(1)}</span>
+        </>
+      );
+  });
   return (
     <div class={containerClass()} onClick={handleClick}>
       <img
@@ -45,8 +64,8 @@ const HintButton: Component<HintButtonProps> = (props) => {
         class={imageClass()}
         style={{ filter: imageFilter() }}
       />
-      <div class="flex flex-col items-center">
-        <span>{props.text}</span>
+      <div class="flex flex-col items-center text-center">
+        {text()}
         <Show when={triesRemaining() > 0}>
           <span class="text-xs text-thin">
             {m.hint_tries_remaining({ tries: triesRemaining() })}
