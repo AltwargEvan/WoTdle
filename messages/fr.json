@@ -1,0 +1,42 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "guess_form_not_found": "Aucun véhicule trouvé.",
+  "guess_list_vehicle": "Véhicle",
+  "guess_list_nation": "Nation",
+  "guess_list_tier": "Tier",
+  "guess_list_type": "Type",
+  "guess_list_damage": "Dégâts",
+
+  "tank_type_light": "Léger",
+  "tank_type_heavy": "Lourd",
+  "tank_type_medium": "Moyen",
+  "tank_type_tank_destroyer": "Ch. de Chars",
+  "tank_type_SPG": "Artillerie",
+  "tank_type_reward": "Véhicule Récompense",
+  "tank_type_premium": "Véhicule Premium",
+  "tank_type_techtree": "Véhicule de l'Arbre Technologique",
+
+  "hint_tries_remaining": "Dans {tries} essais",
+  "hint_speed": "km/h",
+  "hint_top_speed": "Indice Vitesse Max",
+  "hint_store_type": "Indice Type du Magasin",
+  "hint_tank_icon": "Indice Icône du Char",
+
+  "stats_title": "Statistiques",
+  "stats_games_won": "Parties Gagnées",
+  "stats_avg_guesses": "Moyenne des Prédictions",
+  "stats_current_streak": "Série Actuelle",
+  "stats_max_streak": "Meilleure Série",
+  "stats_num_games": "Nombre de Parties",
+  "stats_num_guesses": "Nombre de Prédictions",
+  "stats_games": "Parties",
+  "stats_guesses": "Prédictions",
+
+  "prompt_title": "Devine le véhicule de World of Tanks du jour!",
+  "prompt_content": "Tape n'importe quel véhicule de tier 8 à 10 pour commencer",
+  "prompt_placeholder": "Tape le nom du véhicule...",
+
+  "victory": "Victoire",
+  "victory_nextTank": "Prochain char dans",
+  "victory_num_tries": "Nombre d'essais: "
+}

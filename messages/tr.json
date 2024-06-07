@@ -1,0 +1,42 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "guess_form_not_found": "Araç Bulunamadı.",
+  "guess_list_vehicle": "Araç",
+  "guess_list_nation": "Ülke",
+  "guess_list_tier": "Seviye",
+  "guess_list_type": "Tür",
+  "guess_list_damage": "Alfa Hasarı",
+
+  "tank_type_light": "Hafif",
+  "tank_type_heavy": "Ağır",
+  "tank_type_medium": "Orta",
+  "tank_type_tank_destroyer": "TA",
+  "tank_type_SPG": "KMT",
+  "tank_type_reward": "Ödül Tankı",
+  "tank_type_premium": "Premium Tank",
+  "tank_type_techtree": "Tek. Ağacı Tankı",
+
+  "hint_tries_remaining": "{tries} Deneme sonra",
+  "hint_speed": "km/h",
+  "hint_top_speed": "Azami Hız İpucu",
+  "hint_store_type": "Mağaza Türü İpucu",
+  "hint_tank_icon": "Tank Sembolü İpucu",
+
+  "stats_title": "İstatistikler",
+  "stats_games_won": "Kazanılan oyunlar",
+  "stats_avg_guesses": "Tahmin Ortalaması",
+  "stats_current_streak": "Şuanki Seri",
+  "stats_max_streak": "Maks Seri",
+  "stats_num_games": "Oyun sayısı",
+  "stats_num_guesses": "Tahmin Sayısı",
+  "stats_games": "Oyunlar",
+  "stats_guesses": "Tahminler",
+
+  "prompt_title": "Günün World of Tanks aracını tahmin et!",
+  "prompt_content": "Başlamak için herhangi bir 8-10 seviye tank yaz",
+  "prompt_placeholder": "Araç adı yaz...",
+
+  "victory": "Zafer",
+  "victory_nextTank": "Bir Sonraki Tanka Kalan Süre",
+  "victory_num_tries": "Denemelerin Sayısı:"
+}

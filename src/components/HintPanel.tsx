@@ -3,12 +3,14 @@ import {
   Match,
   Show,
   Switch,
+  createMemo,
   createSignal,
-  onMount,
 } from "solid-js";
 import { twMerge } from "tailwind-merge";
 import AppStore from "../stores/wotdleSessionStateStore";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
+import * as m from "@/paraglide/messages.js";
+import { splitInto2Lines } from "@/utils/splitInto2Lines";
 
 type Hint = "Speed" | "Premium" | "Icon" | undefined;
 type HintButtonProps = {
@@ -16,19 +18,6 @@ type HintButtonProps = {
   text: string;
   triesToEnable: number;
   onClick: () => void;
-};
-
-const CanvasImage: Component<{ src: string }> = ({ src }) => {
-  let canvas: HTMLCanvasElement | undefined;
-  onMount(() => {
-    const ctx = canvas?.getContext("2d");
-    const image = new Image();
-    image.src = src;
-    image.onload = () => {
-      ctx?.drawImage(image, 0, 0, canvas!.width, canvas!.height);
-    };
-  });
-  return <canvas ref={canvas} class="h-9" />;
 };
 
 const HintButton: Component<HintButtonProps> = (props) => {
@@ -39,7 +28,7 @@ const HintButton: Component<HintButtonProps> = (props) => {
   const enabled = () => data.dailyVehicleGuesses.length >= props.triesToEnable;
   const containerClass = () =>
     twMerge(
-      "relative flex  items-center flex-col group select-none h-24",
+      "relative flex  items-center flex-col group select-none",
       enabled() ? "hover:cursor-pointer" : ""
     );
   const imageClass = () =>
@@ -57,6 +46,17 @@ const HintButton: Component<HintButtonProps> = (props) => {
     if (enabled()) props.onClick();
   };
 
+  const text = createMemo(() => {
+    const data = splitInto2Lines(props.text, 18);
+    if (data.length === 1) return <span>{data.at(0)}</span>;
+    else
+      return (
+        <>
+          <span class="-my-2 pt-2">{data.at(0)}</span>
+          <span>{data.at(1)}</span>
+        </>
+      );
+  });
   return (
     <div class={containerClass()} onClick={handleClick}>
       <img
@@ -64,10 +64,12 @@ const HintButton: Component<HintButtonProps> = (props) => {
         class={imageClass()}
         style={{ filter: imageFilter() }}
       />
-      <div class="flex flex-col items-center">
-        <span>{props.text}</span>
+      <div class="flex flex-col items-center text-center">
+        {text()}
         <Show when={triesRemaining() > 0}>
-          <span class="text-xs text-thin">In {triesRemaining()} tries</span>
+          <span class="text-xs text-thin">
+            {m.hint_tries_remaining({ tries: triesRemaining() })}
+          </span>
         </Show>
       </div>
     </div>
@@ -86,22 +88,22 @@ export const HintPanel: Component = () => {
   if (!todaysVehicle) return;
   return (
     <>
-      <div class="pt-2 text-neutral-300 justify-around grid grid-cols-3">
+      <div class="pt-3 text-neutral-300 justify-around grid grid-cols-3">
         <HintButton
-          src="engine.png"
-          text="Top Speed Clue"
+          src="/engine.png"
+          text={m.hint_top_speed()}
           triesToEnable={3}
           onClick={handleClickHint("Speed")}
         />
         <HintButton
-          src="premium.png"
-          text="Store Type Clue"
+          src="/premium.webp"
+          text={m.hint_store_type()}
           triesToEnable={5}
           onClick={handleClickHint("Premium")}
         />
         <HintButton
-          src="tanksilhouette.png"
-          text="Tank Icon Clue"
+          src="/tanksilhouette.png"
+          text={m.hint_tank_icon()}
           triesToEnable={7}
           onClick={handleClickHint("Icon")}
         />
@@ -111,17 +113,25 @@ export const HintPanel: Component = () => {
           <div class="py-2 px-4 rounded border border-neutral-600 h-14 flex items-center justify-center">
             <Switch>
               <Match when={hint() === "Speed"}>
-                {todaysVehicle.speed_forward} km/h
+                {todaysVehicle.speed_forward} {m.hint_speed()}
               </Match>
               <Match when={hint() === "Premium"}>
                 <Switch>
-                  <Match when={todaysVehicle.is_gift}>Reward Tank</Match>
-                  <Match when={todaysVehicle.is_premium}>Premium Tank</Match>
-                  <Match when={!todaysVehicle.is_premium}>Tech Tree Tank</Match>
+                  <Match when={todaysVehicle.is_gift}>
+                    {m.tank_type_reward()}
+                  </Match>
+                  <Match when={todaysVehicle.is_premium}>
+                    {" "}
+                    {m.tank_type_premium()}
+                  </Match>
+                  <Match when={!todaysVehicle.is_premium}>
+                    {" "}
+                    {m.tank_type_techtree()}
+                  </Match>
                 </Switch>
               </Match>
               <Match when={hint() === "Icon"}>
-                <CanvasImage src={todaysVehicle.images.contour_icon} />
+                <img src={todaysVehicle.images.contour_icon} />
               </Match>
             </Switch>
           </div>

@@ -3,6 +3,7 @@ import { datesAreConsecutive } from "@/utils/dateutils";
 import { clientOnly } from "@solidjs/start";
 import { Accessor, Component, Show } from "solid-js";
 import { Transition } from "solid-transition-group";
+import * as m from "@/paraglide/messages.js";
 
 const Graph = clientOnly(() => import("./StatGraph"));
 
@@ -124,12 +125,12 @@ const Statistics: Component<{
                     <path d="m6 6 12 12" />
                   </svg>
                 </button>
-                <h2 class="text-2xl pb-4">Statistics</h2>
+                <h2 class="text-2xl pb-4">{m.stats_title()}</h2>
                 <div class="grid grid-cols-4">
-                  <h4>Games Won</h4>
-                  <h4>Average Guesses</h4>
-                  <h4>Current Streak</h4>
-                  <h4>Max Streak</h4>
+                  <h4>{m.stats_games_won()}</h4>
+                  <h4>{m.stats_avg_guesses()}</h4>
+                  <h4>{m.stats_current_streak()}</h4>
+                  <h4>{m.stats_max_streak()}</h4>
                   <span class="text-3xl">
                     {wotdlePersistedData.previousGames.length}
                   </span>

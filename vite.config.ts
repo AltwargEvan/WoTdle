@@ -2,14 +2,14 @@ import { defineConfig } from "@solidjs/start/config";
 import path from "path";
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+  vite: {
+    resolve: {
+      alias: {
+        "@": path.resolve(import.meta.dirname, "./src"),
+      },
     },
   },
-  start: {
-    server: {
-      preset: "vercel",
-    },
+  server: {
+    preset: "vercel",
   },
 });

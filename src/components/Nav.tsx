@@ -1,5 +1,14 @@
-import { Component, Show, createSignal } from "solid-js";
+import { Component, For, Show, createSignal } from "solid-js";
 import Statistics from "./StatisticsModal";
+import {
+  AvailableLanguageTag,
+  availableLanguageTags,
+  setLanguageTag,
+  sourceLanguageTag,
+  useLocationLanguageTag,
+} from "@/i18n";
+import clickOutside from "@/utils/clickOutside";
+clickOutside;
 
 export const Nav: Component = () => {
   const [showStats, setShowStats] = createSignal(false);
@@ -8,7 +17,7 @@ export const Nav: Component = () => {
     <>
       <div class="sticky z-50 top-0 flex min-h-20 items-center select-none bg-neutral-900 w-full justify-between border-b border-neutral-600">
         <div class="w-full flex justify-start items-center">
-          <a class="pl-6" href="https://discord.gg/VzDD6VWFup" target="_blank">
+          <a class="px-6" href="https://discord.gg/VzDD6VWFup" target="_blank">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 127.14 96.36"
@@ -19,7 +28,9 @@ export const Nav: Component = () => {
               <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z" />
             </svg>
           </a>
+          <LanguageSelector />
         </div>
+
         <div class="flex gap-4 justify-center items-center w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -36,8 +47,8 @@ export const Nav: Component = () => {
             WoTdle
           </h1>
         </div>
-        <div class="w-full flex justify-end items-center">
-          <button class="pr-6" onClick={() => setShowStats(true)}>
+        <div class="w-full flex justify-end items-center space-x-3">
+          <button class="pr-6 sm:pl-6" onClick={() => setShowStats(true)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -60,4 +71,72 @@ export const Nav: Component = () => {
   );
 };
 
+const LanguageSelector = () => {
+  const url_language_tag = useLocationLanguageTag();
+  const language_tag = url_language_tag ?? sourceLanguageTag;
+
+  const [open, setOpen] = createSignal(false);
+
+  const icon = (tag: AvailableLanguageTag) => {
+    switch (tag) {
+      case "en":
+        return "/usa.svg";
+      case "es":
+        return "/spain.svg";
+      case "fr":
+        return "/france.svg";
+      case "tr":
+        return "/turkey.svg";
+      case "de":
+        return "/germany.svg";
+      case "cz":
+        return "/czech.svg";
+      // case "pl":
+      //   icon = "/poland.svg";
+      //   text = "PL";
+      //   break;
+    }
+  };
+
+  const options = () => availableLanguageTags.filter((t) => t !== language_tag);
+
+  return (
+    <div class="relative">
+      <button
+        use:clickOutside={() => {
+          setOpen(false);
+        }}
+        class="justify-center w-12 rounded flex items-center sm:justify-start px-2 pt-0.5 hover:underline"
+        onClick={(e) => {
+          setOpen((prev) => !prev);
+        }}
+      >
+        <img src={icon(language_tag)} class="h-[1.5rem] pr-1.5" />
+        <span class="text-lg font-medium">{language_tag.toUpperCase()}</span>
+      </button>
+      <Show when={open()}>
+        <div class="grid py-1 w-36 grid-cols-2 absolute border-neutral-700 bg-neutral-900 border mt-0.5 rounded -ml-0.5">
+          <For each={options()}>
+            {(tag) => (
+              <button
+                class="flex justify-center items-center hover:underline w-full px-2 py-0.5"
+                onClick={() => {
+                  setLanguageTag(tag);
+                  setOpen(false);
+                }}
+              >
+                <img
+                  src={icon(tag)}
+                  class="h-[1.5rem] pr-2"
+                  fetchpriority="high"
+                />
+                <span class="text-lg font-medium">{tag.toUpperCase()}</span>
+              </button>
+            )}
+          </For>
+        </div>
+      </Show>
+    </div>
+  );
+};
 export default Nav;

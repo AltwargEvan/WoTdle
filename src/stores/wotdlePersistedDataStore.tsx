@@ -3,7 +3,7 @@ import { makePersisted } from "@solid-primitives/storage";
 import { Vehicle } from "@/types/tankopedia.types";
 import { JSXElement, createContext, onMount, useContext } from "solid-js";
 import wotdleSessionStateStore from "./wotdleSessionStateStore";
-import { CurrentTimeAsEST, datesAreConsecutive } from "@/utils/dateutils";
+import { CurrentTimeAsEST } from "@/utils/dateutils";
 
 export type GameData = {
   guessCount: number;

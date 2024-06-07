@@ -69,7 +69,7 @@
   [issues-url]: https://github.com/AltwargEvan/WoTdle/issues
   [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
   [linkedin-url]: https://linkedin.com/in/evanaltwarg/
-  [product-screenshot]: https://github.com/AltwargEvan/WoTdle/blob/main/public/productScreenshot.png?raw=true
+  [product-screenshot]: https://github.com/AltwargEvan/WoTdle/blob/main/public/productScreenshot.webp?raw=true
   [Typescript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
   [Typescript-url]: https://www.typescriptlang.org/
   [Solid.js]: https://img.shields.io/badge/SolidJS-2c4f7c?style=for-the-badge&logo=solid&logoColor=c8c9cb
