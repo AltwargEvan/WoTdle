@@ -89,6 +89,8 @@ const LanguageSelector = () => {
         return "/turkey.svg";
       case "de":
         return "/germany.svg";
+      case "cz":
+        return "/czech.svg";
       // case "pl":
       //   icon = "/poland.svg";
       //   text = "PL";
@@ -123,7 +125,11 @@ const LanguageSelector = () => {
                   setOpen(false);
                 }}
               >
-                <img src={icon(tag)} class="h-[1.5rem] pr-2" />
+                <img
+                  src={icon(tag)}
+                  class="h-[1.5rem] pr-2"
+                  fetchpriority="high"
+                />
                 <span class="text-lg font-medium">{tag.toUpperCase()}</span>
               </button>
             )}
