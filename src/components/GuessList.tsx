@@ -1,4 +1,4 @@
-import { Component, For, Match, Show, Switch, createEffect } from "solid-js";
+import { Component, For, Show } from "solid-js";
 import AppStore from "../stores/wotdleSessionStateStore";
 import { Vehicle } from "@/types/tankopedia.types";
 import { capitalizeFirstLetter, romanize } from "@/utils/stringUtils";

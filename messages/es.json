@@ -1,0 +1,42 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "guess_form_not_found": "No se ha encontrado el carro.",
+  "guess_list_vehicle": "Vehículo",
+  "guess_list_nation": "Nación",
+  "guess_list_tier": "Nivel",
+  "guess_list_type": "Tipo",
+  "guess_list_damage": "Daño Alpha",
+
+  "tank_type_light": "Ligero",
+  "tank_type_heavy": "Pesado",
+  "tank_type_medium": "Medio",
+  "tank_type_tank_destroyer": "Anticarro",
+  "tank_type_SPG": "Artillería",
+  "tank_type_reward": "Carro de recompensa",
+  "tank_type_premium": "Carro premium",
+  "tank_type_techtree": "Carro del árbol tecnológico",
+
+  "hint_tries_remaining": "En {tries} intentos",
+  "hint_speed": "km/h",
+  "hint_top_speed": "Pista sobre la velocidad máxima",
+  "hint_store_type": "Pista sobre el tipo de carro",
+  "hint_tank_icon": "Pista del icono del carro",
+
+  "stats_title": "Estadísticas",
+  "stats_games_won": "Partidas Ganadas",
+  "stats_avg_guesses": "Media de aciertos",
+  "stats_current_streak": "Racha actual",
+  "stats_max_streak": "Racha más larga",
+  "stats_num_games": "Número de partidas",
+  "stats_num_guesses": "Número de aciertos",
+  "stats_games": "Partidas",
+  "stats_guesses": "Aciertos",
+
+  "prompt_title": "¡Acierta cual es el carro protagonista de World of Tanks!",
+  "prompt_content": "Escribe cualquier vehículo entre nivel 8 y 10 para empezar",
+  "prompt_placeholder": "Escribe el nombre del vehículo...",
+
+  "victory": "Victoria",
+  "victory_nextTank": "Siguiente carro en",
+  "victory_num_tries": "Número de intentos:"
+}
