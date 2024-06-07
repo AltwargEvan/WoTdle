@@ -19,7 +19,7 @@
   "hint_tries_remaining": "Dans {tries} essais",
   "hint_speed": "km/h",
   "hint_top_speed": "Indice Vitesse Max",
-  "hint_store_type": "Indice Premium",
+  "hint_store_type": "Indice Type du Magasin",
   "hint_tank_icon": "Indice Icône du Char",
 
   "stats_title": "Statistiques",
