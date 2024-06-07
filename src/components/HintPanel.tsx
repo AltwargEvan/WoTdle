@@ -88,7 +88,7 @@ export const HintPanel: Component = () => {
   if (!todaysVehicle) return;
   return (
     <>
-      <div class="pt-2 text-neutral-300 justify-around grid grid-cols-3">
+      <div class="pt-3 text-neutral-300 justify-around grid grid-cols-3">
         <HintButton
           src="/engine.png"
           text={m.hint_top_speed()}
