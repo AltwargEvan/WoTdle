@@ -16,7 +16,7 @@
   "tank_type_premium": "Premium Tank",
   "tank_type_techtree": "Tek. Ağacı Tankı",
 
-  "hint_tries_remaining": " {tries} Denemede bildin",
+  "hint_tries_remaining": "{tries} Deneme sonra",
   "hint_speed": "km/h",
   "hint_top_speed": "Azami Hız İpucu",
   "hint_store_type": "Mağaza Türü İpucu",
