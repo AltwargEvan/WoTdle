@@ -87,10 +87,8 @@ const LanguageSelector = () => {
         return "/france.svg";
       case "tr":
         return "/turkey.svg";
-      // case "de":
-      //   icon = "/germany.svg";
-      //   text = "DE";
-      //   break;
+      case "de":
+        return "/germany.svg";
       // case "pl":
       //   icon = "/poland.svg";
       //   text = "PL";
