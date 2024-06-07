@@ -51,11 +51,11 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
     <div class="grid justify-center grid-cols-5 gap-2 text-sm sm:text-base ">
       <div
         class={twMerge(
-          "select-none relative border rounded-sm border-neutral-700 flex justify-center py-1",
+          "select-none relative border rounded-sm border-neutral-700 flex justify-center py-1 ",
           todaysVehicle?.tank_id === tank.tank_id ? "bg-correct" : "bg-zinc-900"
         )}
       >
-        <span class="absolute h-full flex justify-center items-center ">
+        <span class="absolute h-full flex justify-center items-center text-outline">
           {tank.name}
         </span>
         <img src={tank.images.big_icon} class="h-14" fetchpriority={"high"} />
@@ -71,7 +71,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
           class="h-[4rem] pt-0.5 pb-4"
           fetchpriority={"high"}
         />
-        <span class="absolute h-full flex justify-center items-end ">
+        <span class="absolute h-full flex justify-center items-end text-outline">
           {capitalizeFirstLetter(tank.nation)}
         </span>
       </div>
@@ -81,7 +81,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
           todaysVehicle?.tier === tank.tier ? "bg-correct" : "bg-zinc-900"
         )}
       >
-        <span class="absolute h-full flex justify-center items-center text-3xl sm:text-4xl">
+        <span class="absolute h-full flex justify-center items-center text-3xl sm:text-4xl text-outline">
           {romanize(tank.tier)}
         </span>
       </div>
@@ -91,7 +91,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
           tank.type === todaysVehicle?.type ? "bg-correct" : "bg-zinc-900"
         )}
       >
-        <span class="absolute h-full flex justify-center items-end">
+        <span class="absolute h-full flex justify-center items-end text-outline">
           {tankType()}
         </span>
         <img src={`/${tank.type}.png`} class="h-14" fetchpriority={"high"} />
@@ -99,11 +99,11 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
 
       <div
         class={twMerge(
-          "select-none relative border rounded-sm border-neutral-700 flex justify-center",
+          "select-none relative border rounded-sm border-neutral-700 flex justify-center ",
           getAlphaDamageColor()
         )}
       >
-        <span class="absolute h-full flex justify-center items-center sm:text-4xl text-xl">
+        <span class="absolute h-full flex justify-center items-center sm:text-4xl text-xl text-outline">
           {tankAlpha()}
         </span>
       </div>
