@@ -1,0 +1,42 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "guess_form_not_found": "Nenhum Veículo Encontrado.",
+  "guess_list_vehicle": "Veículo",
+  "guess_list_nation": "Nação",
+  "guess_list_tier": "Nível",
+  "guess_list_type": "Tipo",
+  "guess_list_damage": "Dano Alfa",
+
+  "tank_type_light": "Leve",
+  "tank_type_heavy": "Pesado",
+  "tank_type_medium": "Médio",
+  "tank_type_tank_destroyer": "Caça Tanques",
+  "tank_type_SPG": "Artilharia",
+  "tank_type_reward": "Tanque de Recompensa",
+  "tank_type_premium": "Tanque Premium",
+  "tank_type_techtree": "Tanque da Árvore Tecnológica",
+
+  "hint_tries_remaining": "Em {tries} tentativas",
+  "hint_speed": "km/h",
+  "hint_top_speed": "Dica: Velocidade Máxima",
+  "hint_store_type": "Dica: Classificação na Loja",
+  "hint_tank_icon": "Dica: Ícone do Tanque",
+
+  "stats_title": "Estatísticas",
+  "stats_games_won": "Jogos Vencidos",
+  "stats_avg_guesses": "Média de Tentativas",
+  "stats_current_streak": "Sequência Atual",
+  "stats_max_streak": "Maior Sequência",
+  "stats_num_games": "Número de Jogos",
+  "stats_num_guesses": "Número de Tentativas",
+  "stats_games": "Jogos",
+  "stats_guesses": "Tentativas",
+
+  "prompt_title": "Adivinhe o veículo do World of Tanks de Hoje!",
+  "prompt_content": "Digite qualquer veículo do nivel 8 - 10 para começar",
+  "prompt_placeholder": "Digite o nome do veículo...",
+
+  "victory": "Vitória",
+  "victory_nextTank": "Próximo tanque em",
+  "victory_num_tries": "Número de tentativas:"
+}
