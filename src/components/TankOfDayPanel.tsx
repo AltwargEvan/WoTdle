@@ -21,7 +21,7 @@ const TankOfDayPanel: Component<Props> = ({ tank }) => {
   }, 1000);
 
   return (
-    <div class="rounded relative flex flex-col items-center  select-none p-4 border border-neutral-700 w-full h-[225px] max-w-[1008px] bg-center-top bg-[url(/victory.png)]">
+    <div class="rounded relative flex flex-col items-center  select-none p-4 border border-neutral-700 w-full h-[225px] max-w-[1008px] bg-center-top bg-[url(/victory.webp)]">
       <div
         class="absolute left-4 flex flex-col h-full items-center justify-center pb-8"
         style={{ "text-shadow": "1px 1px 2px black" }}

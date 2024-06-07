@@ -96,7 +96,7 @@ export const HintPanel: Component = () => {
           onClick={handleClickHint("Speed")}
         />
         <HintButton
-          src="/premium.png"
+          src="/premium.webp"
           text={m.hint_store_type()}
           triesToEnable={5}
           onClick={handleClickHint("Premium")}

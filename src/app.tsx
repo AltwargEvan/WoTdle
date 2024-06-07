@@ -23,7 +23,7 @@ const App = () => {
             <main
               class="font-roboto h-screen w-screen bg-neutral-800 overflow-y-auto flex items-center  overflow-x-hidden flex-col text-white"
               style={{
-                background: `url(/background.jpg)`,
+                background: `url(/background.webp)`,
                 "background-position": "center",
                 "background-repeat": "repeat-y",
                 "background-size": "cover",
