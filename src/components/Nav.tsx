@@ -91,10 +91,8 @@ const LanguageSelector = () => {
         return "/germany.svg";
       case "cz":
         return "/czech.svg";
-      // case "pl":
-      //   icon = "/poland.svg";
-      //   text = "PL";
-      //   break;
+      case "pt":
+        return "/brazil.svg";
     }
   };
 
