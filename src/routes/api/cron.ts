@@ -8,6 +8,7 @@ import {
 } from "@/types/tankopedia.types";
 import { type TomatoGGResult } from "@/types/tomatogg.types";
 import { createClient } from "@supabase/supabase-js";
+import type { APIEvent } from "@solidjs/start/server";
 
 async function fetchTankopediaVehicles() {
   const TankopediaVehicles = new URL(
@@ -75,42 +76,22 @@ async function handleTomatoGGData() {
 }
 
 const RUOnlyTanks = ["SU-122V", "K-91 Version II"];
-export async function GET(req: Request) {
+export async function GET({ request }: APIEvent) {
   // Prevent unauthorized access
-  const authHeader = req.headers.get("authorization");
+  const authHeader = request.headers.get("authorization");
 
   if (
     !process.env.CRON_SECRET ||
-     authHeader !== `Bearer ${process.env.CRON_SECRET}`
-   ) {
-     return Response.json({ success: false }, { status: 401 });
-   }
+    authHeader !== `Bearer ${process.env.CRON_SECRET}`
+  ) {
+    return Response.json({ success: false }, { status: 401 });
+  }
 
-  // fetch data
-  // const [tankopediaData, tomtatoggData] = await Promise.all([
-  //   fetchTankopediaVehicles(),
-  //   handleTomatoGGData(),
-  // ]);
-
-  // merge data and get gun calibers not included by original tankopedia request
-  // const tomatoggDataMap = new Map<number, number>(); // id => battles past 30 days
-  // tomtatoggData.forEach((tank) => {
-  //   if (tank.tier >= 8) {
-  //     tomatoggDataMap.set(tank.tank_id, tank.battles);
-  //   }
-  // });
   const tankopediaData = await fetchTankopediaVehicles();
   const moduleIdsToFetch = new Array<number>();
   const tankopediaWithBattlesPlayedAndModuleIds = new Array<VehicleFat>();
 
   Object.values(tankopediaData.data).forEach((tank) => {
-    // match battles 30 days
-    // const battles30Days = tomatoggDataMap.get(tank.tank_id);
-    // if (battles30Days === undefined)
-    //   return console.log(
-    //     `Tank ${tank.name} has no battles within past 30 days. Excluding item from dataset.`
-    //   );
-
     if (tank.name.trim().endsWith("FL") || RUOnlyTanks.includes(tank.name)) {
       return console.log(
         `Tank ${tank.name} is a frontline tank.  Excluding item from dataset.`
