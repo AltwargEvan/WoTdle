@@ -2,7 +2,7 @@ import { cache } from "@solidjs/router";
 import { createClient } from "@supabase/supabase-js";
 import { env } from "@/env/server";
 import { Database } from "@/types/database.types";
-import { Vehicle } from "@/types/tankopedia.types";
+import { Vehicle } from "@/types/api.types";
 
 const fetchTodaysWotdle = async () => {
   "use server";
@@ -21,16 +21,21 @@ const fetchTodaysWotdle = async () => {
       .replaceAll("/", "_");
 
     const [vehicleListSupaRes, tankOfDaySupaRes] = await Promise.all([
-      supabase.from("vehicle_data").select("*").eq("dd_mm_yy", dd_mm_yy),
-      supabase.from("tank_of_day").select("*").eq("dd_mm_yy", dd_mm_yy),
+      supabase.from("vehicle_data_v2").select("*").gte("tier", 8),
+      supabase.from("daily_data").select("*").eq("dd_mm_yy", dd_mm_yy),
     ]);
 
     if (vehicleListSupaRes.data === null || tankOfDaySupaRes.data === null)
       throw new Error("Failed to fetch data from SupaBase");
-    const vehicleList = vehicleListSupaRes.data[0].data as Vehicle[];
+
+    const vehicleList = vehicleListSupaRes.data
+      .map((data) => data.data)
+      .flat(1) as Vehicle[];
+
     const tankOfDay = vehicleList.find(
-      (x) => x.tank_id === tankOfDaySupaRes.data[0].tank_id
+      (x) => x.tank_id === (tankOfDaySupaRes.data[0].normal as Vehicle).tank_id
     );
+
     if (tankOfDay === undefined)
       throw new Error("Failed to find tank of day in vehicleList");
     return {
@@ -39,6 +44,7 @@ const fetchTodaysWotdle = async () => {
     };
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
+    console.log(errorMessage);
     return {
       data: undefined,
       error: errorMessage,
