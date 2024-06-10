@@ -37,11 +37,8 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         return m.tank_type_heavy();
     }
   };
+  const lang = i18nApiMap[languageTag()];
 
-  const tankName = () => {
-    const lang = i18nApiMap[languageTag()];
-    return tank.i18n[lang].name;
-  };
   // const getBattles30DColor = () => {
   //   if (!todaysVehicle) return "bg-zinc-900";
   //   if (todaysVehicle.battles30Days! === tank.battles30Days!)
@@ -63,7 +60,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         )}
       >
         <span class="absolute h-full flex justify-center items-center text-outline">
-          {tankName()}
+          {tank.i18n[lang].name}
         </span>
         <img src={tank.images.big_icon} class="h-14" fetchpriority={"high"} />
       </div>
@@ -79,7 +76,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
           fetchpriority={"high"}
         />
         <span class="absolute h-full flex justify-center items-end text-outline">
-          {capitalizeFirstLetter(tank.nation)}
+          {capitalizeFirstLetter(tank.i18n[lang].nation)}
         </span>
       </div>
       <div
