@@ -1,8 +1,8 @@
 import { CurrentTimeAsEST, timeTilNextDay } from "@/utils/dateutils";
 import { Component, createSignal } from "solid-js";
-import { Vehicle } from "@/types/tankopedia.types";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
 import * as m from "@/paraglide/messages.js";
+import { Vehicle } from "@/types/api.types";
 
 type Props = {
   tank: Vehicle;

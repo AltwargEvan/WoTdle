@@ -1,10 +1,12 @@
 import { Component, For, Show } from "solid-js";
 import AppStore from "../stores/wotdleSessionStateStore";
-import { Vehicle } from "@/types/tankopedia.types";
 import { capitalizeFirstLetter, romanize } from "@/utils/stringUtils";
 import { twMerge } from "tailwind-merge";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
 import * as m from "@/paraglide/messages.js";
+import { languageTag } from "@/i18n";
+import { i18nApiMap } from "@/utils/WargamingApi";
+import { Vehicle } from "@/types/api.types";
 
 const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
   const {
@@ -35,6 +37,11 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         return m.tank_type_heavy();
     }
   };
+
+  const tankName = () => {
+    const lang = i18nApiMap[languageTag()];
+    return tank.i18n[lang].name;
+  };
   // const getBattles30DColor = () => {
   //   if (!todaysVehicle) return "bg-zinc-900";
   //   if (todaysVehicle.battles30Days! === tank.battles30Days!)
@@ -56,7 +63,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         )}
       >
         <span class="absolute h-full flex justify-center items-center text-outline">
-          {tank.name}
+          {tankName()}
         </span>
         <img src={tank.images.big_icon} class="h-14" fetchpriority={"high"} />
       </div>

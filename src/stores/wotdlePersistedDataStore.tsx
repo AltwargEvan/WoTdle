@@ -1,9 +1,9 @@
 import { SetStoreFunction, createStore } from "solid-js/store";
 import { makePersisted } from "@solid-primitives/storage";
-import { Vehicle } from "@/types/tankopedia.types";
 import { JSXElement, createContext, onMount, useContext } from "solid-js";
 import wotdleSessionStateStore from "./wotdleSessionStateStore";
 import { CurrentTimeAsEST } from "@/utils/dateutils";
+import { Vehicle } from "@/types/api.types";
 
 export type GameData = {
   guessCount: number;

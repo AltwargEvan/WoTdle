@@ -1,11 +1,11 @@
 import { Component, For, Show, createSignal } from "solid-js";
 import AppStore from "../stores/wotdleSessionStateStore";
 import Fuse, { FuseResult } from "fuse.js";
-import { Vehicle } from "@/types/tankopedia.types";
 // load directive. this is required for some reason??
 import clickOutside from "@/utils/clickOutside";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
 import * as m from "@/paraglide/messages.js";
+import { Vehicle } from "@/types/api.types";
 
 clickOutside;
 

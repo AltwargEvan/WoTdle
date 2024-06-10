@@ -1,10 +1,9 @@
-import { Vehicle } from "@/types/tankopedia.types";
-
 import { createRoot } from "solid-js";
 import { createStore } from "solid-js/store";
 import { TodaysWotdleData } from "@/resources/todaysWotdleResource";
 import { CurrentTimeAsEST, datesAreInSameDay } from "@/utils/dateutils";
 import { usePersistedData } from "./wotdlePersistedDataStore";
+import { Vehicle } from "@/types/api.types";
 
 type GameStateStore =
   | {
