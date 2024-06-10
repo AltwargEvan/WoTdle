@@ -3,7 +3,8 @@ import { Vehicle } from "@/types/api.types";
 import { createClient } from "@supabase/supabase-js";
 import type { APIEvent } from "@solidjs/start/server";
 import { EncyclopediaVehicle, WargamingApi } from "@/utils/WargamingApi";
-import { Client, DMChannel, Events, GatewayIntentBits, User } from "discord.js";
+import { Client, GatewayIntentBits } from "discord.js";
+import { Database } from "@/types/database.types";
 
 const RUOnlyTanks = ["SU-122V", "K-91 Version II"];
 
@@ -114,36 +115,39 @@ export async function GET({ request }: APIEvent) {
     const index = randomIntFromInterval(0, processedVehicles[tier].length - 1);
     const tankOfDay = processedVehicles[tier][index];
 
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-
-    const supabaseClient = createClient(
+    const supabaseClient = createClient<Database>(
       env.SUPABASE_URL,
       env.SUPABASE_SERVICE_ROLE_KEY
     );
 
-    const updateVehicleData = supabaseClient.from("vehicle_data_v2").upsert(
-      processedVehicles.map((data, tier) => ({
-        data,
-        tier,
-      }))
+    const updateVehicleData = processedVehicles.map((data, tier) =>
+      supabaseClient.from("vehicle_data_v2").upsert({ data, tier })
     );
+
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const dd_mm_yy = dateString(tomorrow);
 
     const updateDaily = supabaseClient
       .from("daily_data")
-      .insert({ date: tomorrow, normal: tankOfDay });
+      .insert({ date: tomorrow.toJSON(), normal: tankOfDay, dd_mm_yy });
 
-    const [updateVehicleDataRes, updateDailyRes] = await Promise.all([
-      updateVehicleData,
+    const [updateDailyRes, ...updateVehicleDataRes] = await Promise.all([
       updateDaily,
+      ...updateVehicleData,
     ]);
 
-    if (updateVehicleDataRes.error) {
-      throw updateVehicleDataRes.error;
-    }
     if (updateDailyRes.error) {
-      throw updateDailyRes.error;
+      throw ["Failed to update daily data", updateDailyRes.error];
     }
+
+    const updateVehicleDataError = updateVehicleDataRes.find(
+      (res) => res.error !== null
+    );
+    if (updateVehicleDataError) {
+      throw ["Failed to update vehicle data", updateVehicleDataError];
+    }
+
     return Response.json({ success: true }, { status: 200 });
   } catch (error) {
     try {
