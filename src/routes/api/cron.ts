@@ -57,7 +57,7 @@ function randomIntFromInterval(min: number, max: number) {
 }
 
 function dateString(date: Date) {
-  date.setDate(date.getDate() + 1);
+  date.setDate(date.getDate());
   return date
     .toLocaleDateString("en-GB", {
       day: "2-digit",
