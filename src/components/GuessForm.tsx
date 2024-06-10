@@ -1,4 +1,4 @@
-import { Component, For, Show, createSignal } from "solid-js";
+import { Component, For, Show, createMemo, createSignal } from "solid-js";
 import AppStore from "../stores/wotdleSessionStateStore";
 import Fuse, { FuseResult } from "fuse.js";
 // load directive. this is required for some reason??
@@ -6,6 +6,8 @@ import clickOutside from "@/utils/clickOutside";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
 import * as m from "@/paraglide/messages.js";
 import { Vehicle } from "@/types/api.types";
+import { i18nApiMap } from "@/utils/WargamingApi";
+import { languageTag } from "@/i18n";
 
 clickOutside;
 
@@ -20,34 +22,49 @@ const GuessForm: Component = () => {
   const [searchResults, setSearchResults] = createSignal(
     null as FuseResult<Vehicle>[] | null
   );
+  const lang = i18nApiMap[languageTag()];
 
   const { gameState } = AppStore;
   const [_, persistedMutators] = usePersistedData();
+  const fuse = createMemo(() => {
+    if (!gameState.hydrated) return;
+    const fuse = new Fuse([...gameState.tankListNotGuessed.values()], {
+      keys: [
+        "short_name",
+        "name",
+        "search_name",
+        "search_short_name",
+        `i18n.${lang}.name`,
+      ],
+      threshold: 0.15,
+      isCaseSensitive: false,
+    });
+    return fuse;
+  });
   if (!gameState.hydrated) return;
 
   const handleChangeInput = (e: InputEvent) => {
     e.preventDefault();
     setGuess(e.target.value);
     if (e.target.value.length === 0) return setSearchResults(null);
-    const fuse = new Fuse([...gameState.tankListNotGuessed.values()], {
-      keys: ["short_name", "name", "search_Name", "search_short_name"],
-      threshold: 0.1,
-      isCaseSensitive: false,
-    });
-    const result = fuse.search(e.target.value);
+
+    const result = fuse()!.search(e.target.value);
     setSearchResults(result);
   };
 
   const handleFormSubmit = (e: Event) => {
     e.preventDefault();
     const tank = searchResults()?.at(0)?.item;
-    if (tank !== undefined) handleGuessTank(tank);
+    if (tank !== undefined) {
+      handleGuessTank(tank);
+    }
   };
 
   const handleGuessTank = (tank: Vehicle) => {
     persistedMutators.guessVehicle(tank);
     setGuess("");
     setSearchResults(null);
+    fuse()?.remove((x) => x.tank_id === tank.tank_id);
   };
 
   return (
@@ -93,7 +110,7 @@ const GuessForm: Component = () => {
                   class="h-20 pl-2 py-2"
                   fetchpriority={"high"}
                 />
-                <span> {tank.name}</span>
+                <span> {tank.i18n[lang].name}</span>
               </div>
             )}
           </For>
