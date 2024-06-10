@@ -27,6 +27,7 @@
     "@t3-oss/env-core": "^0.10.1",
     "apexcharts": "^3.49.1",
     "autoprefixer": "^10.4.19",
+    "discord.js": "^14.15.3",
     "fuse.js": "^7.0.0",
     "postcss": "^8.4.38",
     "solid-apexcharts": "^0.3.4",
