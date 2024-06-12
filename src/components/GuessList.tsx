@@ -8,6 +8,7 @@ import { languageTag } from "@/i18n";
 import { i18nApiMap } from "@/utils/WargamingApi";
 import { Vehicle } from "@/types/api.types";
 import { splitInto2Lines } from "@/utils/splitInto2Lines";
+import { translateNation } from "@/utils/i18nNation";
 
 const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
   const {
@@ -77,7 +78,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
           fetchpriority={"high"}
         />
         <span class="absolute h-full flex justify-center items-end text-outline">
-          {capitalizeFirstLetter(tank.i18n[lang].nation)}
+          {translateNation(tank.nation)}
         </span>
       </div>
       <div

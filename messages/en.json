@@ -38,5 +38,16 @@
 
   "victory": "Victory",
   "victory_nextTank": "Next tank in",
-  "victory_num_tries": "Number of tries:"
+  "victory_num_tries": "Number of tries:",
+
+  "nation_uk": "UK",
+  "nation_sweden": "Sweden",
+  "nation_poland": "Poland",
+  "nation_italy": "Italy",
+  "nation_france": "France",
+  "nation_czech": "Czech",
+  "nation_china": "China",
+  "nation_usa": "USA",
+  "nation_ussr": "USSR",
+  "nation_germany": "Germany"
 }
