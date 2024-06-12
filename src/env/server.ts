@@ -3,11 +3,15 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
+    NODE_ENV: z.string().optional(),
     CRON_SECRET: z.string().optional(),
     WOT_APPLICATION_ID: z.string(),
-    TOMATO_GG_HIDDEN_ENDPOINT: z.string(),
+    //supabase
     SUPABASE_URL: z.string(),
     SUPABASE_SERVICE_ROLE_KEY: z.string(),
+    //discord
+    DISCORD_BOT_TOKEN: z.string(),
+    DISCORD_USER_ID: z.string(),
   },
   runtimeEnv: process.env,
 });

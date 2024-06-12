@@ -1,10 +1,13 @@
 import { Component, For, Show } from "solid-js";
 import AppStore from "../stores/wotdleSessionStateStore";
-import { Vehicle } from "@/types/tankopedia.types";
 import { capitalizeFirstLetter, romanize } from "@/utils/stringUtils";
 import { twMerge } from "tailwind-merge";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
 import * as m from "@/paraglide/messages.js";
+import { languageTag } from "@/i18n";
+import { i18nApiMap } from "@/utils/WargamingApi";
+import { Vehicle } from "@/types/api.types";
+import { splitInto2Lines } from "@/utils/splitInto2Lines";
 
 const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
   const {
@@ -35,6 +38,8 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         return m.tank_type_heavy();
     }
   };
+  const lang = i18nApiMap[languageTag()];
+
   // const getBattles30DColor = () => {
   //   if (!todaysVehicle) return "bg-zinc-900";
   //   if (todaysVehicle.battles30Days! === tank.battles30Days!)
@@ -56,7 +61,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         )}
       >
         <span class="absolute h-full flex justify-center items-center text-outline">
-          {tank.name}
+          {tank.i18n[lang].name}
         </span>
         <img src={tank.images.big_icon} class="h-14" fetchpriority={"high"} />
       </div>
@@ -72,7 +77,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
           fetchpriority={"high"}
         />
         <span class="absolute h-full flex justify-center items-end text-outline">
-          {capitalizeFirstLetter(tank.nation)}
+          {capitalizeFirstLetter(tank.i18n[lang].nation)}
         </span>
       </div>
       <div
@@ -132,10 +137,14 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
 const GuessList: Component = () => {
   const [data] = usePersistedData();
 
+  const alphaDmgClass = twMerge(
+    "border-b-2 border-neutral-300",
+    languageTag() === "pl" ? "text-sm pt-1.5" : "text-lg"
+  );
   return (
     <Show when={data.dailyVehicleGuesses.length > 0}>
       <div class="grid text-center justify-center gap-y-2">
-        <div class="grid justify-center grid-cols-5  text-lg text-neutral-200 gap-2">
+        <div class="grid justify-center grid-cols-5  text-lg text-neutral-200 gap-2 md:w-[600px]">
           <span class="border-b-2 border-neutral-300">
             {m.guess_list_vehicle()}
           </span>
@@ -150,9 +159,7 @@ const GuessList: Component = () => {
           <span class="border-b-2 border-neutral-300">
             {m.guess_list_type()}
           </span>
-          <span class="border-b-2 border-neutral-300">
-            {m.guess_list_damage()}
-          </span>
+          <span class={alphaDmgClass}>{m.guess_list_damage()}</span>
           {/* <div class="flex border-b-2 flex-col relative">
             <span class="bg-neutral-800">Battles Played</span>
             <span class="text-sm text-neutral-300 font-thin absolute text-center w-full -top-3.5 h-5 overflow-hidden">
