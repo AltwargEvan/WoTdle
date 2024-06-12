@@ -64,7 +64,7 @@ const HintButton: Component<HintButtonProps> = (props) => {
         class={imageClass()}
         style={{ filter: imageFilter() }}
       />
-      <div class="flex flex-col items-center text-center">
+      <div class="flex flex-col items-center text-center text-sm">
         {text()}
         <Show when={triesRemaining() > 0}>
           <span class="text-xs text-thin">
