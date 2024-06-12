@@ -5,6 +5,8 @@ import { capitalizeFirstLetter, romanize } from "@/utils/stringUtils";
 import { twMerge } from "tailwind-merge";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
 import * as m from "@/paraglide/messages.js";
+import { splitInto2Lines } from "@/utils/splitInto2Lines";
+import { languageTag } from "@/i18n";
 
 const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
   const {
@@ -132,10 +134,14 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
 const GuessList: Component = () => {
   const [data] = usePersistedData();
 
+  const alphaDmgClass = twMerge(
+    "border-b-2 border-neutral-300",
+    languageTag() === "pl" ? "text-sm pt-1.5" : "text-lg"
+  );
   return (
     <Show when={data.dailyVehicleGuesses.length > 0}>
       <div class="grid text-center justify-center gap-y-2">
-        <div class="grid justify-center grid-cols-5  text-lg text-neutral-200 gap-2">
+        <div class="grid justify-center grid-cols-5  text-lg text-neutral-200 gap-2 md:w-[600px]">
           <span class="border-b-2 border-neutral-300">
             {m.guess_list_vehicle()}
           </span>
@@ -150,9 +156,7 @@ const GuessList: Component = () => {
           <span class="border-b-2 border-neutral-300">
             {m.guess_list_type()}
           </span>
-          <span class="border-b-2 border-neutral-300">
-            {m.guess_list_damage()}
-          </span>
+          <span class={alphaDmgClass}>{m.guess_list_damage()}</span>
           {/* <div class="flex border-b-2 flex-col relative">
             <span class="bg-neutral-800">Battles Played</span>
             <span class="text-sm text-neutral-300 font-thin absolute text-center w-full -top-3.5 h-5 overflow-hidden">
