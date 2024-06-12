@@ -1,0 +1,42 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "guess_form_not_found": "Тэхніка не знойдзена.",
+  "guess_list_vehicle": "Тэхніка",
+  "guess_list_nation": "Нацыя",
+  "guess_list_tier": "Узровень",
+  "guess_list_type": "Тып",
+  "guess_list_damage": "Сярэдні ўрон",
+
+  "tank_type_light": "Лёгкі",
+  "tank_type_heavy": "Цяжкі",
+  "tank_type_medium": "Сярэдні",
+  "tank_type_tank_destroyer": "СТ-САУ",
+  "tank_type_SPG": "САУ",
+  "tank_type_reward": "Узнагародны танк",
+  "tank_type_premium": "Прэміум танк",
+  "tank_type_techtree": "Даследуемы танк",
+
+  "hint_tries_remaining": "Спроб да: {tries} ",
+  "hint_speed": "км/г",
+  "hint_top_speed": "Максімальная хуткасць?",
+  "hint_store_type": "Статус тэхнікі?",
+  "hint_tank_icon": "Іконка танка?",
+
+  "stats_title": "Статыстыка",
+  "stats_games_won": "Выйграна гульняў",
+  "stats_avg_guesses": "Сярэдняя колькасць спроб",
+  "stats_current_streak": "Бягучая серыя",
+  "stats_max_streak": "Максімальная серыя",
+  "stats_num_games": "Колькасць гульняў",
+  "stats_num_guesses": "Колькасць спроб",
+  "stats_games": "Гульні",
+  "stats_guesses": "Спробы",
+
+  "prompt_title": "Адгадай сённяшнюю тэхніку World of Tanks!",
+  "prompt_content": "Увядзі назву любой тэхнікі 8-10 ўзроўню, каб пачаць",
+  "prompt_placeholder": "Увядзі назву тэхнікі...",
+
+  "victory": "Перамога",
+  "victory_nextTank": "Наступны танк праз",
+  "victory_num_tries": "Колькасць спроб:"
+}
