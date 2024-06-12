@@ -80,6 +80,8 @@ const LanguageIcons: Record<AvailableLanguageTag, string> = {
   cz: "/czech.svg",
   pt: "/brazil.svg",
   pl: "/poland.svg",
+  ru: "/russia.svg",
+  by: "/belarus.svg",
 };
 
 const LanguageSelector = () => {
