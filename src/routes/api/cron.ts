@@ -3,7 +3,6 @@ import { Vehicle } from "@/types/api.types";
 import { PostgrestSingleResponse, createClient } from "@supabase/supabase-js";
 import type { APIEvent } from "@solidjs/start/server";
 import { EncyclopediaVehicle, WargamingApi } from "@/utils/WargamingApi";
-import { Client, GatewayIntentBits } from "discord.js";
 import { Database } from "@/types/database.types";
 import { sendDiscordCronErrorNotification } from "@/server/discord";
 
@@ -23,6 +22,11 @@ function cleanVehicleData(vehicles: EncyclopediaVehicle[]) {
     if (vehicle.name.trim().endsWith("FL")) {
       console.log(
         `Tank ${vehicle.name} is a frontline vehicle. Excluding item from dataset.`
+      );
+      return;
+    } else if (vehicle.name.trim().endsWith("CL")) {
+      console.log(
+        `Tank ${vehicle.name} is a weird premium tier 10. Excluding item from dataset.`
       );
       return;
     } else if (RUOnlyTanks.includes(vehicle.name)) {
