@@ -141,7 +141,7 @@ const GuessList: Component = () => {
   return (
     <Show when={data.dailyVehicleGuesses.length > 0}>
       <div class="grid text-center justify-center gap-y-2">
-        <div class="grid justify-center grid-cols-5  text-lg text-neutral-200 gap-2 w-[600px]">
+        <div class="grid justify-center grid-cols-5  text-lg text-neutral-200 gap-2 md:w-[600px]">
           <span class="border-b-2 border-neutral-300">
             {m.guess_list_vehicle()}
           </span>
