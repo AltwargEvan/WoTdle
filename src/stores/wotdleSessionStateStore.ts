@@ -50,6 +50,7 @@ function createWotdleSessionStateStore() {
 
     if (persistedData.version !== LATEST_VERSION) {
       setters.setState("dailyVehicleGuesses", []);
+      setters.setState("version", LATEST_VERSION);
     } else if (userWonToday || userPlayedToday) {
       const dailyVehicleGuesses = persistedData.dailyVehicleGuesses;
       const guessedTankIds = new Set<number>();
