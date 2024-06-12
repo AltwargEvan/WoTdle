@@ -10,7 +10,7 @@
   "tank_type_light": "Leichter Panzer",
   "tank_type_heavy": "Schwerer Panzer",
   "tank_type_medium": "Mittlerer Panzer",
-  "tank_type_tank_destroyer": "Jagpanzer",
+  "tank_type_tank_destroyer": "Jagdpanzer",
   "tank_type_SPG": "Selbstfahrlafette",
   "tank_type_reward": "Belohnungspanzer",
   "tank_type_premium": "Premiumpanzer",
@@ -38,5 +38,17 @@
 
   "victory": "Sieg",
   "victory_nextTank": "Nächstes Fahrzeug in",
-  "victory_num_tries": "Anzahl der Versuche:"
+  "victory_num_tries": "Anzahl der Versuche:",
+
+  "nation_uk": "GB",
+  "nation_sweden": "Schweden",
+  "nation_poland": "Polen",
+  "nation_italy": "Italien",
+  "nation_france": "Frankreich",
+  "nation_czech": "ČSR",
+  "nation_china": "China",
+  "nation_usa": "USA",
+  "nation_ussr": "UdSSR",
+  "nation_germany": "Deutschland",
+  "nation_japan": "Japan"
 }
