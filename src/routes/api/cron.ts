@@ -1,10 +1,11 @@
 import { env } from "@/env/server";
 import { Vehicle } from "@/types/api.types";
-import { createClient } from "@supabase/supabase-js";
+import { PostgrestSingleResponse, createClient } from "@supabase/supabase-js";
 import type { APIEvent } from "@solidjs/start/server";
 import { EncyclopediaVehicle, WargamingApi } from "@/utils/WargamingApi";
 import { Client, GatewayIntentBits } from "discord.js";
 import { Database } from "@/types/database.types";
+import { sendDiscordCronErrorNotification } from "@/server/discord";
 
 const RUOnlyTanks = ["SU-122V", "K-91 Version II"];
 
@@ -132,46 +133,55 @@ export async function GET({ request }: APIEvent) {
       .from("daily_data")
       .insert({ date: tomorrow.toJSON(), normal: tankOfDay, dd_mm_yy });
 
-    const [updateDailyRes, ...updateVehicleDataRes] = await Promise.all([
+    const results = await Promise.allSettled([
       updateDaily,
       ...updateVehicleData,
     ]);
 
-    if (updateDailyRes.error) {
-      throw ["Failed to update daily data", updateDailyRes.error];
-    }
-
-    const updateVehicleDataError = updateVehicleDataRes.find(
-      (res) => res.error !== null
-    );
-    if (updateVehicleDataError) {
-      throw ["Failed to update vehicle data", updateVehicleDataError];
+    const errorMessages = filterSupabaseErrors(results);
+    if (errorMessages.length > 0) {
+      throw errorMessages.join("\n");
     }
 
     return Response.json({ success: true }, { status: 200 });
   } catch (error) {
+    if (!error) return;
     try {
-      console.error(error);
-      const discord = new Client({
-        intents: [GatewayIntentBits.DirectMessages],
-      });
-      await discord.login(env.DISCORD_BOT_TOKEN);
-      const user = await discord.users.fetch(env.DISCORD_USER_ID);
-      user.send(
-        `Failed to update Wotdle Data for ${new Date().toLocaleDateString(
-          "en-GB",
-          {
-            day: "2-digit",
-            month: "2-digit",
-            year: "2-digit",
-            timeZone: "America/New_York",
-          }
-        )} with error" \n\n\`\`\`${JSON.stringify(error)}\`\`\``
-      );
-    } catch (discordError) {
-      console.error(discordError);
-    } finally {
-      return Response.json({ success: false }, { status: 500 });
+      await sendDiscordCronErrorNotification(error.toString());
+    } catch {
+      await sendDiscordCronErrorNotification("unknown error");
     }
+
+    return Response.json({ success: false }, { status: 500 });
   }
+}
+
+function filterSupabaseErrors(
+  results: [
+    PromiseSettledResult<PostgrestSingleResponse<null>>,
+    ...PromiseSettledResult<PostgrestSingleResponse<null>>[]
+  ]
+) {
+  const errorMessages = new Array<string>();
+
+  results.forEach((result) => {
+    try {
+      if (result.status === "rejected") {
+        if (result.reason)
+          errorMessages.push(
+            `Request Rejects with reason: ${JSON.stringify(result.reason)}`
+          );
+        return;
+      }
+
+      if (!result || !result.value || !result.value.error) {
+        return;
+      }
+
+      errorMessages.push(JSON.stringify(result.value.error, null, 2));
+    } catch (error) {
+      console.error(error);
+    }
+  });
+  return errorMessages;
 }
