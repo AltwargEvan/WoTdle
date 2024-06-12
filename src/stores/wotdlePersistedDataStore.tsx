@@ -15,6 +15,7 @@ type WotdlePersistedDataStore = {
   dailyVehicleGuesses: Vehicle[];
   previousGames: GameData[];
   lastGuessEpochMs: number;
+  version: number | undefined;
 };
 
 type ContextType = [
@@ -26,6 +27,7 @@ type ContextType = [
 ];
 const WotdlePersistedDataContext = createContext<ContextType>();
 
+export const LATEST_VERSION = 1;
 export function WotdlePersistedDataStoreProvider(props: {
   children: JSXElement;
 }) {
@@ -33,6 +35,7 @@ export function WotdlePersistedDataStoreProvider(props: {
     dailyVehicleGuesses: [],
     previousGames: [],
     lastGuessEpochMs: 0,
+    version: LATEST_VERSION,
   });
 
   let [state, setState] = store;
