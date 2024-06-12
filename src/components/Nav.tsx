@@ -71,30 +71,26 @@ export const Nav: Component = () => {
   );
 };
 
+const LanguageIcons: Record<AvailableLanguageTag, string> = {
+  en: "/usa.svg",
+  es: "/spain.svg",
+  fr: "/france.svg",
+  tr: "/turkey.svg",
+  de: "/germany.svg",
+  cz: "/czech.svg",
+  pt: "/brazil.svg",
+  pl: "/poland.svg",
+  ru: "/russia.svg",
+  by: "/belarus.svg",
+};
+
 const LanguageSelector = () => {
   const url_language_tag = useLocationLanguageTag();
   const language_tag = url_language_tag ?? sourceLanguageTag;
 
   const [open, setOpen] = createSignal(false);
 
-  const icon = (tag: AvailableLanguageTag) => {
-    switch (tag) {
-      case "en":
-        return "/usa.svg";
-      case "es":
-        return "/spain.svg";
-      case "fr":
-        return "/france.svg";
-      case "tr":
-        return "/turkey.svg";
-      case "de":
-        return "/germany.svg";
-      case "cz":
-        return "/czech.svg";
-      case "pt":
-        return "/brazil.svg";
-    }
-  };
+  const icon = (tag: AvailableLanguageTag) => LanguageIcons[tag];
 
   const options = () => availableLanguageTags.filter((t) => t !== language_tag);
 

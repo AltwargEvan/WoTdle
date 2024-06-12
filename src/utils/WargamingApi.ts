@@ -78,10 +78,25 @@ export type EncyclopediaVehicle = {
 };
 
 export type VehicleI18N = Record<
-  (typeof WargamingApi.languages)[number],
+  (typeof WargamingSupportedLanguages)[number],
   { name: string; nation: string }
 >;
-export const i18nApiMap = {
+
+const WargamingSupportedLanguages = [
+  "en",
+  "cs",
+  "de",
+  "es",
+  "fr",
+  "tr",
+  "pl",
+  "ru",
+] as const;
+
+export const i18nApiMap: Record<
+  AvailableLanguageTag,
+  (typeof WargamingSupportedLanguages)[number]
+> = {
   en: "en",
   pt: "en",
   cz: "cs",
@@ -90,6 +105,8 @@ export const i18nApiMap = {
   fr: "fr",
   tr: "tr",
   pl: "pl",
+  ru: "ru",
+  by: "en",
 } as const;
 
 export class WargamingApi {
@@ -118,8 +135,6 @@ export class WargamingApi {
     "default_profile.speed_forward",
   ] as const;
 
-  static languages = ["en", "cs", "de", "es", "fr", "tr", "pl"] as const;
-
   static async vehicles() {
     const baseData = new Promise<Record<number, EncyclopediaVehicle>>(
       async (resolve, reject) => {
@@ -137,12 +152,12 @@ export class WargamingApi {
       }
     );
 
-    const i18nPromises = this.languages.map(
+    const i18nPromises = WargamingSupportedLanguages.map(
       (lang) =>
         new Promise<
           [
             Record<number, EncyclopediaI18nVehicle>,
-            (typeof this.languages)[number]
+            (typeof WargamingSupportedLanguages)[number]
           ]
         >(async (resolve, reject) => {
           const endpoint = this.authenticatedEndpoint(
@@ -176,7 +191,6 @@ export class WargamingApi {
         };
         return acc;
       }, {} as VehicleI18N);
-      if (key === 1) console.log("i18n", i18n);
       return { ...v, i18n };
     });
 
