@@ -38,5 +38,17 @@
 
   "victory": "Zwycięstwo",
   "victory_nextTank": "Następny czołg za",
-  "victory_num_tries": "Liczba prób:"
+  "victory_num_tries": "Liczba prób:",
+
+  "nation_uk": "Wielka Brytania",
+  "nation_sweden": "Szwecja",
+  "nation_poland": "Polska",
+  "nation_italy": "Włochy",
+  "nation_france": "Francja",
+  "nation_czech": "Czechy",
+  "nation_china": "Chiny",
+  "nation_usa": "USA",
+  "nation_ussr": "ZSRR",
+  "nation_germany": "Niemcy",
+  "nation_japan": "Japonia"
 }

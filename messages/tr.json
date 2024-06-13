@@ -38,5 +38,17 @@
 
   "victory": "Zafer",
   "victory_nextTank": "Bir Sonraki Tanka Kalan Süre",
-  "victory_num_tries": "Denemelerin Sayısı:"
+  "victory_num_tries": "Denemelerin Sayısı:",
+
+  "nation_uk": "İngiltere",
+  "nation_sweden": "İsveç",
+  "nation_poland": "Polonya",
+  "nation_italy": "İtalya",
+  "nation_france": "Fransa",
+  "nation_czech": "Çekya",
+  "nation_china": "Çin",
+  "nation_usa": "ABD",
+  "nation_ussr": "SSCB",
+  "nation_germany": "Almanya",
+  "nation_japan": "Japonya"
 }

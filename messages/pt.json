@@ -38,5 +38,17 @@
 
   "victory": "Vitória",
   "victory_nextTank": "Próximo tanque em",
-  "victory_num_tries": "Número de tentativas:"
+  "victory_num_tries": "Número de tentativas:",
+
+  "nation_uk": "Reino Unido",
+  "nation_sweden": "Suécia",
+  "nation_poland": "Polônia",
+  "nation_italy": "Itália",
+  "nation_france": "França",
+  "nation_czech": "Tcheco",
+  "nation_china": "China",
+  "nation_usa": "EUA",
+  "nation_ussr": "URSS",
+  "nation_germany": "Alemanha",
+  "nation_japan": "Japão"
 }

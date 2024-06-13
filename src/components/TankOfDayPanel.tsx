@@ -1,8 +1,10 @@
 import { CurrentTimeAsEST, timeTilNextDay } from "@/utils/dateutils";
 import { Component, createSignal } from "solid-js";
-import { Vehicle } from "@/types/tankopedia.types";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
 import * as m from "@/paraglide/messages.js";
+import { Vehicle } from "@/types/api.types";
+import { languageTag } from "@/i18n";
+import { i18nApiMap } from "@/utils/WargamingApi";
 
 type Props = {
   tank: Vehicle;
@@ -12,6 +14,7 @@ const TankOfDayPanel: Component<Props> = ({ tank }) => {
   const [timeTilNext, setTimeTilNext] = createSignal(timeTilNextDay());
   const [today] = createSignal(CurrentTimeAsEST().getUTCDay());
   const [data] = usePersistedData();
+  const lang = i18nApiMap[languageTag()];
 
   setInterval(() => {
     if (today() !== CurrentTimeAsEST().getUTCDay()) {
@@ -51,7 +54,9 @@ const TankOfDayPanel: Component<Props> = ({ tank }) => {
             fetchpriority={"high"}
             class="h-full"
           />
-          <span class="absolute right-5 bottom-5 text-2xl">{tank.name}</span>
+          <span class="absolute right-5 bottom-5 text-2xl">
+            {tank.i18n[lang].name}
+          </span>
         </div>
       </div>
     </div>
