@@ -1,10 +1,9 @@
-import { Vehicle } from "@/types/tankopedia.types";
-
 import { createRoot } from "solid-js";
 import { createStore } from "solid-js/store";
 import { TodaysWotdleData } from "@/resources/todaysWotdleResource";
 import { CurrentTimeAsEST, datesAreInSameDay } from "@/utils/dateutils";
-import { usePersistedData } from "./wotdlePersistedDataStore";
+import { LATEST_VERSION, usePersistedData } from "./wotdlePersistedDataStore";
+import { Vehicle } from "@/types/api.types";
 
 type GameStateStore =
   | {
@@ -49,7 +48,10 @@ function createWotdleSessionStateStore() {
       nowEst.getTime()
     );
 
-    if (userWonToday || userPlayedToday) {
+    if (persistedData.version !== LATEST_VERSION) {
+      setters.setState("dailyVehicleGuesses", []);
+      setters.setState("version", LATEST_VERSION);
+    } else if (userWonToday || userPlayedToday) {
       const dailyVehicleGuesses = persistedData.dailyVehicleGuesses;
       const guessedTankIds = new Set<number>();
       dailyVehicleGuesses.forEach((tank) => guessedTankIds.add(tank.tank_id));

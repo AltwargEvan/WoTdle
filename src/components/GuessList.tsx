@@ -1,12 +1,14 @@
 import { Component, For, Show } from "solid-js";
 import AppStore from "../stores/wotdleSessionStateStore";
-import { Vehicle } from "@/types/tankopedia.types";
 import { capitalizeFirstLetter, romanize } from "@/utils/stringUtils";
 import { twMerge } from "tailwind-merge";
 import { usePersistedData } from "@/stores/wotdlePersistedDataStore";
 import * as m from "@/paraglide/messages.js";
-import { splitInto2Lines } from "@/utils/splitInto2Lines";
 import { languageTag } from "@/i18n";
+import { i18nApiMap } from "@/utils/WargamingApi";
+import { Vehicle } from "@/types/api.types";
+import { splitInto2Lines } from "@/utils/splitInto2Lines";
+import { translateNation } from "@/utils/i18nNation";
 
 const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
   const {
@@ -37,6 +39,8 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         return m.tank_type_heavy();
     }
   };
+  const lang = i18nApiMap[languageTag()];
+
   // const getBattles30DColor = () => {
   //   if (!todaysVehicle) return "bg-zinc-900";
   //   if (todaysVehicle.battles30Days! === tank.battles30Days!)
@@ -58,7 +62,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
         )}
       >
         <span class="absolute h-full flex justify-center items-center text-outline">
-          {tank.name}
+          {tank.i18n[lang].name}
         </span>
         <img src={tank.images.big_icon} class="h-14" fetchpriority={"high"} />
       </div>
@@ -74,7 +78,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
           fetchpriority={"high"}
         />
         <span class="absolute h-full flex justify-center items-end text-outline">
-          {capitalizeFirstLetter(tank.nation)}
+          {translateNation(tank.nation)}
         </span>
       </div>
       <div

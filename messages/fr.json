@@ -38,5 +38,17 @@
 
   "victory": "Victoire",
   "victory_nextTank": "Prochain char dans",
-  "victory_num_tries": "Nombre d'essais: "
+  "victory_num_tries": "Nombre d'essais: ",
+
+  "nation_uk": "Royaume-Uni",
+  "nation_sweden": "Suède",
+  "nation_poland": "Pologne",
+  "nation_italy": "Italie",
+  "nation_france": "France",
+  "nation_czech": "Tchéquie",
+  "nation_china": "Chine",
+  "nation_usa": "États-Unis",
+  "nation_ussr": "URSS",
+  "nation_germany": "Allemagne",
+  "nation_japan": "Japon"
 }
