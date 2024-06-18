@@ -10,29 +10,11 @@ type Props = {
   tank: Vehicle;
 };
 
-type Digit = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 const TankOfDayPanel: Component<Props> = ({ tank }) => {
   const [timeTilNext, setTimeTilNext] = createSignal(timeTilNextDay());
   const [today] = createSignal(CurrentTimeAsEST().getUTCDay());
   const [data] = usePersistedData();
   const lang = i18nApiMap[languageTag()];
-
-  const guessNumber = () => {
-    if (data.nthGuess.normal === undefined) return "";
-    const numString = data.nthGuess.normal.toString();
-    const onesDigit = numString[numString.length - 1] as unknown as Digit;
-    const suffix = m[`ordinalSuffix_${onesDigit}`]();
-    return (
-      <div>
-        {m.victory_nthguess_a()}
-        <span class="text-yellow-500 px-1">
-          {data.nthGuess.normal}
-          {suffix}
-        </span>
-        {m.victory_nthguess_b()}
-      </div>
-    );
-  };
 
   setInterval(() => {
     if (today() !== CurrentTimeAsEST().getUTCDay()) {
@@ -51,7 +33,7 @@ const TankOfDayPanel: Component<Props> = ({ tank }) => {
         <span class="sm:text-3xl font-bold">{timeTilNext()}</span>
       </div>
       <div
-        class="h-full absolute items-center justify-center  right-2 sm:right-4 flex flex-col pb-8"
+        class=" sm:h-full absolute items-center justify-center bottom-0 sm:right-4 sm:bottom-auto sm:flex sm:flex-col"
         style={{ "text-shadow": "1px 1px 2px black" }}
       >
         <span class="sm:text-2xl">{m.victory_num_tries()}</span>
@@ -60,12 +42,11 @@ const TankOfDayPanel: Component<Props> = ({ tank }) => {
         </span>
       </div>
       <span
-        class="text-5xl font-bold drop-shadow-2xl tracking-wide relative"
+        class="text-5xl font-bold drop-shadow-2xl tracking-wide"
         style={{ "text-shadow": "1px 1px 2px black" }}
       >
         {m.victory()}
       </span>
-
       <div class="flex w-full h-full justify-center">
         <div class="relative">
           <img
@@ -78,7 +59,6 @@ const TankOfDayPanel: Component<Props> = ({ tank }) => {
           </span>
         </div>
       </div>
-      <span class="absolute bottom-2">{guessNumber()}</span>
     </div>
   );
 };
