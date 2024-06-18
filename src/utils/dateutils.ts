@@ -32,5 +32,18 @@ export const datesAreInSameDay: DateCompareFn = (aMs, bMs) => {
     a.getUTCDate() === b.getUTCDate()
   );
 };
+
 const formatNum = (num: number) =>
   num.toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false });
+
+export function dateString(date: Date) {
+  date.setDate(date.getDate());
+  return date
+    .toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit",
+      timeZone: "America/New_York",
+    })
+    .replaceAll("/", "_");
+}

@@ -5,6 +5,7 @@ import type { APIEvent } from "@solidjs/start/server";
 import { EncyclopediaVehicle, WargamingApi } from "@/utils/WargamingApi";
 import { Database } from "@/types/database.types";
 import { sendDiscordCronErrorNotification } from "@/server/discord";
+import { dateString } from "@/utils/dateutils";
 
 const RUOnlyTanks = ["SU-122V", "K-91 Version II"];
 
@@ -59,18 +60,6 @@ function getVehicleTopGunModules(vehicles: EncyclopediaVehicle[]) {
 function randomIntFromInterval(min: number, max: number) {
   // min and max included
   return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-function dateString(date: Date) {
-  date.setDate(date.getDate());
-  return date
-    .toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "2-digit",
-      timeZone: "America/New_York",
-    })
-    .replaceAll("/", "_");
 }
 
 export async function GET({ request }: APIEvent) {
