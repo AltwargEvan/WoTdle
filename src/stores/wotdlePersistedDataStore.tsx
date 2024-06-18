@@ -22,9 +22,7 @@ type WotdlePersistedDataStore = {
   previousGames: GameData[];
   lastGuessEpochMs: number;
   version: number | undefined;
-  nthGuess: {
-    normal: number | undefined;
-  };
+  nthGuessNormal: number | undefined;
 };
 
 type ContextType = [
@@ -45,9 +43,7 @@ export function WotdlePersistedDataStoreProvider(props: {
     previousGames: [],
     lastGuessEpochMs: 0,
     version: LATEST_VERSION,
-    nthGuess: {
-      normal: -1,
-    },
+    nthGuessNormal: undefined,
   });
 
   let [state, setState] = store;
@@ -80,7 +76,7 @@ export function WotdlePersistedDataStoreProvider(props: {
       });
       const json = await res.json();
       if (Number.isInteger(json.data)) {
-        setState({ nthGuess: { normal: json.data } });
+        setState({ nthGuessNormal: json.data });
       }
     } catch {}
   };

@@ -18,15 +18,15 @@ const TankOfDayPanel: Component<Props> = ({ tank }) => {
   const lang = i18nApiMap[languageTag()];
 
   const guessNumber = () => {
-    if (data.nthGuess.normal === undefined) return "";
-    const numString = data.nthGuess.normal.toString();
+    if (data.nthGuessNormal === undefined) return "";
+    const numString = data.nthGuessNormal.toString();
     const onesDigit = numString[numString.length - 1] as unknown as Digit;
     const suffix = m[`ordinalSuffix_${onesDigit}`]();
     return (
       <div>
         {m.victory_nthguess_a()}
         <span class="text-yellow-500 px-1">
-          {data.nthGuess.normal}
+          {data.nthGuessNormal}
           {suffix}
         </span>
         {m.victory_nthguess_b()}
