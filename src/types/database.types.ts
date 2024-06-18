@@ -15,21 +15,18 @@ export type Database = {
           dd_mm_yy: string;
           id: number;
           normal: Json | null;
-          normal_wins: number;
         };
         Insert: {
           date: string;
           dd_mm_yy: string;
           id?: number;
           normal?: Json | null;
-          normal_wins?: number;
         };
         Update: {
           date?: string;
           dd_mm_yy?: string;
           id?: number;
           normal?: Json | null;
-          normal_wins?: number;
         };
         Relationships: [];
       };
@@ -101,12 +98,7 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      incrementnormalwins: {
-        Args: {
-          row_id: string;
-        };
-        Returns: number;
-      };
+      [_ in never]: never;
     };
     Enums: {
       [_ in never]: never;
