@@ -6,7 +6,6 @@
   "guess_list_tier": "Tier",
   "guess_list_type": "Typ",
   "guess_list_damage": "Alphaschaden",
-
   "tank_type_light": "Leichter Panzer",
   "tank_type_heavy": "Schwerer Panzer",
   "tank_type_medium": "Mittlerer Panzer",
@@ -15,13 +14,11 @@
   "tank_type_reward": "Belohnungspanzer",
   "tank_type_premium": "Premiumpanzer",
   "tank_type_techtree": "Erforschbarer Panzer",
-
   "hint_tries_remaining": "In {tries} tries",
   "hint_speed": "km/h",
   "hint_top_speed": "Höchstgeschwindigkeit Hinweis",
   "hint_store_type": "Panzerart Hinweis",
   "hint_tank_icon": "Panzersilhouette Hinweis",
-
   "stats_title": "Statistics",
   "stats_games_won": "Gewonnene Gefechte",
   "stats_avg_guesses": "Durchschnittliche Versuche",
@@ -31,15 +28,12 @@
   "stats_num_guesses": "Zahl der Versuche",
   "stats_games": "Spiele",
   "stats_guesses": "Versuche",
-
   "prompt_title": "Erratet das heutige Fahrzeug in World of Tanks!",
   "prompt_content": "Gib zu Beginn ein beliebiges Fahrzeug der Stufen 8 bis 10 ein",
   "prompt_placeholder": "Schreibe den Fahrzeugnamen...",
-
   "victory": "Sieg",
   "victory_nextTank": "Nächstes Fahrzeug in",
   "victory_num_tries": "Anzahl der Versuche:",
-
   "nation_uk": "GB",
   "nation_sweden": "Schweden",
   "nation_poland": "Polen",

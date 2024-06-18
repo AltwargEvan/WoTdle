@@ -6,7 +6,6 @@
   "guess_list_tier": "Tier",
   "guess_list_type": "Type",
   "guess_list_damage": "Alpha Damage",
-
   "tank_type_light": "Light",
   "tank_type_heavy": "Heavy",
   "tank_type_medium": "Medium",
@@ -15,13 +14,11 @@
   "tank_type_reward": "Reward Tank",
   "tank_type_premium": "Premium Tank",
   "tank_type_techtree": "Tech Tree Tank",
-
   "hint_tries_remaining": "In {tries} tries",
   "hint_speed": "km/h",
   "hint_top_speed": "Top Speed Clue",
   "hint_store_type": "Store Type Clue",
   "hint_tank_icon": "Tank Icon Clue",
-
   "stats_title": "Statistics",
   "stats_games_won": "Games Won",
   "stats_avg_guesses": "Average Guesses",
@@ -31,17 +28,14 @@
   "stats_num_guesses": "Number of Guesses",
   "stats_games": "Games",
   "stats_guesses": "Guesses",
-
   "prompt_title": "Guess today's World of Tanks vehicle!",
   "prompt_content": "Type any vehicle tier 8 - 10 to begin",
   "prompt_placeholder": "Type vehicle name...",
-
   "victory": "Victory",
   "victory_nextTank": "Next tank in",
   "victory_num_tries": "Number of tries:",
   "victory_nthguess_a": "You are the",
   "victory_nthguess_b": "player to find the vehicle today",
-
   "ordinalSuffix_0": "th",
   "ordinalSuffix_1": "st",
   "ordinalSuffix_2": "nd",
@@ -52,7 +46,6 @@
   "ordinalSuffix_7": "th",
   "ordinalSuffix_8": "th",
   "ordinalSuffix_9": "th",
-
   "nation_uk": "UK",
   "nation_sweden": "Sweden",
   "nation_poland": "Poland",
