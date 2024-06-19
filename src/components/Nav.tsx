@@ -54,7 +54,7 @@ export const Nav: Component = () => {
 
   return (
     <>
-      <div class="px-3 sm:px-6 sticky z-50 top-0 flex h-14 sm:h-20 items-center select-none bg-neutral-900 w-full justify-between border-b border-neutral-600">
+      <div class="py-1 px-3 sm:px-6 sticky z-50 top-0 flex h-14  sm:min-h-20 sm:h-20 items-center select-none bg-neutral-900 w-full justify-between border-b border-neutral-600">
         <div class="hidden sm:block w-full"></div>
         <div class="flex space-x-2 justify-center items-center">
           <WotIcon />
