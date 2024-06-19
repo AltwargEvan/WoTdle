@@ -10,7 +10,6 @@ type Props = {
   tank: Vehicle;
 };
 
-type Digit = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 const TankOfDayPanel: Component<Props> = ({ tank }) => {
   const [timeTilNext, setTimeTilNext] = createSignal(timeTilNextDay());
   const [today] = createSignal(CurrentTimeAsEST().getUTCDay());
@@ -19,9 +18,21 @@ const TankOfDayPanel: Component<Props> = ({ tank }) => {
 
   const guessNumber = () => {
     if (data.nthGuessNormal === undefined) return "";
+    let suffix;
     const numString = data.nthGuessNormal.toString();
-    const onesDigit = numString[numString.length - 1] as unknown as Digit;
-    const suffix = m[`ordinalSuffix_${onesDigit}`]();
+    let key = `ordinalSuffix_${numString}` as keyof typeof m;
+    let onesKey = `ordinalSuffix_${
+      numString[numString.length - 1]
+    }` as keyof typeof m;
+
+    if (key in m) {
+      suffix = m[key]({} as any);
+    } else if (onesKey in m) {
+      suffix = m[onesKey]({} as any);
+    } else {
+      suffix = m.ordinalSuffix_default();
+    }
+
     return (
       <div>
         {m.victory_nthguess_a()}
