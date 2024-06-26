@@ -6,7 +6,6 @@
   "guess_list_tier": "Уровень",
   "guess_list_type": "Тип",
   "guess_list_damage": "Средний урон",
-
   "tank_type_light": "Легкий",
   "tank_type_heavy": "Тяжелый",
   "tank_type_medium": "Средний",
@@ -15,13 +14,11 @@
   "tank_type_reward": "Наградной танк",
   "tank_type_premium": "Премиум танк",
   "tank_type_techtree": "Исследуемый танк",
-
   "hint_tries_remaining": "Попыток до: {tries} ",
   "hint_speed": "км/ч",
   "hint_top_speed": "Максимальная скорость?",
   "hint_store_type": "Статус техники?",
   "hint_tank_icon": "Иконка танка?",
-
   "stats_title": "Статистика",
   "stats_games_won": "Выиграно игр",
   "stats_avg_guesses": "Среднее число попыток",
@@ -31,11 +28,9 @@
   "stats_num_guesses": "Количество попыток",
   "stats_games": "Игры",
   "stats_guesses": "Попытки",
-
   "prompt_title": "Угадай сегодняшнюю технику World of Tanks!",
   "prompt_content": "Введи название любой техники 8-10 уровня, чтобы начать",
   "prompt_placeholder": "Введи название техники...",
-
   "victory": "Победа",
   "victory_nextTank": "Следующий танк через",
   "victory_num_tries": "Количество попыток:"

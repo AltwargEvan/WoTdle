@@ -6,7 +6,6 @@
   "guess_list_tier": "Poziom",
   "guess_list_type": "Klasa",
   "guess_list_damage": "Średnie uszkodzenia",
-
   "tank_type_light": "Czołg lekki",
   "tank_type_heavy": "Czołg ciężki",
   "tank_type_medium": "Czołg średni",
@@ -15,13 +14,11 @@
   "tank_type_reward": "Czołg specjalny",
   "tank_type_premium": "Czołg premium",
   "tank_type_techtree": "Czołg drzewkowy",
-
   "hint_tries_remaining": "Za {tries} prób",
   "hint_speed": "km/h",
   "hint_top_speed": "Podpowiedź: prędkość maksymalna",
   "hint_store_type": "Podpowiedź: rodzaj czołgu",
   "hint_tank_icon": "Podpowiedź: ikonka czołgu",
-
   "stats_title": "Statystyki",
   "stats_games_won": "Wygrane gry",
   "stats_avg_guesses": "Średnia ilość prób",
@@ -31,15 +28,12 @@
   "stats_num_guesses": "Liczba prób",
   "stats_games": "Gry",
   "stats_guesses": "Próby",
-
   "prompt_title": "Zgadnij dzisiejszy pojazd z World of Tanks!",
   "prompt_content": "Wpisz nazwę dowolnego pojazdu poziomu 8 - 10 aby rozpocząć",
   "prompt_placeholder": "Wpisz nazwę pojazdu...",
-
   "victory": "Zwycięstwo",
   "victory_nextTank": "Następny czołg za",
   "victory_num_tries": "Liczba prób:",
-
   "nation_uk": "Wielka Brytania",
   "nation_sweden": "Szwecja",
   "nation_poland": "Polska",
