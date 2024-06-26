@@ -15,21 +15,27 @@ export type Database = {
           dd_mm_yy: string;
           id: number;
           normal: Json | null;
+          hard: Json | null;
           normal_wins: number;
+          hard_wins: number;
         };
         Insert: {
           date: string;
           dd_mm_yy: string;
           id?: number;
           normal?: Json | null;
+          hard?: Json | null;
           normal_wins?: number;
+          hard_wins?: number;
         };
         Update: {
           date?: string;
           dd_mm_yy?: string;
           id?: number;
           normal?: Json | null;
+          hard?: Json | null;
           normal_wins?: number;
+          hard_wins?: number;
         };
         Relationships: [];
       };
