@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { env } from "@/env/server";
 import { Database } from "@/types/database.types";
 import { Vehicle } from "@/types/api.types";
+import { gamemode } from "@/stores/wotdlePersistedDataStore";
 
 const fetchTodaysWotdle = async () => {
   "use server";
@@ -20,8 +21,12 @@ const fetchTodaysWotdle = async () => {
       })
       .replaceAll("/", "_");
 
+    const gm = gamemode[0]();
+    let minTier = 8;
+    if (gm === "hard") minTier = 0;
+
     const [vehicleListSupaRes, tankOfDaySupaRes] = await Promise.all([
-      supabase.from("vehicle_data_v2").select("*").gte("tier", 8),
+      supabase.from("vehicle_data_v2").select("*").gte("tier", minTier),
       supabase.from("daily_data").select("*").eq("dd_mm_yy", dd_mm_yy),
     ]);
 
@@ -33,7 +38,7 @@ const fetchTodaysWotdle = async () => {
       .flat(1) as Vehicle[];
 
     const tankOfDay = vehicleList.find(
-      (x) => x.tank_id === (tankOfDaySupaRes.data[0].normal as Vehicle).tank_id
+      (x) => x.tank_id === (tankOfDaySupaRes.data[0][gm] as Vehicle).tank_id
     );
 
     if (tankOfDay === undefined)
