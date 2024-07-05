@@ -18,6 +18,8 @@ export type Vehicle = {
   tank_id: number;
   search_name: string;
   search_short_name: string;
+  no_accent_name: string;
+  no_accent_short_name: string;
   alphaDmg: number;
   i18n: VehicleI18N;
 };

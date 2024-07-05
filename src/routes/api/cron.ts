@@ -6,6 +6,7 @@ import { EncyclopediaVehicle, WargamingApi } from "@/utils/WargamingApi";
 import { Database } from "@/types/database.types";
 import { sendDiscordCronErrorNotification } from "@/server/discord";
 import { dateString } from "@/utils/dateutils";
+import * as diacritics from "diacritics";
 
 const RUOnlyTanks = ["SU-122V", "K-91 Version II"];
 
@@ -79,6 +80,8 @@ export async function GET({ request }: APIEvent) {
 
       const search_name = vehicle.name.replaceAll(/[-\s.]/g, "");
       const search_short_name = vehicle.short_name.replaceAll(/[-\s.]/g, "");
+      const no_accent_name = diacritics.remove(search_name);
+      const no_accent_short_name = diacritics.remove(search_short_name)
 
       const data: Vehicle = {
         speed_forward: vehicle.default_profile.speed_forward,
@@ -89,6 +92,8 @@ export async function GET({ request }: APIEvent) {
         nation: vehicle.nation,
         search_name: search_name,
         search_short_name: search_short_name,
+        no_accent_name: no_accent_name,
+        no_accent_short_name: no_accent_short_name,
         short_name: vehicle.short_name,
         tag: vehicle.tag,
         tank_id: vehicle.tank_id,

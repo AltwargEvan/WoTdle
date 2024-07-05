@@ -29,17 +29,13 @@ const GuessForm: Component = () => {
   const [_, persistedMutators] = usePersistedData();
   const fuse = createMemo(() => {
     if (!gameState.hydrated) return;
-    const data = gameState.tankListNotGuessed.map((vehicle) => {
-        return {...vehicle,diacritic_name:diacritics.remove(vehicle.search_name)};
-    })
-    const fuse = new Fuse([...data.values()], {
-    //const fuse = new Fuse([...gameState.tankListNotGuessed.values()], {
+    const fuse = new Fuse([...gameState.tankListNotGuessed.values()], {
       keys: [
         "short_name",
         "name",
         "search_name",
         "search_short_name",
-        "diacritic_name",
+        "no_accent_name",
         `i18n.${lang}.name`,
       ],
       threshold: 0.15,
