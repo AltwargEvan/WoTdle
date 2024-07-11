@@ -25,6 +25,21 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
     return "bg-zinc-900";
   };
 
+  const getTankIconColor = () => {
+    if (todaysVehicle?.tank_id === tank.tank_id) return "bg-correct";
+    const mimic_list = ["CS-63", "Hurricane", "IS-3"];
+    mimic_list.forEach((mimic) => {
+      console.log(mimic);
+      console.log(tank.name);
+      console.log(mimic === tank.name);
+      if (mimic === tank.name) {
+        console.log(`Setting ${tank.name} to orange`);
+        return "bg-partialCorrect";
+      }
+    });
+    return "bg-zinc-900";
+  }
+
   const tankType = () => {
     switch (tank.type) {
       case "SPG":
@@ -58,7 +73,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
       <div
         class={twMerge(
           "select-none relative border rounded-sm border-neutral-700 flex justify-center py-1 ",
-          todaysVehicle?.tank_id === tank.tank_id ? "bg-correct" : "bg-zinc-900"
+          getTankIconColor()
         )}
       >
         <span class="absolute h-full flex justify-center items-center text-outline">

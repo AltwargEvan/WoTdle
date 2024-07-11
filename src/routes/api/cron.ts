@@ -9,6 +9,30 @@ import { dateString } from "@/utils/dateutils";
 import * as diacritics from "diacritics";
 
 const RUOnlyTanks = ["SU-122V", "K-91 Version II"];
+const Mimic_Tanks = [
+  ["CS-63", "Hurricane"],
+  ["121B", "Monkey King"],
+  ["113", "113 Beijing Opera"],
+  ["WZ-111 model 5A", "WZ 111 Qilin"],
+  ["Vz. 55", "Vz. 55 Gothic Warrior"],
+  ["Bat.-Châtillon Bourrasque", "Miel"],
+  ["AMX M4 mle. 49 Liberté", "AMX M4 mle. 49"],
+  ["Type 59", "Type 59 G"],
+  ["Rheinmetall Skorpion", "Rheinmetall Skorpion G"],
+  ["Progetto M35 mod. 46", "Mars"],
+  ["M47 Patton Improved", "M47 Iron Arnie"],
+  ["Chrysler K GF", "Chrysler K"],
+  ["T26E5", "T26E5 Patriot"],
+  ["T34", "T34 B"],
+  ["leKpz M 41 90 mm", "leKpz M 41 90 mm GF"],
+  ["STG", "STG Guard"],
+  ["IS-6", "IS-6 B"],
+  ["Object 252U", "Object 252U Defender"],
+  ["SU-130PM", "Forest Spirit"],
+  ["Schwarzpanzer 58", "Panzer 58 Mutz", "Panzer 58"],
+  ["VK 168.01 (P)", "VK 168.01 Mauerbrecher"],
+  ["WZ-111", "WZ-111 Alpine Tiger"],
+];
 
 function authorized(request: Request) {
   if (env.NODE_ENV === "development") return true;
@@ -81,6 +105,12 @@ export async function GET({ request }: APIEvent) {
       const search_name = diacritics.remove(vehicle.name.replaceAll(/[-\s.]/g, ""));
       const search_short_name = diacritics.remove(vehicle.short_name.replaceAll(/[-\s.]/g, ""));
 
+      var mimic_list = [] as Array<string>;
+
+      Mimic_Tanks.forEach( ( tank_list ) => {
+        if (tank_list.includes(vehicle.name)) mimic_list = tank_list;
+      })
+
       const data: Vehicle = {
         speed_forward: vehicle.default_profile.speed_forward,
         images: vehicle.images,
@@ -97,6 +127,7 @@ export async function GET({ request }: APIEvent) {
         type: vehicle.type,
         alphaDmg,
         i18n: vehicle.i18n,
+        mimic_list: mimic_list,
       };
 
       if (acc[vehicle.tier] === undefined) {
@@ -109,6 +140,10 @@ export async function GET({ request }: APIEvent) {
     const tier = randomIntFromInterval(8, 10);
     const index = randomIntFromInterval(0, processedVehicles[tier].length - 1);
     const tankOfDay = processedVehicles[tier][index];
+
+    
+
+    return Response.json( {data: processedVehicles }, { status: 200 });
 
     const supabaseClient = createClient<Database>(
       env.SUPABASE_URL,
