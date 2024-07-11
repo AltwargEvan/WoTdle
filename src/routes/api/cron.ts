@@ -6,6 +6,7 @@ import { EncyclopediaVehicle, WargamingApi } from "@/utils/WargamingApi";
 import { Database } from "@/types/database.types";
 import { sendDiscordCronErrorNotification } from "@/server/discord";
 import { dateString } from "@/utils/dateutils";
+import * as diacritics from "diacritics";
 
 const RUOnlyTanks = ["SU-122V", "K-91 Version II"];
 
@@ -77,8 +78,8 @@ export async function GET({ request }: APIEvent) {
       const gunModule = modules[vehicle.modules_tree[0].module_id];
       const alphaDmg = gunModule.default_profile.gun.ammo[0].damage[1];
 
-      const search_name = vehicle.name.replaceAll(/[-\s.]/g, "");
-      const search_short_name = vehicle.short_name.replaceAll(/[-\s.]/g, "");
+      const search_name = diacritics.remove(vehicle.name.replaceAll(/[-\s.]/g, ""));
+      const search_short_name = diacritics.remove(vehicle.short_name.replaceAll(/[-\s.]/g, ""));
 
       const data: Vehicle = {
         speed_forward: vehicle.default_profile.speed_forward,
