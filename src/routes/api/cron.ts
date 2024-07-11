@@ -105,12 +105,7 @@ export async function GET({ request }: APIEvent) {
       const search_name = diacritics.remove(vehicle.name.replaceAll(/[-\s.]/g, ""));
       const search_short_name = diacritics.remove(vehicle.short_name.replaceAll(/[-\s.]/g, ""));
 
-      var mimic_list = [] as Array<string>;
-
-      // If we want, we only need to do this check for the tank of the day
-      Mimic_Tanks.forEach( ( tank_list ) => {
-        if (tank_list.includes(vehicle.name)) mimic_list = tank_list;
-      })
+      const mimic_list = [] as Array<string>;
 
       const data: Vehicle = {
         speed_forward: vehicle.default_profile.speed_forward,
@@ -141,6 +136,11 @@ export async function GET({ request }: APIEvent) {
     const tier = randomIntFromInterval(8, 10);
     const index = randomIntFromInterval(0, processedVehicles[tier].length - 1);
     const tankOfDay = processedVehicles[tier][index];
+
+    // If we want, we can do this check for all tanks, but it is only needed here
+    Mimic_Tanks.forEach( ( mimic_list ) => {
+      if (mimic_list.includes(tankOfDay.name)) tankOfDay.mimic_list = mimic_list;
+    })
 
     // For testing purposes
     //return Response.json( { data: processedVehicles }, { status: 200 });
