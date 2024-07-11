@@ -6,7 +6,6 @@
   "guess_list_tier": "Úroveň",
   "guess_list_type": "Typ",
   "guess_list_damage": "Alfa poškození",
-
   "tank_type_light": "Lehké tanky",
   "tank_type_heavy": "Těžké tanky",
   "tank_type_medium": "Střední tanky",
@@ -15,13 +14,11 @@
   "tank_type_reward": "Odměnový tank",
   "tank_type_premium": "Prémiový tank",
   "tank_type_techtree": "Výzkumný tank",
-
   "hint_tries_remaining": "Počet pokusů: {tries}",
   "hint_speed": "km/h",
   "hint_top_speed": "Nápověda - maximální rychlost",
   "hint_store_type": "Nápověda - typ vozidla",
   "hint_tank_icon": "Nápověda - ikona tanku",
-
   "stats_title": "Statistika",
   "stats_games_won": "Vyhrané hry",
   "stats_avg_guesses": "Průměrné tipy",
@@ -31,11 +28,9 @@
   "stats_num_guesses": "Počet tipů",
   "stats_games": "Hry",
   "stats_guesses": "Tipy",
-
   "prompt_title": "Uhodněte dnešní vozidlo World of Tanks!",
   "prompt_content": "Zadejte libovolné vozidlo úrovně 8 - 10 a začněte.",
   "prompt_placeholder": "Zadejte název vozidla...",
-
   "victory": "Vítězství",
   "victory_nextTank": "Další tank ve",
   "victory_num_tries": "Počet pokusů:"
