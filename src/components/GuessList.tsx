@@ -27,16 +27,8 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
 
   const getTankIconColor = () => {
     if (todaysVehicle?.tank_id === tank.tank_id) return "bg-correct";
-    const mimic_list = ["CS-63", "Hurricane", "IS-3"];
-    mimic_list.forEach((mimic) => {
-      console.log(mimic);
-      console.log(tank.name);
-      console.log(mimic === tank.name);
-      if (mimic === tank.name) {
-        console.log(`Setting ${tank.name} to orange`);
-        return "bg-partialCorrect";
-      }
-    });
+    if (todaysVehicle?.mimic_list != undefined &&   // Safety so that the website doesnt die if this code is pushed before new cron is ran
+      todaysVehicle?.mimic_list.includes(tank.name)) return "bg-partialCorrect";
     return "bg-zinc-900";
   }
 

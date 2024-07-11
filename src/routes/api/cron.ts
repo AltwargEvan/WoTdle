@@ -107,6 +107,7 @@ export async function GET({ request }: APIEvent) {
 
       var mimic_list = [] as Array<string>;
 
+      // If we want, we only need to do this check for the tank of the day
       Mimic_Tanks.forEach( ( tank_list ) => {
         if (tank_list.includes(vehicle.name)) mimic_list = tank_list;
       })
@@ -141,9 +142,8 @@ export async function GET({ request }: APIEvent) {
     const index = randomIntFromInterval(0, processedVehicles[tier].length - 1);
     const tankOfDay = processedVehicles[tier][index];
 
-    
-
-    return Response.json( {data: processedVehicles }, { status: 200 });
+    // For testing purposes
+    //return Response.json( { data: processedVehicles }, { status: 200 });
 
     const supabaseClient = createClient<Database>(
       env.SUPABASE_URL,
