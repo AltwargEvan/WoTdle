@@ -8,7 +8,6 @@ import * as m from "@/paraglide/messages.js";
 import { Vehicle } from "@/types/api.types";
 import { i18nApiMap } from "@/utils/WargamingApi";
 import { languageTag } from "@/i18n";
-import * as diacritics from "diacritics";
 
 clickOutside;
 
@@ -35,7 +34,6 @@ const GuessForm: Component = () => {
         "name",
         "search_name",
         "search_short_name",
-        "no_accent_name",
         `i18n.${lang}.name`,
       ],
       threshold: 0.15,
