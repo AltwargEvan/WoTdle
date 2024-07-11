@@ -140,7 +140,7 @@ export async function GET({ request }: APIEvent) {
     // If we want, we can do this check for all tanks, but it is only needed here
     Mimic_Tanks.forEach( ( mimic_list ) => {
       if (mimic_list.includes(tankOfDay.name)) tankOfDay.mimic_list = mimic_list;
-    })
+    });
 
     // For testing purposes
     //return Response.json( { data: processedVehicles }, { status: 200 });
