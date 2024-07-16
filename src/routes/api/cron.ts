@@ -38,8 +38,7 @@ const MimicTanks = [
   [513, 31233, 46593, 59137], // IS, IS-2 shielded, IS-2M, IS-2 (USSR)
   [1105, 55889],        // Cromwell, Cromwell B
   [1313, 49697, 56097, 59681, 10017], // M4A3E8 Sherman, M4A3(76)W Sherman, M4A3E8 Fury, M4A3E8 Thunderbolt VII, M4A3E2 Sherman Jumbo
-  [51345, 59393],       // T-34-85 Rudy (PL), T-34-85 Rudy (USSR)
-  [2561, 58113, 59393], // T-34-85, T-34-85M, T-34-85 Rudy (USSR)
+  [51345, 59393, 2561, 58113],       // T-34-85 Rudy (PL), T-34-85 Rudy (USSR), T-34-85, T-34-85M
   [54017, 51201],       // KV-220-2, KV-220-2 Beta Test
   [51473, 54033],       // Pz.Kpfw. V/IV, Pz.Kpfw. V/IV Alpha
   [10497, 64769],       // KV-2, KV-2 (R)
