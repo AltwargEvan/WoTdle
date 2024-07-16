@@ -26,9 +26,10 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
   };
 
   const getTankIconColor = () => {
-    if (todaysVehicle?.tank_id === tank.tank_id) return "bg-correct";
-    if (todaysVehicle?.mimic_list != undefined &&   // Safety so that the website doesnt die if this code is pushed before new cron is ran
-      todaysVehicle?.mimic_list.includes(tank.name)) return "bg-partialCorrect";
+    if (!todaysVehicle) return "bg-zinc-900";
+    if (todaysVehicle.tank_id === tank.tank_id) return "bg-correct";
+    if (todaysVehicle.mimic_list !== undefined &&
+      todaysVehicle.mimic_list.includes(tank.tank_id)) return "bg-partialCorrect";
     return "bg-zinc-900";
   }
 

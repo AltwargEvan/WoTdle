@@ -9,29 +9,44 @@ import { dateString } from "@/utils/dateutils";
 import * as diacritics from "diacritics";
 
 const RUOnlyTanks = ["SU-122V", "K-91 Version II"];
-const Mimic_Tanks = [
-  ["CS-63", "Hurricane"],
-  ["121B", "Monkey King"],
-  ["113", "113 Beijing Opera"],
-  ["WZ-111 model 5A", "WZ 111 Qilin"],
-  ["Vz. 55", "Vz. 55 Gothic Warrior"],
-  ["Bat.-Châtillon Bourrasque", "Miel"],
-  ["AMX M4 mle. 49 Liberté", "AMX M4 mle. 49"],
-  ["Type 59", "Type 59 G"],
-  ["Rheinmetall Skorpion", "Rheinmetall Skorpion G"],
-  ["Progetto M35 mod. 46", "Mars"],
-  ["M47 Patton Improved", "M47 Iron Arnie"],
-  ["Chrysler K GF", "Chrysler K"],
-  ["T26E5", "T26E5 Patriot"],
-  ["T34", "T34 B"],
-  ["leKpz M 41 90 mm", "leKpz M 41 90 mm GF"],
-  ["STG", "STG Guard"],
-  ["IS-6", "IS-6 B"],
-  ["Object 252U", "Object 252U Defender"],
-  ["SU-130PM", "Forest Spirit"],
-  ["Schwarzpanzer 58", "Panzer 58 Mutz", "Panzer 58"],
-  ["VK 168.01 (P)", "VK 168.01 Mauerbrecher"],
-  ["WZ-111", "WZ-111 Alpine Tiger"],
+
+// Review lower tiered tanks on this list
+const MimicTanks = [
+  [5265, 52625],        // CS-63, Hurricane
+  [63537, 58673],       // 121B, Monkey King
+  [5425, 62513],        // 113, 113 Beijing Opera
+  [6193, 62257],        // WZ-111 model 5A, WZ 111 Qilin
+  [2929, 52081],        // Vz. 55, Vz. 55 Gothic Warrior
+  [57409, 57409],       // Bat.-Châtillon Bourrasque, Miel
+  [62017, 62785],       // AMX M4 mle. 49 Liberté, AMX M4 mle. 49
+  [49, 561],            // Type 59, Type 59 G
+  [62481, 50193],       // Rheinmetall Skorpion, Rheinmetall Skorpion G
+  [51361, 52129],       // Progetto M35 mod. 46, Mars
+  [32801, 33057],       // M47 Patton Improved, M47 Iron Arnie
+  [58657, 58657],       // Chrysler K GF, Chrysler K
+  [58913, 59169],       // T26E5, T26E5 Patriot
+  [2849, 59425],        // T34, T34 B
+  [64017, 50961],       // leKpz M 41 90 mm, leKpz M 41 90 mm GF
+  [47617, 47361],       // STG, STG Guard
+  [9217, 49409],        // IS-6, IS-6 B
+  [49665, 48641],       // Object 252U, Object 252U Defender
+  [45057, 27905],       // SU-130PM, Forest Spirit
+  [49937, 64273, 63761], // Schwarzpanzer 58, Panzer 58 Mutz, Panzer 58
+  [48913, 48145],       // VK 168.01 (P), VK 168.01 Mauerbrecher
+  [817, 65073],         // WZ-111, WZ-111 Alpine Tiger
+  [63809, 63297],       // AMX 13 57, AMX 13 57 GF
+  [513, 31233, 46593, 59137], // IS, IS-2 shielded, IS-2M, IS-2 (USSR)
+  [1105, 55889],        // Cromwell, Cromwell B
+  [1313, 49697, 56097, 59681, 10017], // M4A3E8 Sherman, M4A3(76)W Sherman, M4A3E8 Fury, M4A3E8 Thunderbolt VII, M4A3E2 Sherman Jumbo
+  [51345, 59393],       // T-34-85 Rudy (PL), T-34-85 Rudy (USSR)
+  [2561, 58113, 59393], // T-34-85, T-34-85M, T-34-85 Rudy (USSR)
+  [54017, 51201],       // KV-220-2, KV-220-2 Beta Test
+  [51473, 54033],       // Pz.Kpfw. V/IV, Pz.Kpfw. V/IV Alpha
+  [10497, 64769],       // KV-2, KV-2 (R)
+  [18193, 45585],       // Pz.Kpfw. IV Ausf. H, Pz.Kpfw. IV Ausf. H Ankou
+  [4689, 62801],        // Churchill VII, Churchill Crocodile
+  [2625, 56897],        // ARL 44, Char de transition
+  [33025, 37889],       // KV-1Sh, KV-1SA
 ];
 
 function authorized(request: Request) {
@@ -105,8 +120,6 @@ export async function GET({ request }: APIEvent) {
       const search_name = diacritics.remove(vehicle.name.replaceAll(/[-\s.]/g, ""));
       const search_short_name = diacritics.remove(vehicle.short_name.replaceAll(/[-\s.]/g, ""));
 
-      const mimic_list = [] as Array<string>;
-
       const data: Vehicle = {
         speed_forward: vehicle.default_profile.speed_forward,
         images: vehicle.images,
@@ -123,7 +136,6 @@ export async function GET({ request }: APIEvent) {
         type: vehicle.type,
         alphaDmg,
         i18n: vehicle.i18n,
-        mimic_list: mimic_list,
       };
 
       if (acc[vehicle.tier] === undefined) {
@@ -137,9 +149,8 @@ export async function GET({ request }: APIEvent) {
     const index = randomIntFromInterval(0, processedVehicles[tier].length - 1);
     const tankOfDay = processedVehicles[tier][index];
 
-    // If we want, we can do this check for all tanks, but it is only needed here
-    Mimic_Tanks.forEach( ( mimic_list ) => {
-      if (mimic_list.includes(tankOfDay.name)) tankOfDay.mimic_list = mimic_list;
+    MimicTanks.forEach( ( mimic_list ) => {
+      if (mimic_list.includes(tankOfDay.tank_id)) tankOfDay.mimic_list = mimic_list;
     });
 
     // For testing purposes
