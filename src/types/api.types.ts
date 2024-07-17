@@ -20,4 +20,5 @@ export type Vehicle = {
   search_short_name: string;
   alphaDmg: number;
   i18n: VehicleI18N;
+  mimic_list?: number[];
 };
