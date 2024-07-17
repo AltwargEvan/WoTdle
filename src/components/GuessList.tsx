@@ -25,6 +25,14 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
     return "bg-zinc-900";
   };
 
+  const getTankIconColor = () => {
+    if (!todaysVehicle) return "bg-zinc-900";
+    if (todaysVehicle.tank_id === tank.tank_id) return "bg-correct";
+    if (todaysVehicle.mimic_list !== undefined &&
+      todaysVehicle.mimic_list.includes(tank.tank_id)) return "bg-partialCorrect";
+    return "bg-zinc-900";
+  }
+
   const tankType = () => {
     switch (tank.type) {
       case "SPG":
@@ -58,7 +66,7 @@ const TankItem: Component<{ tank: Vehicle }> = ({ tank }) => {
       <div
         class={twMerge(
           "select-none relative border rounded-sm border-neutral-700 flex justify-center py-1 ",
-          todaysVehicle?.tank_id === tank.tank_id ? "bg-correct" : "bg-zinc-900"
+          getTankIconColor()
         )}
       >
         <span class="absolute h-full flex justify-center items-center text-outline">
