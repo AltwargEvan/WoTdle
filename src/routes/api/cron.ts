@@ -34,6 +34,7 @@ const MimicTanks = [
   [49937, 64273, 63761], // Schwarzpanzer 58, Panzer 58 Mutz, Panzer 58
   [48913, 48145],       // VK 168.01 (P), VK 168.01 Mauerbrecher
   [817, 65073],         // WZ-111, WZ-111 Alpine Tiger
+  [14673, 62545],       // Charioteer, Charioteer Nomad
   [63809, 63297],       // AMX 13 57, AMX 13 57 GF
   [513, 31233, 46593, 59137], // IS, IS-2 shielded, IS-2M, IS-2 (USSR)
   [1105, 55889],        // Cromwell, Cromwell B
