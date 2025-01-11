@@ -32,11 +32,13 @@ const fetchTodaysWotdle = async () => {
       .map((data) => data.data)
       .flat(1) as Vehicle[];
 
-    const tankOfDay = vehicleList.find(
-      (x) => x.tank_id === (tankOfDaySupaRes.data[0].normal as Vehicle).tank_id
+    const tankOfDay = tankOfDaySupaRes.data[0].normal as Vehicle;
+
+    const validateTankOfDay = vehicleList.find(
+      (x) => x.tank_id === tankOfDay.tank_id
     );
 
-    if (tankOfDay === undefined)
+    if (validateTankOfDay === undefined)
       throw new Error("Failed to find tank of day in vehicleList");
     return {
       data: { vehicleList, tankOfDay },
