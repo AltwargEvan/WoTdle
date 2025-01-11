@@ -32,6 +32,6 @@
   "prompt_content": "Zadejte libovolné vozidlo úrovně 8 - 10 a začněte.",
   "prompt_placeholder": "Zadejte název vozidla...",
   "victory": "Vítězství",
-  "victory_nextTank": "Další tank ve",
+  "victory_nextTank": "Další tank za",
   "victory_num_tries": "Počet pokusů:"
 }
