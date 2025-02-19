@@ -98,6 +98,7 @@ export async function GET({ request }: APIEvent) {
   // update daily vehicle
   const res = await supabaseClient.from("daily_data").insert(todaysVehicle);
   if (res.error) {
+    console.error("failed to update daily data: ", res.error);
     return Response.json(
       {
         success: false,
